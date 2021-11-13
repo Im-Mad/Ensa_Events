@@ -26,11 +26,20 @@ public class UserDaoImp implements UserDao {
 		User theUser = null;
 		try {
 			theUser = theQuery.getSingleResult();
-			System.out.println(theUser);
 		} catch (Exception e) {
 			theUser = null;
 		}
 
 		return theUser;
+	}
+
+	@Override
+	public void save(User user) {
+		// get current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+	
+		// create the user ... finally LOL
+		currentSession.saveOrUpdate(user);
+		
 	}
 }

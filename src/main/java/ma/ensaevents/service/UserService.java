@@ -1,8 +1,15 @@
 package ma.ensaevents.service;
 
-import ma.ensaevents.entity.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserService {
+import ma.ensaevents.entity.User;
+import ma.ensaevents.user.CrmUser;
+
+public interface UserService extends UserDetailsService {
 
 	User findByUserName(String userName);
+	
+    void save(CrmUser crmUser);
+
+	void update(User currentUser);
 }
