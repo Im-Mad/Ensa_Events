@@ -29,7 +29,7 @@ CREATE TABLE `users` (
   `last_name` char(50) NOT NULL,
   `email` char(50) NOT NULL,
   `avatar` varchar(50) NOT NULL,
-  `enabled` tinyint(1) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -40,7 +40,7 @@ CREATE TABLE `Club` (
   `logo` char(50) NOT NULL,
   `coverphoto` char(50) NOT NULL,
   `user_id` INT NOT NULL,
-  FOREIGN KEY (user_id) references user (id) on delete cascade,
+  FOREIGN KEY (user_id) references users (id) on delete cascade,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -61,7 +61,7 @@ CREATE TABLE Review(
     description varchar(50),
     rating INT,
     PRIMARY KEY (user_id, event_id),
-    FOREIGN KEY (user_id) references user (id) on delete cascade,
+    FOREIGN KEY (user_id) references users (id) on delete cascade,
     FOREIGN KEY (event_id)  references Event  (id) on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -81,7 +81,7 @@ CREATE TABLE `users_roles` (
   KEY `FK_ROLE_idx` (`role_id`),
   
   CONSTRAINT `FK_USER_05` FOREIGN KEY (`user_id`) 
-  REFERENCES `user` (`id`) 
+  REFERENCES `users` (`id`) 
   ON DELETE NO ACTION ON UPDATE NO ACTION,
   
   CONSTRAINT `FK_ROLE` FOREIGN KEY (`role_id`) 
