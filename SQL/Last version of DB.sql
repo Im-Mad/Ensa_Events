@@ -21,6 +21,12 @@ DROP DATABASE  IF EXISTS `ensa_events`;
 CREATE DATABASE  IF NOT EXISTS `ensa_events`;
 USE `ensa_events`;
 
+CREATE TABLE `role` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
 CREATE TABLE `users` (
 	`id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
@@ -30,7 +36,9 @@ CREATE TABLE `users` (
   `email` char(50) NOT NULL,
   `avatar` varchar(50) NOT NULL,
   `enabled` tinyint(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`)
+  `id_role` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (id_role) references role (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `Club` (
@@ -65,28 +73,9 @@ CREATE TABLE Review(
     FOREIGN KEY (event_id)  references Event  (id) on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `role` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
-CREATE TABLE `users_roles` (
-  `user_id` INT NOT NULL,
-  `role_id` INT NOT NULL,
-  
-  PRIMARY KEY (`user_id`,`role_id`),
-  
-  KEY `FK_ROLE_idx` (`role_id`),
-  
-  CONSTRAINT `FK_USER_05` FOREIGN KEY (`user_id`) 
-  REFERENCES `users` (`id`) 
-  ON DELETE NO ACTION ON UPDATE NO ACTION,
-  
-  CONSTRAINT `FK_ROLE` FOREIGN KEY (`role_id`) 
-  REFERENCES `role` (`id`)
-  ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO role VALUES (1,'ROLE_USER');
+
 
 SET FOREIGN_KEY_CHECKS = 1;

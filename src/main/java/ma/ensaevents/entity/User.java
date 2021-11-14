@@ -1,11 +1,20 @@
 package ma.ensaevents.entity;
 
-import javax.persistence.*;
-import java.util.Collection;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "users")
 public class User {
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,34 +40,14 @@ public class User {
 	private String avatar = "default.png";
 	
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "users_roles", 
-	joinColumns = @JoinColumn(name = "user_id"), 
-	inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Collection<Role> roles;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="id_role")
+	private Role role;
 	
 	// TODO Delete collection and keep just one role for each user !
 	
 	public User() {
 		setAvatar("default.png");
-	}
-
-	public User(String userName, String password, String firstName, String lastName, String email) {
-		this.username = userName;
-		this.password = password;
-		this.firstname = firstName;
-		this.lastname = lastName;
-		this.email = email;
-	}
-
-	public User(String userName, String password, String firstName, String lastName, String email,
-			Collection<Role> roles) {
-		this.username = userName;
-		this.password = password;
-		this.firstname = firstName;
-		this.lastname = lastName;
-		this.email = email;
-		this.roles = roles;
 	}
 
 	public Long getId() {
@@ -118,11 +107,13 @@ public class User {
 		this.avatar = avatar;
 	}
 
-	public Collection<Role> getRoles() {
-		return roles;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRoles(Collection<Role> roles) {
-		this.roles = roles;
+	public void setRole(Role role) {
+		this.role = role;
 	}
+
+	
 }

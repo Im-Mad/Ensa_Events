@@ -2,7 +2,6 @@ package ma.ensaevents.service;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -47,13 +46,21 @@ public class UserServiceImp implements UserService {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				mapRolesToAuthorities(user.getRoles()));
+				getAuthorities(user.getRole()));
 	}
 
 	// Pour changer la collection de role aux user role!
+	/*
+	 *This function is for multiple role !
 	private Collection<? extends GrantedAuthority > mapRolesToAuthorities(Collection<Role> roles) {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 	}
+	*/
+
+    public Collection<? extends GrantedAuthority> getAuthorities(Role role) {
+        return Arrays.asList(new SimpleGrantedAuthority(role.getName()));
+    } 
+	
 
 	@Override
 	@Transactional
@@ -65,7 +72,7 @@ public class UserServiceImp implements UserService {
 		user.setFirstname(crmUser.getFirstName());
 		user.setLastname(crmUser.getLastName());
 		user.setEmail(crmUser.getEmail());
-		user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_USER")));
+		user.setRole(roleDao.findRoleByName("ROLE_USER"));
 
 		// save user in the database
 		userDao.save(user);
