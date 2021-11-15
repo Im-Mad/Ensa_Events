@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import ma.ensaevents.entity.User;
 
 @Repository
-public class UserDaoImp implements UserDao {
+public class UserDaoImpl implements UserDao {
 
 	// need to inject the session factory
 	@Autowired

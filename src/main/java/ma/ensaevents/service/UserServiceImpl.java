@@ -20,7 +20,7 @@ import ma.ensaevents.entity.User;
 import ma.ensaevents.user.CrmUser;
 
 @Service
-public class UserServiceImp implements UserService {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
