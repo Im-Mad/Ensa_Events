@@ -1,14 +1,6 @@
 package ma.ensaevents.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -44,7 +36,8 @@ public class User {
 	@JoinColumn(name="id_role")
 	private Role role;
 	
-	// TODO Delete collection and keep just one role for each user !
+	@OneToOne(mappedBy = "user" ,cascade = CascadeType.ALL )
+	private Club club;
 	
 	public User() {
 		setAvatar("default.png");
@@ -115,5 +108,11 @@ public class User {
 		this.role = role;
 	}
 
-	
+	public Club getClub() {
+		return club;
+	}
+
+	public void setClub(Club club) {
+		this.club = club;
+	}
 }
