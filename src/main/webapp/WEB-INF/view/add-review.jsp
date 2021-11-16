@@ -41,16 +41,11 @@
 				<div style="padding-top: 30px" class="panel-body">
 
 					<!-- Registration Form -->
-					<form:form action="${pageContext.request.contextPath}/club/saveClub"
-						  	   modelAttribute="club"
+					<form:form action="${pageContext.request.contextPath}/reviews/saveReview?eventId=${eventId}"
+						  	   modelAttribute="review"
 						  	   class="form-horizontal">
 
 						<!-- User name -->
-						<div style="margin-bottom: 25px" class="input-group">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-							<form:input path="name" placeholder="username (*)" class="form-control" />
-						</div>
-
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 							<form:input path="description" placeholder="username (*)" class="form-control" />
@@ -58,12 +53,7 @@
 
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-							<form:input path="logo" placeholder="username (*)" class="form-control" />
-						</div>
-
-						<div style="margin-bottom: 25px" class="input-group">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-							<form:input path="cover_photo" placeholder="username (*)" class="form-control" />
+							<form:input path="rating" placeholder="username (*)" class="form-control" />
 						</div>
 
 						<!-- Register Button -->
