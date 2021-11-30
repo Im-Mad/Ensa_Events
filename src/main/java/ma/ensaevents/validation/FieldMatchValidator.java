@@ -6,16 +6,16 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapperImpl;
 
 public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Object> {
-	
-	private String firstFieldName;
+
+    private String firstFieldName;
     private String secondFieldName;
     private String message;
 
     @Override
     public void initialize(final FieldMatch constraintAnnotation) {
-	    	firstFieldName = constraintAnnotation.first();
-	    	secondFieldName = constraintAnnotation.second();
-	    	message = constraintAnnotation.message();
+        firstFieldName = constraintAnnotation.first();
+        secondFieldName = constraintAnnotation.second();
+        message = constraintAnnotation.message();
     }
 
     @Override
@@ -42,5 +42,5 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
 
         return valid;
     }
-	
+
 }

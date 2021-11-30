@@ -1,9 +1,11 @@
 package ma.ensaevents.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,9 +20,10 @@ import ma.ensaevents.entity.User;
 import ma.ensaevents.service.UserService;
 import ma.ensaevents.user.CrmUser;
 
+import java.net.http.HttpResponse;
+
 
 @Controller
-@RequestMapping("/register")
 public class RegistrationController {
 	
     @Autowired
@@ -34,7 +37,7 @@ public class RegistrationController {
 		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
 	}	
 	
-	@GetMapping("/showRegistrationForm")
+	@GetMapping("/register")
 	public String showMyLoginPage(Model theModel) {
 		
 		theModel.addAttribute("crmUser", new CrmUser());
@@ -42,11 +45,12 @@ public class RegistrationController {
 		return "registration-form";
 	}
 
-	@PostMapping("/processRegistrationForm")
+	@PostMapping("/register")
 	public String processRegistrationForm(
 			@Valid @ModelAttribute("crmUser") CrmUser theCrmUser,
 			BindingResult theBindingResult, 
-			Model theModel) {
+			Model theModel,
+			HttpServletResponse response) {
 	
 		String username = theCrmUser.getUserName();
 		
@@ -54,14 +58,16 @@ public class RegistrationController {
 	    User existing = userService.findByUserName(username);
 	    
 	    if (existing != null){
-	    	theModel.addAttribute("crmUser", new CrmUser());
-			theModel.addAttribute("registrationError", "User name already exists.");
+	    	theModel.addAttribute("crmUser", theCrmUser);
+			theModel.addAttribute("registrationError", "Username already exists.");
 	    	return "registration-form";
 	    }
+
+		if(theBindingResult.hasErrors()) {
+			return "registration-form";
+		}
 	    
 	    // create user account        						
-	    userService.save(theCrmUser);
-	    
-	    return "registration-confirmation";		
-		}
+	    return "registration-confirmation";
+	}
 }

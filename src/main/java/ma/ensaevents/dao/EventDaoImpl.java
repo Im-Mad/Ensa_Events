@@ -51,7 +51,8 @@ public class EventDaoImpl implements EventDao{
     public List<Event> findAllEvents() {
         Session session = sessionFactory.getCurrentSession();
 
-        List<Event> events = session.createQuery("select Event").getResultList();
+        Query<Event> query = session.createQuery("FROM Event",Event.class);
+        List<Event> events = query.list();
 
         return events;
     }

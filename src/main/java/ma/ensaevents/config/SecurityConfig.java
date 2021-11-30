@@ -14,12 +14,14 @@ import ma.ensaevents.service.UserService;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserService userService;
     
-	
+	@Autowired
+	private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
@@ -29,14 +31,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.authorizeRequests()
-				.antMatchers("/").hasRole("USER")
+				.antMatchers("/assets/**").permitAll()
+				.antMatchers("/").permitAll()
+				.antMatchers("/authenticateTheUser").permitAll()
 				.antMatchers("/register").permitAll()
 			.and()
 			.formLogin()
+				.loginPage("/login")
+				.loginProcessingUrl("/authenticateTheUser")
+				.successHandler(customAuthenticationSuccessHandler)
 				.permitAll()
 			.and()
 			.logout().permitAll();
 	}
+
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {

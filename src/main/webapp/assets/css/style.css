@@ -1,0 +1,279 @@
+@font-face {
+    font-family: Forever;
+    src: url(../font/Foreverbrushscript-GwZy.otf);
+  }
+
+html, body{
+    font-family: "Nunito";
+    font-weight: 400;
+    width: 100%;
+}
+.hero {
+    background: linear-gradient(45deg, rgba(173,225,255,1) 0%, rgba(186,175,255,1) 40%, rgba(175,255,182,1) 74%, rgba(175,255,182,1) 100%);
+}
+.btn-header {
+    font-size: 1rem;
+}
+
+.heading-title {
+    font-size: 5rem;
+    font-weight: 800;
+}
+@media only screen and (max-width: 768px) {
+    .heading-title {
+        font-size: 4rem;
+    }
+
+    .padding-smallSize {
+        padding: .5rem;
+    }
+}
+
+.heading-title_white {
+    color: #fafafa;
+}
+.heading-subtitle {
+    color: #fafafa;
+    letter-spacing: .2cm;
+}
+.search-bar {
+    padding: .51rem 0.5rem;
+    background-color: white;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 30px;
+}
+
+.search-btn {
+    background-color: #b2d0ff;
+    color: #fafafa;
+    font-weight: 600;
+}
+
+.card-img-box {
+    height: 12rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.forever {
+    font-family: Forever;
+    font-size:2rem
+}
+
+.bg-color-blue {
+    background-color:#b2d0ff;
+}
+
+.gradient {
+    background:linear-gradient(to right,rgba(149, 133, 255,1) 0%, rgba(186,175,255,1)  100%);
+}
+
+.menu-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: #fff;
+}
+
+.menu-active {
+    border-left: 5px solid #fff;
+}
+
+.side-nav-link, .side-nav-link:hover {
+    color: #fff;
+}
+
+.side-nav-item.active:hover {
+    padding-right:5px;
+}
+
+.side-nav-item {
+    transition: all  0.3s;
+}
+
+.side-nav-item:hover, .side-nav-item.active {
+    border-left: 5px solid #fff;
+    transition: all 0.3s;
+}
+
+.btn-purple {
+    color: #fff;
+    background-color: rgba(149, 133, 255,1);
+    border-color: rgba(149, 133, 255,1);
+}
+
+.btn-purple:hover {
+    color: #fff;
+    background-color: rgba(186,175,255,1);
+    border-color: rgba(186,175,255,1);
+}
+
+.detail-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.users {
+    height: 15rem;
+}
+
+.user-name {
+    font-size:1.5rem;
+}
+
+.user-img {
+    height: 2rem;
+    width: 2rem;
+    border-radius:50%;
+}
+
+.btn-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.fast {
+    transition: all 0s;
+}
+
+.bg-main {
+    background-color: #e4e6eb !important;
+}
+
+.cover-img {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Reviews */
+
+.rating-icon {
+    fill: #FBC02D;
+    height: 1rem;
+    width: 1rem;
+}
+
+.review-card {
+    border-radius: 5px;
+    background-color: #fff;
+    background-color: #fafafa;
+    padding-left: 60px;
+    padding-right: 60px;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px
+}
+
+.rating-box {
+    width: 130px;
+    height: 130px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #FBC02D;
+    color: #fff
+}
+
+.rating-label {
+    font-weight: bold
+}
+
+.rating-bar {
+    width: 300px;
+    padding: 8px;
+    border-radius: 5px
+}
+
+.bar-container {
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 5px
+}
+
+.bar-5 {
+    width: 70%;
+    height: 13px;
+    background-color: #FBC02D;
+    border-radius: 20px
+}
+
+.bar-4 {
+    width: 30%;
+    height: 13px;
+    background-color: #FBC02D;
+    border-radius: 20px
+}
+
+.bar-3 {
+    width: 20%;
+    height: 13px;
+    background-color: #FBC02D;
+    border-radius: 20px
+}
+
+.bar-2 {
+    width: 10%;
+    height: 13px;
+    background-color: #FBC02D;
+    border-radius: 20px
+}
+
+.bar-1 {
+    width: 0%;
+    height: 13px;
+    background-color: #FBC02D;
+    border-radius: 20px
+}
+
+
+.star-active {
+    color: #FBC02D;
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+
+.star-active:hover {
+    color: #F9A825;
+    cursor: pointer
+}
+
+.star-inactive {
+    color: #CFD8DC;
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+
+.blue-text {
+    color: #0091EA
+}
+
+.form-background {
+    border-radius: 30px;
+    background-color: aliceblue;
+}
+
+.form-error {
+    color: red;
+}
+
+.content {
+    font-size: 18px
+}
+
+.profile-pic {
+    width: 90px;
+    height: 90px;
+    border-radius: 100%;
+    margin-right: 30px
+}
+
+.pic {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px
+}

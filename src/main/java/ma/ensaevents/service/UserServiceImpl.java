@@ -79,9 +79,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public void update(User currentUser) {
-		// TODO Auto-generated method stub
-		
+		userDao.save(currentUser);
 	}
 
 }

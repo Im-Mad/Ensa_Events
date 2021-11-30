@@ -20,3 +20,4 @@ public @interface ValidEmail {
 
 	Class<? extends Payload>[] payload() default {};
 }
+

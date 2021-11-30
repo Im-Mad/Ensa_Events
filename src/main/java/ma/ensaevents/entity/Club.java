@@ -5,16 +5,9 @@ package ma.ensaevents.entity;
 
 //import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
+import java.util.List;
 //import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 
 @Entity
@@ -43,9 +36,8 @@ public class Club {
     @JoinColumn(name="user_id")
     private User user;
 
-    // TODO mappedBy after Event entity
-//	@OneToMany(mappedBy = "",cascade=CascadeType.ALL)
-//	private List<Event> events;
+	@OneToMany(mappedBy = "club",cascade=CascadeType.ALL,fetch = FetchType.EAGER)
+	private List<Event> events;
 
     //getters and setters ----------------------------
 
@@ -132,7 +124,7 @@ public class Club {
         this.user = user;
     }
 
-    /*
+
     	public List<Event> getEvents() {
     		return events;
     	}
@@ -140,7 +132,7 @@ public class Club {
     	public void setEvents(List<Event> events) {
     		this.events = events;
     	}
-    */
+
 
 }
 
