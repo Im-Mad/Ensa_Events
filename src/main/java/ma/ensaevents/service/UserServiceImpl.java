@@ -2,9 +2,13 @@ package ma.ensaevents.service;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
+import ma.ensaevents.user.CrmPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,7 +34,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
+
 	@Override
 	@Transactional
 	public User findByUserName(String userName) {
@@ -82,6 +86,26 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void update(User currentUser) {
 		userDao.save(currentUser);
+	}
+
+	@Override
+	public boolean checkPassword(User user, CrmPassword crmPassword) {
+		System.out.println(crmPassword.getOldPassword());
+		System.out.println(user.getPassword());
+		return passwordEncoder.matches(crmPassword.getOldPassword(), user.getPassword());
+	}
+
+	@Override
+	@Transactional
+	public void changePassword(HttpServletRequest request, CrmPassword crmPassword) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+
+		user.setPassword(passwordEncoder.encode(crmPassword.getPassword()));
+
+		session.setAttribute("user", user);
+
+		userDao.save(user);
 	}
 
 }

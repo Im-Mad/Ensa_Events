@@ -3,3 +3,6 @@
 .project
 .idea/*
 target/*
+Ensa_Event.iml
+.gitignore
+/src/main/resources/persistence-mysql.properties

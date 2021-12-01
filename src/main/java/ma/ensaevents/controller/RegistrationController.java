@@ -49,8 +49,7 @@ public class RegistrationController {
 	public String processRegistrationForm(
 			@Valid @ModelAttribute("crmUser") CrmUser theCrmUser,
 			BindingResult theBindingResult, 
-			Model theModel,
-			HttpServletResponse response) {
+			Model theModel) {
 	
 		String username = theCrmUser.getUserName();
 		
@@ -66,7 +65,9 @@ public class RegistrationController {
 		if(theBindingResult.hasErrors()) {
 			return "registration-form";
 		}
-	    
+
+		userService.save(theCrmUser);
+
 	    // create user account        						
 	    return "registration-confirmation";
 	}
