@@ -15,6 +15,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -143,10 +144,12 @@ public class AppConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
 	}
 
-	@Bean(name = "multipartResolver")
-	public CommonsMultipartResolver multipartResolver() {
-		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-		resolver.setDefaultEncoding("UTF-8");
-		return resolver;
+	@Bean
+	public MultipartResolver multipartResolver(){
+		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+		commonsMultipartResolver.setDefaultEncoding("utf-8");
+		commonsMultipartResolver.setMaxUploadSize(20000000);
+		commonsMultipartResolver.setResolveLazily(false);
+		return commonsMultipartResolver;
 	}
 }
