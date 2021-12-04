@@ -150,7 +150,6 @@
                                     <h3 class="font-weight-bold text-uppercase">Create a club</h3>
                                     <span class="alert-success" >${creationClubConfirmation}</span>
                                     <form:form action="${pageContext.request.contextPath}/club/create" method="POST" modelAttribute="newClub">
-
                                         <div class="form-group">
                                             <label for="clubManager">Select a club manager</label>
                                             <form:select path="username" items="${userNames}" class="form-control" id="clubManager"/>

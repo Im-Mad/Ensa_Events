@@ -5,9 +5,11 @@ import java.util.List;
 import ma.ensaevents.service.UserService;
 import ma.ensaevents.utils.CreateClub;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import ma.ensaevents.entity.Club;
@@ -25,6 +27,14 @@ public class ClubController {
 
     @Autowired
     private UserService userService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+
+        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+    }
 
     @GetMapping("/all")
     public String listClubs(Model theModel) {
@@ -56,7 +66,6 @@ public class ClubController {
         return "admin/createClub";
     }
 
-    // TODO implement create club
     @PostMapping("/create")
     public String processCreateClub(@Valid @ModelAttribute("newClub") CreateClub newClub,
                                     BindingResult theBindingResult,
@@ -65,13 +74,18 @@ public class ClubController {
 
         Club existing = clubService.getClubByName(name);
 
+
         if (existing != null){
             theModel.addAttribute("newClub", newClub);
+            List<String> usernames = userService.usersUsernames();
+            theModel.addAttribute("userNames",usernames);
             theModel.addAttribute("registrationError", "Username already exists.");
             return "admin/createClub";
         }
 
         if(theBindingResult.hasErrors()) {
+            List<String> usernames = userService.usersUsernames();
+            theModel.addAttribute("userNames",usernames);
             return "admin/createClub";
         }
 
