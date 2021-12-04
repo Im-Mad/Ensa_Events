@@ -1,14 +1,11 @@
 package ma.ensaevents.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 
 
 
 @Entity
-@Table(name="review")
+@Table(name="reviews")
 public class Review {
 
     @Id
@@ -30,7 +27,6 @@ public class Review {
     @JoinColumn(name="event_id")
     private Event event;
 
-    // Constructeurs
     public Review() {}
 
     public int getId() {
@@ -71,16 +67,5 @@ public class Review {
 
     public void setEvent(Event event) {
         this.event = event;
-    }
-
-    @Override
-    public String toString() {
-        return "Review{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", rating=" + rating +
-                ", user=" + user.getUsername() +
-                ", event=" + event.getId() +
-                '}';
     }
 }

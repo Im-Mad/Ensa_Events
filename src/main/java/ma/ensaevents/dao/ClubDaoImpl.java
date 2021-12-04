@@ -66,7 +66,7 @@ public class ClubDaoImpl implements ClubDao {
         Session currentSession = sessionFactory.getCurrentSession();
 
         // now retrieve/read from database using username
-        Query<Club> theQuery = currentSession.createQuery("from Club where name=:cName", Club.class);
+        Query<Club> theQuery = currentSession.createQuery("FROM Club where name=:cName", Club.class);
         theQuery.setParameter("cName", name);
         Club club = null;
         try {

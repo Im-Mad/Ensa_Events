@@ -1,17 +1,11 @@
 package ma.ensaevents.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name="event")
+@Table(name="events")
 public class Event {
 
     @Id
@@ -28,27 +22,24 @@ public class Event {
     @Column(name="description")
     private String description;
 
-    @Column(name="coverphoto")
+    @Column(name="cover_photo")
     private String coverPhoto;
 
     @ManyToOne
     @JoinColumn(name="club_id")
     private Club club;
 
+    @ManyToMany
+    @JoinTable(
+            name="participants",
+            joinColumns=@JoinColumn(name="event_id"),
+            inverseJoinColumns=@JoinColumn(name="user_id")
+    )
+    private List<User> participants;
+
     public Event() {
 
     }
-
-
-    public Event(Date date, String name, String description, String coverPhoto) {
-        super();
-        this.date = date;
-        this.name = name;
-        this.description = description;
-        this.coverPhoto = coverPhoto;
-    }
-
-
 
     public int getId() {
         return id;
@@ -90,7 +81,6 @@ public class Event {
         this.coverPhoto = coverPhoto;
     }
 
-
     public Club getClub() {
         return club;
     }
@@ -99,5 +89,11 @@ public class Event {
         this.club = club;
     }
 
+    public List<User> getParticipants() {
+        return participants;
+    }
 
+    public void setParticipants(List<User> participants) {
+        this.participants = participants;
+    }
 }

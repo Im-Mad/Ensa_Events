@@ -78,7 +78,7 @@
                             </security:authorize>
                             <li class="nav-item">
                                 <a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
-                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}">
+                                    <img class="rounded-circle mx-4" alt="" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}">
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -108,12 +108,12 @@
         </nav>
     </div>
     <div class="text-center bg-main d-flex justify-content-center ">
-        <img src="${pageContext.request.contextPath}/assets/img/clubs/${club.cover_photo}" class="cover-img">
+        <img src="${pageContext.request.contextPath}/assets/img/clubs/${club.coverPhoto}" class="cover-img" alt="">
     </div>
     <div class="py-3 px-md-5 px-3 border-top">
         <div class="row">
             <div class="col-md-8 col-12 row align-items-center">
-                <img src="${pageContext.request.contextPath}/assets/img/clubs/${club.logo}" heigh="40" width="40" class="m-2 rounded-circle">
+                <img src="${pageContext.request.contextPath}/assets/img/clubs/${club.logo}" height="40" width="40" class="m-2 rounded-circle" alt="" >
                 <h3 class="mb-0">${club.name}</h3>
             </div>
             <div class="col-md-4 col-12 d-flex justify-content-start justify-content-md-end">
@@ -177,7 +177,7 @@
                     <h3>Members</h3>
                     <div class="d-flex  justify-content-center py-4">
                         <div class="d-flex flex-column align-items-center">
-                            <h2 cla>300</h2>
+                            <h2 class="">300</h2>
                             <h4 class="text-uppercase">Member</h4>
                         </div>
 
@@ -186,7 +186,7 @@
                         <%-- FIXME club.members --%>
                         <c:forEach items="${ null}" var="member">
                             <div class="user d-flex align-items-center">
-                                <img class="user-img m-2" src="${pageContext.request.contextPath}/assets/img/users/${member.avatar}"/>
+                                <img class="user-img m-2" src="${pageContext.request.contextPath}/assets/img/users/${member.avatar}" alt=""/>
                                 <span class="user-name">${member.firstname} ${member.lastname}</span>
                             </div>
                         </c:forEach>

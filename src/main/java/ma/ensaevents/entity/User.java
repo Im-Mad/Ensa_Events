@@ -1,6 +1,7 @@
 package ma.ensaevents.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -38,6 +39,22 @@ public class User {
 	
 	@OneToOne(mappedBy = "user" ,cascade = CascadeType.ALL )
 	private Club club;
+
+	@ManyToMany
+	@JoinTable(
+			name="participants",
+			joinColumns=@JoinColumn(name="user_id"),
+			inverseJoinColumns=@JoinColumn(name="event_id")
+	)
+	private List<Event> myEvents;
+
+	@ManyToMany
+	@JoinTable(
+			name="members",
+			joinColumns=@JoinColumn(name="user_id"),
+			inverseJoinColumns=@JoinColumn(name="club_id")
+	)
+	private List<Club> myClubs;
 	
 	public User() {
 		setAvatar("default.png");
@@ -114,5 +131,21 @@ public class User {
 
 	public void setClub(Club club) {
 		this.club = club;
+	}
+
+	public List<Event> getMyEvents() {
+		return myEvents;
+	}
+
+	public void setMyEvents(List<Event> myEvents) {
+		this.myEvents = myEvents;
+	}
+
+	public List<Club> getMyClubs() {
+		return myClubs;
+	}
+
+	public void setMyClubs(List<Club> myClubs) {
+		this.myClubs = myClubs;
 	}
 }

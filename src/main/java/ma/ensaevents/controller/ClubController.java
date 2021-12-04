@@ -51,7 +51,7 @@ public class ClubController {
         System.out.println(id);
         Club club = clubService.getClub(id);
         model.addAttribute("club",club);
-        return "createClub";
+        return "club/club";
     }
 
 
