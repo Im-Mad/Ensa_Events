@@ -6,16 +6,13 @@ import ma.ensaevents.entity.Club;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import ma.ensaevents.entity.Event;
 import ma.ensaevents.service.EventService;
 
 @Controller
-@RequestMapping("/events")
+@RequestMapping("/event")
 public class EventController {
 
     @Autowired
@@ -29,6 +26,15 @@ public class EventController {
         model.addAttribute("events", events);
 
         return "home";
+    }
+
+    @GetMapping("/{id}")
+    public String getEvent(@PathVariable int id, Model model){
+
+        Event event = eventService.findByEventId(id);
+        model.addAttribute("event", event);
+
+        return "event/event";
     }
 
     @GetMapping("/add")
@@ -48,3 +54,5 @@ public class EventController {
         return "event-confirmation";
     }
 }
+
+
