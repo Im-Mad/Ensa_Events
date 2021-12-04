@@ -1,6 +1,6 @@
 package ma.ensaevents.service;
 
-import ma.ensaevents.utils.ChangePassword;
+import ma.ensaevents.utils.UpdatePassword;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import ma.ensaevents.entity.User;
@@ -17,9 +17,9 @@ public interface UserService extends UserDetailsService {
 
 	void update(User currentUser);
 
-	boolean checkPassword(User user, ChangePassword changePassword);
+	boolean checkPassword(User user, UpdatePassword changePassword);
 
-    void changePassword(HttpServletRequest request, ChangePassword changePassword);
+    void changePassword(HttpServletRequest request, UpdatePassword changePassword);
 
     List<String> usersUsernames();
 }

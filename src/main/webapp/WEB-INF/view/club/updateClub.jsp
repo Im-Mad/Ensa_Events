@@ -149,21 +149,25 @@
                             <div class="card-body p-md-5 mx-md-4 card-account">
                                 <h3 class="font-weight-bold text-uppercase">Create a club</h3>
                                 <span class="alert-success" >${creationClubConfirmation}</span>
-                                <form:form action="${pageContext.request.contextPath}/club/create" method="POST" modelAttribute="newClub">
+                                <form:form enctype="multipart/form-data" action="${pageContext.request.contextPath}/club/update" method="POST" modelAttribute="club">
                                     <div class="form-group">
-                                        <label for="clubManager">Select a club manager</label>
-                                        <form:select path="username" items="${userNames}" class="form-control" id="clubManager"/>
+                                        <label for="clubDescription">Club Description</label>
+                                        <form:input path="description" cssClass="form-control" id="clubDescription"/>
+                                        <form:errors path="description" cssClass="form-error" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="clubName">Club Name</label>
-                                        <form:input path="clubName" cssClass="form-control" id="clubName"/>
-                                        <form:errors path="clubName" cssClass="form-error" />
-                                        <c:if test="${registrationError != null }"><span class="form-error">${registrationError}</span></c:if>
+                                        <label for="clubLogo">Club Logo</label>
+                                        <input type="file" name="clubLogo" Class="form-control" id="clubLogo"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="clubCoverPhoto">Club Cover Image</label>
+                                        <input type="file" name="clubCover" Class="form-control" id="clubCoverPhoto"/>
                                     </div>
 
                                     <div class="text-right pt-1 mb-4 pb-1">
-                                        <button class="btn btn-purple mb-3" >Create Club</button>
+                                        <button class="btn btn-purple mb-3" >Save Changes</button>
                                     </div>
                                 </form:form>
                             </div>

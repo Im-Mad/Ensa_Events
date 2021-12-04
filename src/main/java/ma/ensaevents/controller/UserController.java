@@ -2,7 +2,7 @@ package ma.ensaevents.controller;
 
 import ma.ensaevents.entity.User;
 import ma.ensaevents.service.UserService;
-import ma.ensaevents.utils.ChangePassword;
+import ma.ensaevents.utils.UpdatePassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -33,7 +33,7 @@ public class UserController {
     @GetMapping("/me")
     public String getUserAccount(Model theModel) {
 
-        theModel.addAttribute("changePassword", new ChangePassword());
+        theModel.addAttribute("changePassword", new UpdatePassword());
         return "user/account";
     }
 
@@ -51,13 +51,14 @@ public class UserController {
         user.setLastname(lastName);
         userService.update(user);
         // TODO if change it cut the password field
+        theModel.addAttribute("changePassword", new UpdatePassword());
         return "user/account";
     }
 
     // TODO Change to UpdateUser
     @PostMapping("/updatePassword")
     public String updatePassword(
-                        @Valid @ModelAttribute("changePassword") ChangePassword changePassword,
+                        @Valid @ModelAttribute("changePassword") UpdatePassword changePassword,
                         BindingResult theBindingResult,
                         Model theModel,
                         HttpServletRequest request) {

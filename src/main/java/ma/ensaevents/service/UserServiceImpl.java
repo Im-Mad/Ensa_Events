@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
-import ma.ensaevents.utils.ChangePassword;
+import ma.ensaevents.utils.UpdatePassword;
 import ma.ensaevents.utils.CreateUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -90,13 +90,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean checkPassword(User user, ChangePassword changePassword) {
+	public boolean checkPassword(User user, UpdatePassword changePassword) {
 		return passwordEncoder.matches(changePassword.getOldPassword(), user.getPassword());
 	}
 
 	@Override
 	@Transactional
-	public void changePassword(HttpServletRequest request, ChangePassword changePassword) {
+	public void changePassword(HttpServletRequest request, UpdatePassword changePassword) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 

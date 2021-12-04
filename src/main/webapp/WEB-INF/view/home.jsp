@@ -181,20 +181,10 @@
                 <c:forEach items="${clubs}" var="club">
                     <div class="swiper-slide">
                         <div class="card-img-box">
-                            <img class="rounded-circle" style="width:100px" src="${pageContext.request.contextPath}/assets/img/clubs/${club.logo}" alt="${club.name}">
+                            <img class="rounded-circle" style="width:100px" src="${pageContext.request.contextPath}/assets/img/clubs/logos/${club.logo}" alt="${club.name}">
                         </div>
                         <div class="d-flex forever justify-content-center">
                             ${club.name}
-                        </div>
-                    </div>
-                </c:forEach>
-                <c:forEach items="${clubs}" var="club">
-                    <div class="swiper-slide">
-                        <div class="card-img-box">
-                            <img class="rounded-circle" style="width:100px" src="${pageContext.request.contextPath}/assets/img/clubs/${club.logo}" alt="${club.name}">
-                        </div>
-                        <div class="d-flex forever justify-content-center">
-                                ${club.name}
                         </div>
                     </div>
                 </c:forEach>

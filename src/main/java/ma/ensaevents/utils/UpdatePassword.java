@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
     @FieldMatch(first = "password", second = "matchingPassword", message = "The new passwords fields must match")
 })
 
-public class ChangePassword {
+public class UpdatePassword {
 
 	@NotNull(message = "A password is required")
 	@Size(min = 1, message = "A password is required")
@@ -22,7 +22,7 @@ public class ChangePassword {
 
 	private String matchingPassword;
 
-	public ChangePassword() {
+	public UpdatePassword() {
 	}
 
 	public String getPassword() {

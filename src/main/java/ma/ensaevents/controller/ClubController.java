@@ -2,6 +2,7 @@ package ma.ensaevents.controller;
 
 import java.util.List;
 
+import ma.ensaevents.entity.User;
 import ma.ensaevents.service.UserService;
 import ma.ensaevents.utils.CreateClub;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import ma.ensaevents.entity.Club;
 import ma.ensaevents.service.ClubService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 
@@ -97,26 +100,23 @@ public class ClubController {
 
 
     @GetMapping("/update")
-    public String showFormForUpdate(@RequestParam("club_id") int theId,
+    public String showFormForUpdate(HttpServletRequest request,
                                     Model theModel) {
+        HttpSession session=request.getSession();
+        User user = (User) session.getAttribute("user");
 
-        Club theClub = clubService.getClub(theId);
+        Club club = user.getClub();
+        theModel.addAttribute("club", club);
 
-        theModel.addAttribute("club", theClub);
-
-
-        return null;
+        return "club/updateClub";
     }
 
     @GetMapping("/delete")
     public String deleteClub(@RequestParam("clubId") int theId) {
 
-
         clubService.deleteClub(theId);
 
         return null;
     }
-
-
 
 }
