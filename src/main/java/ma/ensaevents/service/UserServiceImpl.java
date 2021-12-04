@@ -1,14 +1,16 @@
 package ma.ensaevents.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
-import ma.ensaevents.user.CrmPassword;
+import ma.ensaevents.utils.ChangePassword;
+import ma.ensaevents.utils.CreateUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +23,6 @@ import ma.ensaevents.dao.RoleDao;
 import ma.ensaevents.dao.UserDao;
 import ma.ensaevents.entity.Role;
 import ma.ensaevents.entity.User;
-import ma.ensaevents.user.CrmUser;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -68,14 +69,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public void save(CrmUser crmUser) {
+	public void save(CreateUser createUser) {
 		User user = new User();
 		 // assign user details to the user object
-		user.setUsername(crmUser.getUserName());
-		user.setPassword(passwordEncoder.encode(crmUser.getPassword()));
-		user.setFirstname(crmUser.getFirstName());
-		user.setLastname(crmUser.getLastName());
-		user.setEmail(crmUser.getEmail());
+		user.setUsername(createUser.getUserName());
+		user.setPassword(passwordEncoder.encode(createUser.getPassword()));
+		user.setFirstname(createUser.getFirstName());
+		user.setLastname(createUser.getLastName());
+		user.setEmail(createUser.getEmail());
 		user.setRole(roleDao.findRoleByName("ROLE_USER"));
 
 		// save user in the database
@@ -89,23 +90,35 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean checkPassword(User user, CrmPassword crmPassword) {
-		System.out.println(crmPassword.getOldPassword());
-		System.out.println(user.getPassword());
-		return passwordEncoder.matches(crmPassword.getOldPassword(), user.getPassword());
+	public boolean checkPassword(User user, ChangePassword changePassword) {
+		return passwordEncoder.matches(changePassword.getOldPassword(), user.getPassword());
 	}
 
 	@Override
 	@Transactional
-	public void changePassword(HttpServletRequest request, CrmPassword crmPassword) {
+	public void changePassword(HttpServletRequest request, ChangePassword changePassword) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
-		user.setPassword(passwordEncoder.encode(crmPassword.getPassword()));
+		user.setPassword(passwordEncoder.encode(changePassword.getPassword()));
 
 		session.setAttribute("user", user);
 
 		userDao.save(user);
+	}
+
+	@Override
+	@Transactional
+	public List<String> usersUsernames() {
+		List<User> users = userDao.getUsers();
+
+		List<String> Usernames = new ArrayList<String>();
+		for(User user : users)	{
+			if(user.getRole().getName().equals("ROLE_USER"))
+				Usernames.add(user.getUsername());
+		}
+
+		return Usernames;
 	}
 
 }

@@ -2481,7 +2481,7 @@
       }
     } // ----------------------------------------------------------------------
     // the following methods are used to handle overflowing modals
-    // todo (fat): these should probably be refactored out of modal.js
+    //
     // ----------------------------------------------------------------------
     ;
 
@@ -3766,7 +3766,7 @@
           var targetBCR = target.getBoundingClientRect();
 
           if (targetBCR.width || targetBCR.height) {
-            // TODO (fat): remove sketch reliance on jQuery position/offset
+            //  (fat): remove sketch reliance on jQuery position/offset
             return [$__default['default'](target)[offsetMethod]().top + offsetBase, targetSelector];
           }
         }

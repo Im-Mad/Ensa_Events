@@ -1,14 +1,10 @@
 package ma.ensaevents.controller;
 
 import ma.ensaevents.entity.User;
-import ma.ensaevents.service.EventService;
-import ma.ensaevents.service.ReviewService;
 import ma.ensaevents.service.UserService;
-import ma.ensaevents.user.CrmPassword;
-import ma.ensaevents.user.CrmUser;
+import ma.ensaevents.utils.ChangePassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,7 +12,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -38,8 +33,8 @@ public class UserController {
     @GetMapping("/me")
     public String getUserAccount(Model theModel) {
 
-        theModel.addAttribute("crmPassword", new CrmPassword());
-        return "account";
+        theModel.addAttribute("changePassword", new ChangePassword());
+        return "user/account";
     }
 
     @PostMapping("/me")
@@ -55,34 +50,36 @@ public class UserController {
         user.setFirstname(firstName);
         user.setLastname(lastName);
         userService.update(user);
-        return "account";
+        // TODO if change it cut the password field
+        return "user/account";
     }
 
-    // TODO Change to crmUpdateUser
+    // TODO Change to UpdateUser
     @PostMapping("/updatePassword")
     public String updatePassword(
-                        @Valid @ModelAttribute("crmPassword") CrmPassword crmPassword,
+                        @Valid @ModelAttribute("changePassword") ChangePassword changePassword,
                         BindingResult theBindingResult,
                         Model theModel,
                         HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        System.out.println("ha 1");
-        if(!userService.checkPassword(user,crmPassword)) {
+
+
+        if(!userService.checkPassword(user, changePassword)) {
             theModel.addAttribute("oldPasswordMatch", "The password is incorrect");
-            return "account";
+            return "user/account";
         }
-        System.out.println("ha 2");
+
 
         if(theBindingResult.hasErrors()) {
-            return "account";
+            return "user/account";
         }
-        System.out.println("ha 3");
 
-        userService.changePassword(request,crmPassword);
-        System.out.println("ha 4");
 
-        theModel.addAttribute("passwordChangeConfirm", "The change is confirmed");
-        return "account";
+        userService.changePassword(request, changePassword);
+
+
+        theModel.addAttribute("passwordChangeConfirm", "The password change is confirmed");
+        return "user/account";
     }
 }

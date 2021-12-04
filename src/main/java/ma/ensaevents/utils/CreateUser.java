@@ -1,4 +1,4 @@
-package ma.ensaevents.user;
+package ma.ensaevents.utils;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,10 +12,10 @@ import ma.ensaevents.validation.ValidEmail;
     @FieldMatch(first = "password", second = "matchingPassword", message = "The password fields must match")
 })
 
-public class CrmUser {
+public class CreateUser {
 
 	@NotNull(message = "A username is required")
-	@Size(min = 1, message = "is required")
+	@Size(min = 1, message = "A username is required")
 	private String userName;
 
 	@NotNull(message = "A password is required")
@@ -37,7 +37,7 @@ public class CrmUser {
 	@Size(min = 1, message = "Email is required")
 	private String email;
 	
-	public CrmUser() {
+	public CreateUser() {
 
 	}
 

@@ -1,11 +1,12 @@
 package ma.ensaevents.controller;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import ma.ensaevents.utils.CreateUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,13 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import ma.ensaevents.entity.User;
 import ma.ensaevents.service.UserService;
-import ma.ensaevents.user.CrmUser;
-
-import java.net.http.HttpResponse;
 
 
 @Controller
@@ -40,35 +37,35 @@ public class RegistrationController {
 	@GetMapping("/register")
 	public String showMyLoginPage(Model theModel) {
 		
-		theModel.addAttribute("crmUser", new CrmUser());
+		theModel.addAttribute("newUser", new CreateUser());
 		
-		return "registration-form";
+		return "user/registration-form";
 	}
 
 	@PostMapping("/register")
 	public String processRegistrationForm(
-			@Valid @ModelAttribute("crmUser") CrmUser theCrmUser,
-			BindingResult theBindingResult, 
-			Model theModel) {
+			@Valid @ModelAttribute("newUser") CreateUser newUser,
+			BindingResult theBindingResult,
+			Model theModel,
+			HttpServletRequest request) throws ServletException {
 	
-		String username = theCrmUser.getUserName();
+		String username = newUser.getUserName();
 		
 		// check the database if user already exists
 	    User existing = userService.findByUserName(username);
 	    
 	    if (existing != null){
-	    	theModel.addAttribute("crmUser", theCrmUser);
+	    	theModel.addAttribute("newUser", newUser);
 			theModel.addAttribute("registrationError", "Username already exists.");
-	    	return "registration-form";
+	    	return "user/registration-form";
 	    }
 
 		if(theBindingResult.hasErrors()) {
-			return "registration-form";
+			return "user/registration-form";
 		}
 
-		userService.save(theCrmUser);
+		userService.save(newUser);
 
-	    // create user account        						
-	    return "registration-confirmation";
+	    return "user/login";
 	}
 }

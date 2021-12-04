@@ -21,8 +21,8 @@
             rel="stylesheet">
 </head>
 
-<body>
-    <div class="hero">
+<body class="hero">
+    <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-transparent ">
 
             <!--  Show this only on mobile to medium screens  -->
@@ -108,7 +108,7 @@
             </div>
         </nav>
     </div>
-    <section class="gradient-form" style="background-color: #eee;">
+    <section>
         <div class="container py-4">
             <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-xl-10">
@@ -139,6 +139,14 @@
                                                     <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
                                                 </svg>
                                                 My Events
+                                            </a>
+                                        </li>
+                                        <li class="nav-item side-nav-item">
+                                            <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/club/create">
+                                                <svg class="menu-icon mr-3">
+                                                    <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
+                                                </svg>
+                                                Create Club
                                             </a>
                                         </li>
                                     </ul>
@@ -175,7 +183,7 @@
 
 
                                     <h3 class="font-weight-bold text-uppercase">Password Change</h3>
-                                    <form:form action="${pageContext.request.contextPath}/user/updatePassword" method="POST" modelAttribute="crmPassword">
+                                    <form:form action="${pageContext.request.contextPath}/user/updatePassword" method="POST" modelAttribute="changePassword">
                                         <c:if test="${passwordChangeConfirm != null }">
                                             <span class="alert-success" >${passwordChangeConfirm}</span>
                                         </c:if>
@@ -211,7 +219,7 @@
         </div>
     </section>
 
-    <footer class="bg-color-blue d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3">
         <p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
 
         <a href="${pageContext.request.contextPath}/"

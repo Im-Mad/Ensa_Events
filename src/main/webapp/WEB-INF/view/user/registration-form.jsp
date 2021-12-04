@@ -115,7 +115,7 @@
 							<div class="col-lg-10 mx-auto form-background">
 								<div class="card-body px-md-5 mx-md-4">
 									<form:form action="${pageContext.request.contextPath}/register" method="POST"
-													 modelAttribute="crmUser">
+													 modelAttribute="newUser">
 										<h3 class="font-weight-bold text-uppercase">Create your account</h3>
 
 										<div class="form-group">

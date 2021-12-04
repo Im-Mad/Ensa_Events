@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import ma.ensaevents.entity.User;
 
+import java.util.List;
+
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -41,5 +43,17 @@ public class UserDaoImpl implements UserDao {
 		// create the user ... finally LOL
 		currentSession.saveOrUpdate(user);
 		
+	}
+
+	@Override
+	public List<User> getUsers() {
+		Session currentSession = sessionFactory.getCurrentSession();
+
+		Query<User> theQuery =
+				currentSession.createQuery("FROM User",User.class);
+
+		List<User> Users = theQuery.getResultList();
+
+		return Users;
 	}
 }

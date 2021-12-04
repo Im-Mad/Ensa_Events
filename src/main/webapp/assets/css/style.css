@@ -58,6 +58,10 @@ html, body{
     align-items: center;
 }
 
+.card-account {
+    min-height: 50rem;
+}
+
 .forever {
     font-family: Forever;
     font-size:2rem

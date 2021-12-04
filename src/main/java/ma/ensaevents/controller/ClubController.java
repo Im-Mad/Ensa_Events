@@ -2,13 +2,18 @@ package ma.ensaevents.controller;
 
 import java.util.List;
 
+import ma.ensaevents.service.UserService;
+import ma.ensaevents.utils.CreateClub;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import ma.ensaevents.entity.Club;
 import ma.ensaevents.service.ClubService;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -18,6 +23,9 @@ public class ClubController {
     @Autowired
     private ClubService clubService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/all")
     public String listClubs(Model theModel) {
 
@@ -25,7 +33,7 @@ public class ClubController {
 
         theModel.addAttribute("clubs",theClubs);
 
-        return "login";
+        return "user/login";
     }
 
     @GetMapping("/{id}")
@@ -33,22 +41,43 @@ public class ClubController {
         System.out.println(id);
         Club club = clubService.getClub(id);
         model.addAttribute("club",club);
-        return "club";
+        return "createClub";
     }
 
 
-    @GetMapping("/add")
-    public String showFormForAdd(Model theModel) {
-        Club theClub = new Club();
-        theModel.addAttribute("club", theClub);
-        return "club-form";
+    @GetMapping("/create")
+    public String formCreateClub(Model theModel) {
+        CreateClub newClub = new CreateClub();
+        theModel.addAttribute("newClub", newClub);
+
+        List<String> usernames = userService.usersUsernames();
+        theModel.addAttribute("userNames",usernames);
+
+        return "admin/createClub";
     }
 
+    // TODO implement create club
+    @PostMapping("/create")
+    public String processCreateClub(@Valid @ModelAttribute("newClub") CreateClub newClub,
+                                    BindingResult theBindingResult,
+                                    Model theModel) {
+        String name = newClub.getClubName();
 
-    @PostMapping("/saveClub")
-    public String saveClub(@ModelAttribute("club") Club theClub) {
-        clubService.saveClub(theClub);
-        return "club-confirmation";
+        Club existing = clubService.getClubByName(name);
+
+        if (existing != null){
+            theModel.addAttribute("newClub", newClub);
+            theModel.addAttribute("registrationError", "Username already exists.");
+            return "admin/createClub";
+        }
+
+        if(theBindingResult.hasErrors()) {
+            return "admin/createClub";
+        }
+
+        clubService.createClub(newClub);
+        theModel.addAttribute("creationClubConfirmation","The club is created successfully");
+        return "admin/createClub";
     }
 
 

@@ -2,6 +2,7 @@ package ma.ensaevents.dao;
 
 import java.util.List;
 
+import ma.ensaevents.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -57,6 +58,24 @@ public class ClubDaoImpl implements ClubDao {
 
         theQuery.executeUpdate();
 
+    }
+
+    @Override
+    public Club findByUserName(String name) {
+        // get the current hibernate session
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        // now retrieve/read from database using username
+        Query<Club> theQuery = currentSession.createQuery("from Club where name=:cName", Club.class);
+        theQuery.setParameter("cName", name);
+        Club club = null;
+        try {
+            club = theQuery.getSingleResult();
+        } catch (Exception e) {
+            club = null;
+        }
+
+        return club;
     }
 
 
