@@ -17,4 +17,6 @@ public interface ClubService {
      void deleteClub(int theId);
 
      Club getClubByName(String name);
+
+    void update(Club club);
 }

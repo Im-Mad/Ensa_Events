@@ -70,4 +70,10 @@ public class ClubServiceImpl  implements ClubService{
         // check the database if the user already exists
         return clubDao.findByUserName(name);
     }
+
+    @Override
+    @Transactional
+    public void update(Club club) {
+        clubDao.saveClub(club);
+    }
 }

@@ -1,10 +1,16 @@
 package ma.ensaevents.controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import ma.ensaevents.entity.User;
 import ma.ensaevents.service.UserService;
 import ma.ensaevents.utils.CreateClub;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -15,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 import ma.ensaevents.entity.Club;
 import ma.ensaevents.service.ClubService;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -97,10 +105,8 @@ public class ClubController {
         return "admin/createClub";
     }
 
-
-
     @GetMapping("/update")
-    public String showFormForUpdate(HttpServletRequest request,
+    public String formUpdateClub(HttpServletRequest request,
                                     Model theModel) {
         HttpSession session=request.getSession();
         User user = (User) session.getAttribute("user");
@@ -110,6 +116,53 @@ public class ClubController {
 
         return "club/updateClub";
     }
+
+    @PostMapping("/update")
+    public String processUpdateClub(@RequestParam("description") String description,
+                                               @RequestParam("clubLogoFile") MultipartFile LogoFile,
+                                               @RequestParam("clubCoverFile") MultipartFile CoverFile,
+                                               HttpSession session,
+                                               HttpServletRequest request,
+                                               RedirectAttributes redirectAttributes,
+                                               Model theModel) {
+        HttpSession sess=request.getSession();
+        User user = (User) sess.getAttribute("user");
+        Club club = user.getClub();
+
+        theModel.addAttribute("club",club);
+
+        if(!LogoFile.isEmpty()) {
+            try {
+                String extension = FilenameUtils.getExtension(LogoFile.getOriginalFilename());
+                String name = club.getName()+System.currentTimeMillis()+"."+extension;
+                System.out.println(name);
+                LogoFile.transferTo(new File(session.getServletContext().getRealPath("/assets/img/clubs/logos/")+name));
+                club.setLogo(name);
+            } catch (IOException e) {
+                theModel.addAttribute("updateResult","Update Failed");
+                return "club/updateClub";
+            }
+        }
+
+        if(!CoverFile.isEmpty()) {
+            try {
+                String extension = FilenameUtils.getExtension(CoverFile.getOriginalFilename());
+                String name = club.getName()+System.currentTimeMillis()+"."+extension;
+                System.out.println(name);
+                CoverFile.transferTo(new File(session.getServletContext().getRealPath("/assets/img/clubs/cover_photos/")+name));
+                club.setCoverPhoto(name);
+            } catch (IOException e) {
+                theModel.addAttribute("updateResultError","Update Failed");
+                return "club/updateClub";
+            }
+        }
+        club.setDescription(description);
+        clubService.update(club);
+        request.setAttribute("club",club);
+        request.setAttribute("updateResultSuccess","Update Succeeded");
+        return "club/updateClub";
+    }
+
 
     @GetMapping("/delete")
     public String deleteClub(@RequestParam("clubId") int theId) {

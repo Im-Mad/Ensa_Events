@@ -147,29 +147,33 @@
                         </div>
                         <div class="col-lg-8 mx-auto">
                             <div class="card-body p-md-5 mx-md-4 card-account">
-                                <h3 class="font-weight-bold text-uppercase">Create a club</h3>
-                                <span class="alert-success" >${creationClubConfirmation}</span>
-                                <form:form enctype="multipart/form-data" action="${pageContext.request.contextPath}/club/update" method="POST" modelAttribute="club">
+                                <h3 class="font-weight-bold text-uppercase">Update ${club.name}</h3>
+                                <span class="alert-success" >${updateResultSuccess}</span>
+                                <span class="alert-error" >${updateResultError}</span>
+                                <form action="${pageContext.request.contextPath}/club/update?${_csrf.parameterName}=${_csrf.token}"
+                                      enctype="multipart/form-data" method="POST">
                                     <div class="form-group">
                                         <label for="clubDescription">Club Description</label>
-                                        <form:input path="description" cssClass="form-control" id="clubDescription"/>
-                                        <form:errors path="description" cssClass="form-error" />
+                                        <textarea name="description" Class="form-control" id="clubDescription">${club.description}</textarea>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="clubLogo">Club Logo</label>
-                                        <input type="file" name="clubLogo" Class="form-control" id="clubLogo"/>
+                                        <img src="${pageContext.request.contextPath}/assets/img/clubs/logos/${club.logo}" style="width:5rem;height:5rem;"
+                                             class="rounded-circle mr-3" alt="Club Logo">
+                                        <label for="clubLogo" class="border-bottom border-dark" role="button">Choose new logo</label>
+                                        <input type="file" class="d-none form-control" name="clubLogoFile" id="clubLogo">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="clubCoverPhoto">Club Cover Image</label>
-                                        <input type="file" name="clubCover" Class="form-control" id="clubCoverPhoto"/>
+                                        <img src="${pageContext.request.contextPath}/assets/img/clubs/cover_photos/${club.coverPhoto}" style="width:100%;"
+                                             class="mr-3" alt="Club Cover Photo">
+                                        <label for="clubCoverPhoto" class="border-bottom border-dark pt-1" role="button">Choose new club cover</label>
+                                        <input type="file" class="d-none form-control" name="clubCoverFile" id="clubCoverPhoto">
                                     </div>
-
                                     <div class="text-right pt-1 mb-4 pb-1">
-                                        <button class="btn btn-purple mb-3" >Save Changes</button>
+                                        <button class="btn btn-purple mb-3" >Update Images</button>
                                     </div>
-                                </form:form>
+                                </form>
                             </div>
                         </div>
                     </div>
