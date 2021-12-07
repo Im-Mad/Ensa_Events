@@ -38,7 +38,6 @@ public class RegistrationController {
 	public String showMyLoginPage(Model theModel) {
 		
 		theModel.addAttribute("newUser", new CreateUser());
-		
 		return "user/registration-form";
 	}
 
@@ -46,8 +45,7 @@ public class RegistrationController {
 	public String processRegistrationForm(
 			@Valid @ModelAttribute("newUser") CreateUser newUser,
 			BindingResult theBindingResult,
-			Model theModel,
-			HttpServletRequest request) throws ServletException {
+			Model theModel)  {
 	
 		String username = newUser.getUserName();
 		

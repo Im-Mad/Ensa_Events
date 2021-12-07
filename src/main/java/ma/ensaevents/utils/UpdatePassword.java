@@ -20,6 +20,9 @@ public class UpdatePassword {
 	@Size(min = 1, message = "A new password is required")
 	private String password;
 
+
+	@NotNull(message = "A new password confirm is required")
+	@Size(min = 1, message = "A new password confirm is required")
 	private String matchingPassword;
 
 	public UpdatePassword() {

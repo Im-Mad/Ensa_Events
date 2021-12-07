@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,10 +9,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
     <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/swiper-bundle.min.css"/>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +21,7 @@
         rel="stylesheet">
 </head>
 
-<body class="hero">
+<body class="hero" style="height: 100vh">
 
     <div >
         <nav class="navbar navbar-expand-lg navbar-light bg-transparent ">
@@ -58,7 +59,7 @@
                         <ul class="navbar-nav">
                             <security:authorize access="hasRole('ADMIN')">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Create Club</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/club/create">Create Club</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Manage Users</a>
@@ -69,7 +70,7 @@
                                     <a class="nav-link" href="#">Create Event</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Manage Club</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage Club</a>
                                 </li>
                             </security:authorize>
                             <security:authorize access="hasRole('USER')">
@@ -85,9 +86,7 @@
                             <li class="nav-item">
                                 <form:form action="${pageContext.request.contextPath}/logout"
                                            method="POST">
-
                                     <input type="submit" class="btn  btn-lg btn-outline-danger round btn-header" value="Log out" />
-
                                 </form:form>
                             </li>
                         </ul>
@@ -98,13 +97,12 @@
                                 <a class="nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
                             </li>
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath}/login" class="active btn  btn-lg btn-outline-dark round btn-header" role="button"
+                                <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-dark round btn-header active" role="button"
                                    aria-disabled="true">Sign In</a>
                             </li>
                         </ul>
                     </c:otherwise>
                 </c:choose>
-
             </div>
         </nav>
     </div>

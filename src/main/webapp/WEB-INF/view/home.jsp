@@ -59,7 +59,7 @@
                         <ul class="navbar-nav">
                             <security:authorize access="hasRole('ADMIN')">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Create Club</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/club/create">Create Club</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Manage Users</a>
@@ -70,7 +70,7 @@
                                     <a class="nav-link" href="#">Create Event</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Manage Club</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage Club</a>
                                 </li>
                             </security:authorize>
                             <security:authorize access="hasRole('USER')">
@@ -80,15 +80,13 @@
                             </security:authorize>
                             <li class="nav-item">
                                 <a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
-                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}">
+                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt="" />
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <form:form action="${pageContext.request.contextPath}/logout"
                                            method="POST">
-
                                     <input type="submit" class="btn  btn-lg btn-outline-danger round btn-header" value="Log out" />
-
                                 </form:form>
                             </li>
                         </ul>
@@ -105,7 +103,6 @@
                     </ul>
                     </c:otherwise>
                 </c:choose>
-
             </div>
         </nav>
 
@@ -180,9 +177,9 @@
             <div class="swiper-wrapper  mb-5">
                 <c:forEach items="${clubs}" var="club">
                     <div class="swiper-slide">
-                        <div class="card-img-box">
+                        <a class="card-img-box" href="${pageContext.request.contextPath}/club/${club.name}">
                             <img class="rounded-circle" style="width:100px" src="${pageContext.request.contextPath}/assets/img/clubs/logos/${club.logo}" alt="${club.name}">
-                        </div>
+                        </a>
                         <div class="d-flex forever justify-content-center">
                             ${club.name}
                         </div>

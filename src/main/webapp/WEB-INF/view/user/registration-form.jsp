@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <html>
 
 <head>
@@ -55,7 +56,7 @@
 						<ul class="navbar-nav">
 							<security:authorize access="hasRole('ADMIN')">
 								<li class="nav-item">
-									<a class="nav-link" href="#">Create Club</a>
+									<a class="nav-link" href="${pageContext.request.contextPath}/club/create">Create Club</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="#">Manage Users</a>
@@ -66,7 +67,7 @@
 									<a class="nav-link" href="#">Create Event</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="#">Manage Club</a>
+									<a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage Club</a>
 								</li>
 							</security:authorize>
 							<security:authorize access="hasRole('USER')">
@@ -82,9 +83,7 @@
 							<li class="nav-item">
 								<form:form action="${pageContext.request.contextPath}/logout"
 										   method="POST">
-
 									<input type="submit" class="btn  btn-lg btn-outline-danger round btn-header" value="Log out" />
-
 								</form:form>
 							</li>
 						</ul>
@@ -92,7 +91,7 @@
 					<c:otherwise >
 						<ul class="navbar-nav">
 							<li class="nav-item pr-2">
-								<a class="active nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
+								<a class="nav-link active" href="${pageContext.request.contextPath}/register">Sign Up</a>
 							</li>
 							<li class="nav-item">
 								<a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-dark round btn-header" role="button"
@@ -101,7 +100,6 @@
 						</ul>
 					</c:otherwise>
 				</c:choose>
-
 			</div>
 		</nav>
 	</div>

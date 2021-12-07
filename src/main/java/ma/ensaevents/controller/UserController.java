@@ -3,6 +3,7 @@ package ma.ensaevents.controller;
 import ma.ensaevents.entity.User;
 import ma.ensaevents.service.UserService;
 import ma.ensaevents.utils.UpdatePassword;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -10,10 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/user")
@@ -31,33 +35,44 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public String getUserAccount(Model theModel) {
-
+    public String formUpdateUser(Model theModel) {
         theModel.addAttribute("changePassword", new UpdatePassword());
         return "user/account";
     }
 
     @PostMapping("/me")
-    public String updateUserAccount(Model theModel,
+    public String processUpdateUser(Model theModel,
                                     HttpServletRequest request,
                                     @RequestParam("firstName") String firstName,
                                     @RequestParam("lastName") String lastName,
-                                    @RequestParam("email") String email) {
+                                    @RequestParam("email") String email,
+                                    @RequestParam("avatarFile") MultipartFile avatarFile) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
         user.setEmail(email);
         user.setFirstname(firstName);
         user.setLastname(lastName);
+
+        if(!avatarFile.isEmpty()) {
+            try {
+                String extension = FilenameUtils.getExtension(avatarFile.getOriginalFilename());
+                String name = user.getUsername()+System.currentTimeMillis()+"."+extension;
+                avatarFile.transferTo(new File(session.getServletContext().getRealPath("/assets/img/users/")+name));
+                user.setAvatar(name);
+            } catch (IOException e) {
+                theModel.addAttribute("updateResultError","Update Failed");
+                return "club/updateClub";
+            }
+        }
         userService.update(user);
-        // TODO if change it cut the password field
         theModel.addAttribute("changePassword", new UpdatePassword());
+        theModel.addAttribute("updateResultSuccess","Update Succeeded");
         return "user/account";
     }
 
-    // TODO Change to UpdateUser
     @PostMapping("/updatePassword")
-    public String updatePassword(
+    public String processUpdatePassword(
                         @Valid @ModelAttribute("changePassword") UpdatePassword changePassword,
                         BindingResult theBindingResult,
                         Model theModel,
@@ -65,20 +80,16 @@ public class UserController {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
-
         if(!userService.checkPassword(user, changePassword)) {
             theModel.addAttribute("oldPasswordMatch", "The password is incorrect");
             return "user/account";
         }
 
-
         if(theBindingResult.hasErrors()) {
             return "user/account";
         }
 
-
         userService.changePassword(request, changePassword);
-
 
         theModel.addAttribute("passwordChangeConfirm", "The password change is confirmed");
         return "user/account";

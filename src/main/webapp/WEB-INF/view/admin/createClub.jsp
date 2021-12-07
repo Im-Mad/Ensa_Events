@@ -38,7 +38,7 @@
 
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active header-typography" href="${pageContext.request.contextPath}/">Home </a>
+                        <a class="nav-link header-typography" href="${pageContext.request.contextPath}/">Home </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">All Events</a>
@@ -58,7 +58,7 @@
                         <ul class="navbar-nav">
                             <security:authorize access="hasRole('ADMIN')">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Create Club</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/club/create">Create Club</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Manage Users</a>
@@ -69,7 +69,7 @@
                                     <a class="nav-link" href="#">Create Event</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Manage Club</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage Club</a>
                                 </li>
                             </security:authorize>
                             <security:authorize access="hasRole('USER')">
@@ -79,15 +79,13 @@
                             </security:authorize>
                             <li class="nav-item">
                                 <a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
-                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}">
+                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt="">
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <form:form action="${pageContext.request.contextPath}/logout"
                                            method="POST">
-
                                     <input type="submit" class="btn  btn-lg btn-outline-danger round btn-header" value="Log out" />
-
                                 </form:form>
                             </li>
                         </ul>
@@ -118,19 +116,11 @@
                                 <nav class="">
                                     <ul class=" nav nav-pills flex-column text-uppercase side-nav">
                                         <li class="nav-item side-nav-item">
-                                            <a class="side-nav-link nav-link px-md-5 py-3" href="#">
+                                            <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/user/me">
                                                 <svg class="menu-icon mr-3">
                                                     <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
                                                 </svg>
-                                                Settings
-                                            </a>
-                                        </li>
-                                        <li class="nav-item side-nav-item active">
-                                            <a class="side-nav-link nav-link px-md-5 py-3" href="#">
-                                                <svg class="menu-icon mr-3">
-                                                    <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
-                                                </svg>
-                                                Create Club
+                                                Account Settings
                                             </a>
                                         </li>
                                         <li class="nav-item side-nav-item">
@@ -141,9 +131,46 @@
                                                 My Events
                                             </a>
                                         </li>
+                                        <li class="nav-item side-nav-item">
+                                            <a class="side-nav-link nav-link px-md-5 py-3" href="#">
+                                                <svg class="menu-icon mr-3">
+                                                    <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
+                                                </svg>
+                                                My Clubs
+                                            </a>
+                                        </li>
+                                        <security:authorize access="hasRole('MANAGER')">
+                                            <li class="nav-item side-nav-item">
+                                                <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/club/update">
+                                                    <svg class="menu-icon mr-3">
+                                                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
+                                                    </svg>
+                                                    Manage Club
+                                                </a>
+                                            </li>
+                                        </security:authorize>
+                                        <security:authorize access="hasRole('ADMIN')">
+                                            <li class="nav-item side-nav-item active">
+                                                <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/club/create">
+                                                    <svg class="menu-icon mr-3">
+                                                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
+                                                    </svg>
+                                                    Create Club
+                                                </a>
+                                            </li>
+                                        </security:authorize>
+                                        <security:authorize access="hasRole('ADMIN')">
+                                            <li class="nav-item side-nav-item ">
+                                                <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/club/create">
+                                                    <svg class="menu-icon mr-3">
+                                                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
+                                                    </svg>
+                                                    Manage Users
+                                                </a>
+                                            </li>
+                                        </security:authorize>
                                     </ul>
                                 </nav>
-
                             </div>
                             <div class="col-lg-8 mx-auto">
                                 <div class="card-body p-md-5 mx-md-4 card-account">
