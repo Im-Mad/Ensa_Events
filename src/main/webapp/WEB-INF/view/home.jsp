@@ -14,6 +14,8 @@
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/swiper-bundle.min.css"/>
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/mobiscroll.javascript.min.css">
+    <script src="${pageContext.request.contextPath}/assets/js/mobiscroll.javascript.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -112,27 +114,18 @@
         </div>
         <div class="container search-bar position-absolute shadow-sm">
             <form class="row">
-                <div
-                        class="col-lg-3 col-md-6 col-sm-12 d-flex align-items-center justify-content-center padding-smallSize">
-                    <label for="inputGroupSelect01"></label><select class="custom-select w-75 text-center" id="inputGroupSelect01">
+                <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
+                    <select class="custom-select w-75 text-center" id="inputGroupSelect01">
                         <option selected style="font-size: 1rem;">Select Club</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <c:forEach items="${clubs}" var="club">
+                            <option>${club.name}</option>
+                        </c:forEach>
                     </select>
                 </div>
-                <div
-                        class="col-lg-3 col-md-6 col-sm-12 d-flex align-items-center justify-content-center padding-smallSize">
-                    <label for="startDate" class="my-0 mr-2">Start Date</label>
-                    <input type="date" class="text-center" id="startDate">
+                <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
+                    <input id="demo-mobile-picker-input" class="custom-select w-75 text-center" placeholder="Date Range" required />
                 </div>
-                <div
-                        class="col-lg-3 col-md-6 col-sm-12 d-flex align-items-center justify-content-center padding-smallSize">
-                    <label for="endDate" class="my-0 mr-2">End Date</label>
-                    <input type="date" class="text-center" id="endDate">
-                </div>
-                <div
-                        class="col-lg-3 col-md-6 col-sm-12 d-flex align-items-center justify-content-center padding-smallSize">
+                <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
                     <button type="button" class="btn search-btn rounded-pill w-75">Filter Events</button>
                 </div>
             </form>
@@ -141,7 +134,7 @@
     <div class="py-5"></div>
     <div class="container-fluid" style="height: 280px;">
         <!-- Swiper -->
-        <div class="swiper events">
+        <div class="swiper events" id="events">
             <h1 class="font-weight-bold mb-3">Upcoming Events</h1>
             <div class="swiper-pagination"></div>
             <div class="swiper-wrapper  mb-5">
@@ -171,7 +164,7 @@
     </div>
     <div class="py-5"></div>
     <div class="container-fluid">
-        <div class="swiper clubs">
+        <div class="swiper clubs" id="clubs">
 
             <h1 class="font-weight-bold mb-3">Clubs</h1>
             <div class="swiper-wrapper  mb-5">
@@ -217,7 +210,6 @@
 
     <!-- Main script -->
     <script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
-
 </body>
 
 </html>
