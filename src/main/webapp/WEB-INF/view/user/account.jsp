@@ -23,7 +23,7 @@
 
 <body class="hero">
     <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-transparent ">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent ">
 
             <!--  Show this only on mobile to medium screens  -->
             <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
@@ -50,7 +50,7 @@
 
 
                 <!--   Show this only lg screens and up   -->
-                <a class="navbar-brand d-none d-lg-block" href="${pageContext.request.contextPath}/">
+                <a class="navbar-brand d-none d-lg-block header-logo" href="${pageContext.request.contextPath}/">
                     <img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="">
                 </a>
                 <c:choose>
@@ -79,7 +79,7 @@
                             </security:authorize>
                             <li class="nav-item">
                                 <a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
-                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}">
+                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt="">
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -96,7 +96,7 @@
                                 <a class="nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
                             </li>
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-dark round btn-header" role="button"
+                                <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-light round btn-header " role="button"
                                    aria-disabled="true">Sign In</a>
                             </li>
                         </ul>
@@ -109,9 +109,9 @@
         <div class="container py-4">
             <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-xl-10">
-                    <div class="card rounded-3 text-black">
+                    <div class="text-black">
                         <div class="row g-0">
-                            <div class="col-lg-4 mx-auto gradient py-md-5 px-0">
+                            <div class="col-lg-4 mx-auto account-navigation-left py-md-5 px-0">
                                 <nav class="">
                                     <ul class=" nav nav-pills flex-column text-uppercase side-nav">
                                         <li class="nav-item side-nav-item active">
@@ -171,7 +171,7 @@
                                     </ul>
                                 </nav>
                             </div>
-                            <div class="col-lg-8 mx-auto">
+                            <div class="col-lg-8 mx-auto bg-white account-navigation-right">
                                 <div class="card-body p-md-5 mx-md-4">
                                     <h3 class="font-weight-bold text-uppercase">YOUR ACCOUNT SETTINGS</h3>
                                     <span class="alert-success" >${updateResultSuccess}</span>
@@ -238,7 +238,7 @@
         </div>
     </section>
 
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 footer-color">
         <p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
 
         <a href="${pageContext.request.contextPath}/"

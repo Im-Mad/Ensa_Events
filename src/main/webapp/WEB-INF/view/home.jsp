@@ -25,8 +25,8 @@
 
 <body>
 
-    <div class="hero">
-        <nav class="navbar navbar-expand-lg navbar-light bg-transparent ">
+    <div class="hero-home">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent ">
 
             <!--  Show this only on mobile to medium screens  -->
             <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
@@ -53,7 +53,7 @@
 
 
                 <!--   Show this only lg screens and up   -->
-                <a class="navbar-brand d-none d-lg-block" href="${pageContext.request.contextPath}/">
+                <a class="navbar-brand d-none d-lg-block header-logo" href="${pageContext.request.contextPath}/">
                     <img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="">
                 </a>
                 <c:choose>
@@ -99,7 +99,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
                         </li>
                         <li class="nav-item">
-                            <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-dark round btn-header" role="button"
+                            <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-light round btn-header" role="button"
                                aria-disabled="true">Sign In</a>
                         </li>
                     </ul>
@@ -126,7 +126,7 @@
                     <input id="demo-mobile-picker-input" class="custom-select w-75 text-center" placeholder="Date Range" required />
                 </div>
                 <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
-                    <button type="button" class="btn search-btn rounded-pill w-75">Filter Events</button>
+                    <button type="button" class="btn btn-purple rounded-pill w-75">Filter Events</button>
                 </div>
             </form>
         </div>
@@ -146,13 +146,13 @@
                                 <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" alt="Card image cap">
                             </div>
                             <div class="card-body row">
-                                <div class="col-6">
+                                <div class="col-8">
                                     <h5 class="card-title">${event.name}</h5>
                                     <%--FIXME FORMAT TO DATE type--%>
                                     <p class="card-text">${event.date}</p>
                                 </div>
-                                <div class="col-6 text-right">
-                                    <a href="#" class="btn btn-primary">Participate</a>
+                                <div class="col-4 text-right">
+                                    <a href="#" class="btn btn-purple">Participate</a>
                                 </div>
                             </div>
                         </div>
@@ -185,7 +185,7 @@
         </div>
 
     </div>
-    <footer class="bg-color-blue d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 border-top footer-color">
         <p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
 
         <a href="${pageContext.request.contextPath}/"

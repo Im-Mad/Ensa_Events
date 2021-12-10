@@ -20,8 +20,8 @@
 
 <body class="hero">
 
-	<div >
-		<nav class="navbar navbar-expand-lg navbar-light bg-transparent ">
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-transparent ">
 
 			<!--  Show this only on mobile to medium screens  -->
 			<a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
@@ -48,7 +48,7 @@
 
 
 				<!--   Show this only lg screens and up   -->
-				<a class="navbar-brand d-none d-lg-block" href="${pageContext.request.contextPath}/">
+				<a class="navbar-brand d-none d-lg-block header-logo" href="${pageContext.request.contextPath}/">
 					<img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="">
 				</a>
 				<c:choose>
@@ -94,7 +94,7 @@
 								<a class="nav-link active" href="${pageContext.request.contextPath}/register">Sign Up</a>
 							</li>
 							<li class="nav-item">
-								<a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-dark round btn-header" role="button"
+								<a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-light round btn-header " role="button"
 								   aria-disabled="true">Sign In</a>
 							</li>
 						</ul>
@@ -102,70 +102,85 @@
 				</c:choose>
 			</div>
 		</nav>
-	</div>
+	</header>
 
-	<section>
+	<section class="bg-transparent" >
 		<div class="container py-4">
 			<div class="row d-flex justify-content-center align-items-center">
-				<div class="col-xl-8">
-					<div class="text-black">
-						<div class="row g-0">
-							<div class="col-lg-10 mx-auto form-background">
-								<div class="card-body px-md-5 mx-md-4">
-									<form:form action="${pageContext.request.contextPath}/register" method="POST"
-													 modelAttribute="newUser">
-										<h3 class="font-weight-bold text-uppercase">Create your account</h3>
-
-										<div class="form-group">
-											<label for="userName">Username</label>
-											<form:input path="userName" cssClass="form-control" id="userName"/>
-											<form:errors path="userName" cssClass="form-error" />
-											<c:if test="${registrationError != null }"><span class="form-error">${registrationError}</span></c:if>
-										</div>
-
-										<div class="form-group">
-											<label for="firstName">First Name</label>
-											<form:input path="firstName" cssClass="form-control" id="firstName"/>
-											<form:errors path="firstName" cssClass="form-error" />
-										</div>
-
-										<div class="form-group">
-											<label for="lastName">Last Name</label>
-											<form:input path="lastName" cssClass="form-control" id="lastName"/>
-											<form:errors path="lastName" cssClass="form-error" />
-										</div>
-
-										<div class="form-group">
-											<label for="email">Email</label>
-											<form:input path="email" cssClass="form-control" id="email"/>
-											<form:errors path="email" cssClass="form-error" />
-										</div>
-
-										<div class="form-group">
-											<label for="password">Password</label>
-											<form:password path="password" cssClass="form-control" id="password"/>
-											<form:errors path="password" cssClass="form-error" />
-										</div>
-
-										<div class="form-group">
-											<label for="matchingPassword">Password Confirm</label>
-											<form:password path="matchingPassword" cssClass="form-control" id="matchingPassword"/>
-											<form:errors path="matchingPassword" cssClass="form-error" />
-										</div>
-
-										<!-- Register Button -->
-										<div class="text-center pt-1 mb-4 pb-1">
-											<input type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" value="Register" />
-										</div>
-
-										<div class="d-flex align-items-center justify-content-center">
-											<p class="mb-0 mr-2">Have an account?</p>
-											<a href="${pageContext.request.contextPath}/login" type="button" class="btn btn-outline-danger">Log In</a>
-										</div>
-
-									</form:form>
-								</div>
+				<div class="col-12 col-sm-12 col-md-10 col-lg-8">
+					<div class="text-black bg-transparent">
+						<div class="p-0 col-12 col-sm-12 col-md-10 col-lg-8 mx-auto">
+							<div class="py-4 form-gp-header text-center">
+								<h4 style="font-style: italic">Ensa <strong class="text-white-50">Event</strong></h4>
+								<h3 class="font-weight-bold text-uppercase">Register</h3>
 							</div>
+							<form:form action="${pageContext.request.contextPath}/register" cssClass="px-5 py-4 bg-white form-gp-body" method="POST" modelAttribute="newUser">
+								<div class="form-gp">
+									<label for="userName">Username</label>
+									<form:input path="userName" id="userName"/>
+									<svg class="btn-icon">
+										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+									</svg>
+									<form:errors path="userName" cssClass="form-error" />
+									<c:if test="${registrationError != null }"><span class="form-error">${registrationError}</span></c:if>
+								</div>
+
+								<div class="form-gp">
+									<label for="firstName">First Name</label>
+									<form:input path="firstName" id="firstName"/>
+									<svg class="btn-icon">
+										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+									</svg>
+									<form:errors path="firstName" cssClass="form-error" />
+								</div>
+
+								<div class="form-gp">
+									<label for="lastName">Last Name</label>
+									<form:input path="lastName" id="lastName"/>
+									<svg class="btn-icon">
+										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+									</svg>
+									<form:errors path="lastName" cssClass="form-error" />
+								</div>
+
+								<div class="form-gp">
+									<label for="email">Email</label>
+									<form:input path="email" id="email"/>
+									<svg class="btn-icon">
+										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+									</svg>
+									<form:errors path="email" cssClass="form-error" />
+								</div>
+
+								<div class="form-gp">
+									<label for="password">Password</label>
+									<form:password path="password" id="password"/>
+									<svg class="btn-icon">
+										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+									</svg>
+									<form:errors path="password" cssClass="form-error" />
+								</div>
+
+								<div class="form-gp">
+									<label for="matchingPassword">Password Confirm</label>
+									<form:password path="matchingPassword" id="matchingPassword"/>
+									<svg class="btn-icon">
+										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+									</svg>
+									<form:errors path="matchingPassword" cssClass="form-error" />
+								</div>
+
+								<!-- Register Button -->
+								<div class="text-center pt-1 mb-1 pb-1">
+									<input type="submit" class="btn btn-purple mb-3" value="Register" />
+								</div>
+
+								<div class="d-flex align-items-center justify-content-center">
+									<p class="mb-0 mr-2">Have an account?</p>
+									<a href="${pageContext.request.contextPath}/login" type="button" class="form-gp-link">Sign in</a>
+								</div>
+
+							</form:form>
 						</div>
 					</div>
 				</div>
@@ -173,7 +188,7 @@
 		</div>
 	</section>
 
-	<footer class="d-flex flex-wrap justify-content-between align-items-center py-3">
+	<footer class="d-flex flex-wrap justify-content-between align-items-center py-2 footer-color">
 		<p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
 
 		<a href="${pageContext.request.contextPath}/"

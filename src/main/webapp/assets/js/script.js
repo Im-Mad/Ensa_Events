@@ -7,7 +7,7 @@ if( $('#events').length ) {
       ,
       breakpoints: {
         640: {
-          slidesPerView: 1,
+          slidesPerView: 1.5,
           spaceBetween: 20,
         },
         768: {
@@ -15,8 +15,8 @@ if( $('#events').length ) {
           spaceBetween: 40,
         },
         1024: {
-          slidesPerView: 3,
-          spaceBetween: 50,
+          slidesPerView: 3.5,
+          spaceBetween: 30,
         },
       },
   });
@@ -26,7 +26,6 @@ if( $('#clubs').length ) {
     spaceBetween: 10,
     autoplay: {
       delay: 3000,
-      // TODO: this should be false
       disableOnInteraction: false,
     },
     pagination: {
@@ -54,7 +53,7 @@ if( $('#clubs').length ) {
   });
 }
 
-if( $('#demo-mobile-picker-button').length ) {
+if( $('#demo-mobile-picker-input').length ) {
   mobiscroll.setOptions({
     //locale: mobiscroll.localeFr,  // Specify language like: locale: mobiscroll.localePl or omit setting to use default
     theme: 'ios',                 // Specify theme like: theme: 'ios' or omit setting to use default
@@ -74,4 +73,14 @@ if( $('#demo-mobile-picker-button').length ) {
     showOnClick: false,           // More info about showOnClick: https://docs.mobiscroll.com/5-13-0/javascript/range#opt-showOnClick
     showOnFocus: false,           // More info about showOnFocus: https://docs.mobiscroll.com/5-13-0/javascript/range#opt-showOnFocus
   });
+}
+
+if($('.form-gp input').length) {
+  $('.form-gp input').on('focus', function () {
+    $(this).parent('.form-gp').addClass('focused');
+  });
+
+  $('.form-gp input').on('focusout', function () {
+    $(this).parent('.form-gp').removeClass('focused');
+  })
 }

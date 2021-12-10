@@ -21,10 +21,10 @@
         rel="stylesheet">
 </head>
 
-<body class="hero" style="height: 100vh">
+<body class="hero d-flex flex-column min-vh-100">
 
-    <div >
-        <nav class="navbar navbar-expand-lg navbar-light bg-transparent ">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent ">
 
             <!--  Show this only on mobile to medium screens  -->
             <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
@@ -51,7 +51,7 @@
 
 
                 <!--   Show this only lg screens and up   -->
-                <a class="navbar-brand d-none d-lg-block" href="${pageContext.request.contextPath}/">
+                <a class="navbar-brand d-none d-lg-block header-logo" href="${pageContext.request.contextPath}/">
                     <img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="">
                 </a>
                 <c:choose>
@@ -97,7 +97,7 @@
                                 <a class="nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
                             </li>
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-dark round btn-header active" role="button"
+                                <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-light round btn-header active" role="button"
                                    aria-disabled="true">Sign In</a>
                             </li>
                         </ul>
@@ -105,49 +105,50 @@
                 </c:choose>
             </div>
         </nav>
-    </div>
+    </header>
 
     <section class="bg-transparent" >
         <div class="container py-4">
             <div class="row d-flex justify-content-center align-items-center">
-                <div class="col-xl-8">
+                <div class="col-12 col-sm-12 col-md-10 col-lg-8">
                     <div class="text-black bg-transparent">
-                        <div class="row g-0">
-                            <div class="col-lg-10 mx-auto form-background">
-                                <div class="card-body p-md-5 mx-md-4">
-                                    <form action="${pageContext.request.contextPath}/authenticateTheUser" method="POST">
-
-                                        <h3 class="font-weight-bold text-uppercase">Log into your account</h3>
-
-                                        <c:if test="${param.error != null}">
-                                            <div class="alert alert-danger col-xs-offset-1 col-xs-10">
-                                                Invalid username and password.
-                                            </div>
-                                        </c:if>
-
-                                        <div class="form-group">
-                                            <label for="username">Username</label>
-                                            <input type="text" class="form-control" id="username" name="username" >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password">Password</label>
-                                            <input type="password" name="password" class="form-control" id="password">
-                                        </div>
-
-                                        <div class="text-center pt-1 mb-4 pb-1">
-                                            <input type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" value="Log in" />
-                                        </div>
-
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <p class="mb-0 mr-2">Don't have an account?</p>
-                                            <a href="${pageContext.request.contextPath}/register" type="button" class="btn btn-outline-danger">Create new</a>
-                                        </div>
-
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                    </form>
-
-                                </div>
+                        <div class="p-0 col-12 col-sm-12 col-md-10 col-lg-8 mx-auto">
+                            <div class="py-4 form-gp-header text-center">
+                                <h4 style="font-style: italic">Ensa <strong class="text-white-50">Event</strong></h4>
+                                <h3 class="font-weight-bold text-uppercase">Log into your account</h3>
                             </div>
+                            <form action="${pageContext.request.contextPath}/authenticateTheUser" method="POST" class="py-4 px-5 bg-white form-gp-body">
+                                <c:if test="${param.error != null}">
+                                    <div class="w-100 text-center">
+                                        <span class="form-error">Invalid Credentials</span>
+                                    </div>
+                                </c:if>
+                                <div class="form-gp">
+                                    <label for="username">Username</label>
+                                    <input type="text" id="username" name="username" >
+                                    <svg class="btn-icon">
+                                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+                                    </svg>
+                                </div>
+                                <div class="form-gp">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" id="password">
+                                    <svg class="btn-icon">
+                                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+                                    </svg>
+                                </div>
+
+                                <div class="text-center pt-1 mb-1 pb-1">
+                                    <input type="submit" class="btn btn-purple mb-3" value="Log in" />
+                                </div>
+
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <p class="mb-0 mr-2">Don't have an account?</p>
+                                    <a href="${pageContext.request.contextPath}/register" type="button" class="form-gp-link">Create new</a>
+                                </div>
+
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -155,7 +156,7 @@
         </div>
     </section>
 
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center mt-auto py-2 footer-color">
         <p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
 
         <a href="${pageContext.request.contextPath}/"
