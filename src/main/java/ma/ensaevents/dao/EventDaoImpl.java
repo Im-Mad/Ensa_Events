@@ -21,8 +21,10 @@ public class EventDaoImpl implements EventDao{
     public Event FindById(int eventId) {
 
         Session session = sessionFactory.getCurrentSession();
-
-        return session.get(Event.class, eventId);
+        Event event = session.get(Event.class, eventId);
+        System.out.println(event.getParticipants());
+        System.out.println(event.getReviews());
+        return event;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class EventDaoImpl implements EventDao{
 
         Session session = sessionFactory.getCurrentSession();
 
-        Query<Event> query = session.createQuery("delete from Event where id=eventId");
+        Query<Event> query = session.createQuery("delete from Event where id=:eventId");
 
         query.setParameter("eventId", event.getId());
 

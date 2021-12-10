@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,7 +56,7 @@
                     <img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="">
                 </a>
                 <c:choose>
-                    <c:when test="${user != null}">
+                    <c:when test="${seuser != null}">
                         <ul class="navbar-nav">
                             <security:authorize access="hasRole('ADMIN')">
                                 <li class="nav-item">
@@ -158,8 +159,9 @@
                             <div class="card-body row">
                                 <div class="col-6">
                                     <h5 class="card-title">${event.name}</h5>
-                                    <%--FIXME FORMAT TO DATE type--%>
-                                    <p class="card-text">${event.date}</p>
+                                    <p class="card-text"
+                                        <fmt:formatDate value="${event.date}" type="date" pattern="EE, MM DD YYYY"/>
+                                    </p>
                                 </div>
                                 <div class="col-6 text-right">
                                     <a href="#" class="btn btn-primary">Participate</a>

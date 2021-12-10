@@ -67,8 +67,13 @@ public class AppConfig implements WebMvcConfigurer {
 		catch (PropertyVetoException exc) {
 			throw new RuntimeException(exc);
 		}
-		
-		
+
+		try {
+			securityDataSource.setDriverClass(env.getProperty("jdbc.driver"));
+		} catch (PropertyVetoException e) {
+			e.printStackTrace();
+		}
+
 		// set database connection props
 		securityDataSource.setJdbcUrl(env.getProperty("jdbc.url"));
 		securityDataSource.setUser(env.getProperty("jdbc.user"));

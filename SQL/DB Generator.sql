@@ -53,6 +53,7 @@ CREATE TABLE `reviews` (
                        user_id INT NOT NULL,
                        event_id INT NOT NULL,
                        description varchar(50),
+                       date datetime DEFAULT now(),
                        rating INT,
                        PRIMARY KEY (id),
                        FOREIGN KEY (user_id) references users (id) on delete cascade,

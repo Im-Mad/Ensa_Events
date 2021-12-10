@@ -19,7 +19,7 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping("/list")
-    public String eventsLis(Model model) {
+    public String eventsList(Model model) {
 
         List<Event> events = eventService.findAllEvents();
 

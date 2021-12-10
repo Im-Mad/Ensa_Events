@@ -37,6 +37,40 @@ public class Event {
     )
     private List<User> participants;
 
+    @OneToMany(mappedBy = "event")
+    private List<Review> reviews;
+
+    @Transient
+    private double avgRating;
+    
+    @Transient
+    private int[] ratingStats = new int[5];
+
+    @PostLoad
+    public void calculateAvgRating(){
+        if (reviews.size() == 0)
+            avgRating = 4;
+        else {
+            try {
+                avgRating = reviews.stream().mapToInt(o -> o.getRating()).average().getAsDouble();
+                reviews.stream().forEach(review -> {
+                    ratingStats[review.getRating()-1]++;
+                });
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     public Event() {
 
     }
@@ -95,5 +129,21 @@ public class Event {
 
     public void setParticipants(List<User> participants) {
         this.participants = participants;
+    }
+
+    public double getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(double avgRating) {
+        this.avgRating = avgRating;
+    }
+
+    public int[] getRatingStats() {
+        return ratingStats;
+    }
+
+    public void setRatingStats(int[] ratingStats) {
+        this.ratingStats = ratingStats;
     }
 }
