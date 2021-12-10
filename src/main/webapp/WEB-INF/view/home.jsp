@@ -58,7 +58,7 @@
                     <img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="">
                 </a>
                 <c:choose>
-                    <c:when test="${seuser != null}">
+                    <c:when test="${user != null}">
                         <ul class="navbar-nav">
                             <security:authorize access="hasRole('ADMIN')">
                                 <li class="nav-item">
