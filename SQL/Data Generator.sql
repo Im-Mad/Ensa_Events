@@ -21,8 +21,8 @@ INSERT INTO events (date,name,description,club_id) VALUES ('2021-11-08','Movie P
 INSERT INTO events (date,name,description,club_id) VALUES ('2021-11-08','Let s Code','Coding Party !',1);
 INSERT INTO events (date,name,description,club_id) VALUES ('2021-11-08','Integration','A day to know new people !',1);
 
-INSERT INTO reviews (user_id,event_id,description,rating) VALUES (6,2,'Great',4);
-INSERT INTO reviews (user_id,event_id,description,rating) VALUES (6,4,'Bad',1);
+INSERT INTO reviews (user_id,event_id,description,rating) VALUES (6,1,'Great',4);
+INSERT INTO reviews (user_id,event_id,description,rating) VALUES (6,1,'Bad',1);
 INSERT INTO reviews (user_id,event_id,description,rating) VALUES (7,1,'NIIICE MEETING',5);
-INSERT INTO reviews (user_id,event_id,description,rating) VALUES (8,2,'YAAAAHOUUUW',5);
-INSERT INTO reviews (user_id,event_id,description,rating) VALUES (8,3,'???',2);
+INSERT INTO reviews (user_id,event_id,description,rating) VALUES (8,1,'YAAAAHOUUUW',5);
+INSERT INTO reviews (user_id,event_id,description,rating) VALUES (8,1,'???',2);

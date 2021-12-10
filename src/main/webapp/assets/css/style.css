@@ -1,3 +1,5 @@
+@import url(https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
 @font-face {
     font-family: Forever;
     src: url(../font/Foreverbrushscript-GwZy.otf);
@@ -223,36 +225,7 @@ html, body{
     margin-bottom: 5px
 }
 
-.bar-5 {
-    width: 70%;
-    height: 13px;
-    background-color: #FBC02D;
-    border-radius: 20px
-}
-
-.bar-4 {
-    width: 30%;
-    height: 13px;
-    background-color: #FBC02D;
-    border-radius: 20px
-}
-
-.bar-3 {
-    width: 20%;
-    height: 13px;
-    background-color: #FBC02D;
-    border-radius: 20px
-}
-
-.bar-2 {
-    width: 10%;
-    height: 13px;
-    background-color: #FBC02D;
-    border-radius: 20px
-}
-
-.bar-1 {
-    width: 0;
+.bar {
     height: 13px;
     background-color: #FBC02D;
     border-radius: 20px
@@ -300,6 +273,24 @@ html, body{
     height: 80px;
     margin-right: 10px
 }
+/* ## Rating stars*/
+
+.starrating > input {display: none;}
+
+.starrating > label:before {
+    content: "\f005";
+    margin: 2px;
+    font-size: 2rem;
+    font-family: FontAwesome;
+    display: inline-block;
+}
+
+.starrating > input:checked ~ label
+{ color: #ffca08 ; }
+
+.starrating > input:hover ~ label
+{ color: #ffca08 ;  }
+
 
 .header-logo {
     position: absolute;

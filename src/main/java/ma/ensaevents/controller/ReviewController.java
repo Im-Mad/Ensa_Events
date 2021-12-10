@@ -1,10 +1,14 @@
 package ma.ensaevents.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import ma.ensaevents.service.EventService;
 import ma.ensaevents.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +24,8 @@ import ma.ensaevents.entity.Review;
 import ma.ensaevents.entity.User;
 import ma.ensaevents.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/reviews")
 public class ReviewController {
@@ -31,7 +37,6 @@ public class ReviewController {
     private UserService userService;
     @Autowired
     private EventService eventService;
-
 
     //----------------- GET EVENT's REVIEWS ------------------------
     @GetMapping("/list")
@@ -60,23 +65,26 @@ public class ReviewController {
         return "add-review";
     }
 
-    //------------------------SAVE THE REVIEW--------------------------------
-    @PostMapping("/saveReview")
-    public String saveReview(@ModelAttribute("review") Review review,int eventId) {
+    @PostMapping("/add")
+    public String saveReview(@ModelAttribute("review") Review review, HttpServletRequest request) {
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username  =((org.springframework.security.core.userdetails.User) principal).getUsername();
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
 
-        User user = userService.findByUserName(username);
+            User user = userService.findByUserName(username);
 
-        //get EVENT by event_id
-        Event event = eventService.findByEventId(eventId);
-        review.setUser(user);
-        review.setEvent(event);
+            int eventId = Integer.parseInt(request.getParameter("eventId"));
+            //get EVENT by event_id
+            Event event = eventService.findByEventId(eventId);
+            review.setUser(user);
+            review.setEvent(event);
+            review.setDate(new Date());
+            System.out.println(user);
+            System.out.println(event);
 
-        reviewService.saveReview(review);
+            reviewService.saveReview(review);
 
-        return "review-confirmation";
+           return "redirect:" + request.getContextPath() + "/event/" + eventId;
     }
 
     //------------------------UPDATE THE REVIEW--------------------------------
