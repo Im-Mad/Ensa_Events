@@ -57,7 +57,7 @@
                         <ul class="navbar-nav">
                             <security:authorize access="hasRole('ADMIN')">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Create Club</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/club/create">Create Club</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Manage Users</a>
@@ -68,7 +68,7 @@
                                     <a class="nav-link" href="#">Create Event</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Manage Club</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage Club</a>
                                 </li>
                             </security:authorize>
                             <security:authorize access="hasRole('USER')">
@@ -78,15 +78,13 @@
                             </security:authorize>
                             <li class="nav-item">
                                 <a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
-                                    <img class="rounded-circle mx-4" alt="" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}">
+                                    <img class="rounded-circle mx-4" height="40" width="40" alt="" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}">
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <form:form action="${pageContext.request.contextPath}/logout"
                                            method="POST">
-
                                     <input type="submit" class="btn  btn-lg btn-outline-danger round btn-header" value="Log out" />
-
                                 </form:form>
                             </li>
                         </ul>
@@ -103,7 +101,6 @@
                         </ul>
                     </c:otherwise>
                 </c:choose>
-
             </div>
         </nav>
     </div>
@@ -113,7 +110,7 @@
     <div class="py-3 px-md-5 px-3 border-top">
         <div class="row">
             <div class="col-md-8 col-12 row align-items-center">
-                <img src="${pageContext.request.contextPath}/assets/img/clubs/${club.logo}" height="40" width="40" class="m-2 rounded-circle" alt="" >
+                <img src="${pageContext.request.contextPath}/assets/img/clubs/logos/${club.logo}" height="40" width="40" class="m-2 rounded-circle" alt="" >
                 <h3 class="mb-0">${club.name}</h3>
             </div>
             <div class="col-md-4 col-12 d-flex justify-content-start justify-content-md-end">

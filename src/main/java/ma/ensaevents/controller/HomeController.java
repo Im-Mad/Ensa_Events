@@ -29,14 +29,6 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String homePage(Model theModel,HttpServletRequest request) {
-		/*if (true) {
-			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			String username  =((org.springframework.security.core.userdetails.User) principal).getUsername();
-
-			User user = userService.findByUserName(username);
-			theModel.addAttribute("currentUser", user);
-		}*/
-
 		List<Event> events = eventService.findAllEvents();
 		theModel.addAttribute("events",events);
 

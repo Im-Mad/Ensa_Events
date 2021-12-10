@@ -15,6 +15,8 @@
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/swiper-bundle.min.css"/>
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/mobiscroll.javascript.min.css">
+    <script src="${pageContext.request.contextPath}/assets/js/mobiscroll.javascript.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -24,8 +26,8 @@
 
 <body>
 
-    <div class="hero">
-        <nav class="navbar navbar-expand-lg navbar-light bg-transparent ">
+    <div class="hero-home">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent ">
 
             <!--  Show this only on mobile to medium screens  -->
             <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
@@ -52,7 +54,7 @@
 
 
                 <!--   Show this only lg screens and up   -->
-                <a class="navbar-brand d-none d-lg-block" href="${pageContext.request.contextPath}/">
+                <a class="navbar-brand d-none d-lg-block header-logo" href="${pageContext.request.contextPath}/">
                     <img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="">
                 </a>
                 <c:choose>
@@ -60,7 +62,7 @@
                         <ul class="navbar-nav">
                             <security:authorize access="hasRole('ADMIN')">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Create Club</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/club/create">Create Club</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Manage Users</a>
@@ -71,7 +73,7 @@
                                     <a class="nav-link" href="#">Create Event</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Manage Club</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage Club</a>
                                 </li>
                             </security:authorize>
                             <security:authorize access="hasRole('USER')">
@@ -81,15 +83,13 @@
                             </security:authorize>
                             <li class="nav-item">
                                 <a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
-                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}">
+                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt="" />
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <form:form action="${pageContext.request.contextPath}/logout"
                                            method="POST">
-
                                     <input type="submit" class="btn  btn-lg btn-outline-danger round btn-header" value="Log out" />
-
                                 </form:form>
                             </li>
                         </ul>
@@ -100,13 +100,12 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
                         </li>
                         <li class="nav-item">
-                            <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-dark round btn-header" role="button"
+                            <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-light round btn-header" role="button"
                                aria-disabled="true">Sign In</a>
                         </li>
                     </ul>
                     </c:otherwise>
                 </c:choose>
-
             </div>
         </nav>
 
@@ -116,28 +115,19 @@
         </div>
         <div class="container search-bar position-absolute shadow-sm">
             <form class="row">
-                <div
-                        class="col-lg-3 col-md-6 col-sm-12 d-flex align-items-center justify-content-center padding-smallSize">
-                    <label for="inputGroupSelect01"></label><select class="custom-select w-75 text-center" id="inputGroupSelect01">
+                <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
+                    <select class="custom-select w-75 text-center" id="inputGroupSelect01">
                         <option selected style="font-size: 1rem;">Select Club</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <c:forEach items="${clubs}" var="club">
+                            <option>${club.name}</option>
+                        </c:forEach>
                     </select>
                 </div>
-                <div
-                        class="col-lg-3 col-md-6 col-sm-12 d-flex align-items-center justify-content-center padding-smallSize">
-                    <label for="startDate" class="my-0 mr-2">Start Date</label>
-                    <input type="date" class="text-center" id="startDate">
+                <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
+                    <input id="demo-mobile-picker-input" class="custom-select w-75 text-center" placeholder="Date Range" required />
                 </div>
-                <div
-                        class="col-lg-3 col-md-6 col-sm-12 d-flex align-items-center justify-content-center padding-smallSize">
-                    <label for="endDate" class="my-0 mr-2">End Date</label>
-                    <input type="date" class="text-center" id="endDate">
-                </div>
-                <div
-                        class="col-lg-3 col-md-6 col-sm-12 d-flex align-items-center justify-content-center padding-smallSize">
-                    <button type="button" class="btn search-btn rounded-pill w-75">Filter Events</button>
+                <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
+                    <button type="button" class="btn btn-purple rounded-pill w-75">Filter Events</button>
                 </div>
             </form>
         </div>
@@ -145,7 +135,7 @@
     <div class="py-5"></div>
     <div class="container-fluid" style="height: 280px;">
         <!-- Swiper -->
-        <div class="swiper events">
+        <div class="swiper events" id="events">
             <h1 class="font-weight-bold mb-3">Upcoming Events</h1>
             <div class="swiper-pagination"></div>
             <div class="swiper-wrapper  mb-5">
@@ -157,14 +147,14 @@
                                 <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" alt="Card image cap">
                             </div>
                             <div class="card-body row">
-                                <div class="col-6">
+                                <div class="col-8">
                                     <h5 class="card-title">${event.name}</h5>
                                     <p class="card-text"
                                         <fmt:formatDate value="${event.date}" type="date" pattern="EE, MM DD YYYY"/>
                                     </p>
                                 </div>
-                                <div class="col-6 text-right">
-                                    <a href="#" class="btn btn-primary">Participate</a>
+                                <div class="col-4 text-right">
+                                    <a href="#" class="btn btn-purple">Participate</a>
                                 </div>
                             </div>
                         </div>
@@ -176,15 +166,15 @@
     </div>
     <div class="py-5"></div>
     <div class="container-fluid">
-        <div class="swiper clubs">
+        <div class="swiper clubs" id="clubs">
 
             <h1 class="font-weight-bold mb-3">Clubs</h1>
             <div class="swiper-wrapper  mb-5">
                 <c:forEach items="${clubs}" var="club">
                     <div class="swiper-slide">
-                        <div class="card-img-box">
+                        <a class="card-img-box" href="${pageContext.request.contextPath}/club/${club.name}">
                             <img class="rounded-circle" style="width:100px" src="${pageContext.request.contextPath}/assets/img/clubs/logos/${club.logo}" alt="${club.name}">
-                        </div>
+                        </a>
                         <div class="d-flex forever justify-content-center">
                             ${club.name}
                         </div>
@@ -197,7 +187,7 @@
         </div>
 
     </div>
-    <footer class="bg-color-blue d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 border-top footer-color">
         <p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
 
         <a href="${pageContext.request.contextPath}/"
@@ -222,7 +212,6 @@
 
     <!-- Main script -->
     <script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
-
 </body>
 
 </html>

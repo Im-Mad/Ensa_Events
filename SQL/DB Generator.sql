@@ -19,7 +19,7 @@ CREATE TABLE `users` (
                          `first_name` char(50) NOT NULL,
                          `last_name` char(50) NOT NULL,
                          `email` char(50) NOT NULL,
-                         `avatar` varchar(50) NOT NULL,
+                         `avatar` varchar(50) NOT NULL DEFAULT 'default.png',
                          `enabled` int NOT NULL DEFAULT 1,
                          `id_role` INT NOT NULL,
                          PRIMARY KEY (`id`),
@@ -30,8 +30,8 @@ CREATE TABLE `clubs` (
                         `id` INT  NOT NULL AUTO_INCREMENT,
                         `name` char(50) NOT NULL,
                         `description` char(50),
-                        `logo` char(50) DEFAULT 'default.png',
-                        `cover_photo` char(50) DEFAULT 'default.png',
+                        `logo` char(50) NOT NULL DEFAULT 'default.png',
+                        `cover_photo` char(50) NOT NULL DEFAULT 'default.png',
                         `user_id` INT NOT NULL,
                         FOREIGN KEY (user_id) references users (id) on delete cascade,
                         PRIMARY KEY (`id`)
@@ -42,7 +42,7 @@ CREATE TABLE `events` (
                          `date` DATE NOT NULL,
                          `name` char(68) NOT NULL,
                          `description` varchar(100) NOT NULL,
-                         `cover_photo` varchar(50) NOT NULL,
+                         `cover_photo` varchar(50) NOT NULL DEFAULT 'default.png',
                          `club_id` INT NOT NULL,
                          FOREIGN KEY (club_id) references clubs (id) on delete cascade,
                          PRIMARY KEY (`id`)

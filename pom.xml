@@ -128,7 +128,7 @@
   
 
   <build>
-    <finalName>demo</finalName>
+    <finalName>Ensa_Event_Build</finalName>
     <plugins>
 		<plugin>
 				<!-- Add Maven coordinates (GAV) for: maven-war-plugin -->
