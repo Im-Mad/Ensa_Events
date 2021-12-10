@@ -1,7 +1,8 @@
 package ma.ensaevents.entity;
 
 import javax.persistence.*;
-
+import javax.xml.crypto.Data;
+import java.util.Date;
 
 
 @Entity
@@ -18,6 +19,9 @@ public class Review {
 
     @Column(name="rating")
     private int rating;
+
+    @Column(name = "date")
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name="user_id")
@@ -67,5 +71,13 @@ public class Review {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
