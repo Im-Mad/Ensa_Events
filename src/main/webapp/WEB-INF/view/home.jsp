@@ -117,7 +117,7 @@
             <h4 class="heading-subtitle">Keep track of all ensa's events</h4>
         </div>
         <div class="container search-bar position-absolute shadow-sm">
-            <form:form action="${pageContext.request.contextPath}/event/filterEvents" method="POST" class="row">
+            <form:form action="${pageContext.request.contextPath}/event/filterEvents" method="POST" class="row w-100">
                 <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
                     <select class="custom-select w-75 text-center" id="inputGroupSelect01" name="selectedClub">
                         <option selected style="font-size: 1rem;">All Clubs</option>
@@ -191,6 +191,12 @@
         </div>
 
     </div>
+
+    <div  class="container-fluid py-2">
+        <h1 class="font-weight-bold mb-1">Find Us</h1>
+        <div id="map" style="height: 300px; width: 100%"></div>
+    </div>
+
     <div  class="container-fluid ">
         <div class="section-email">
             <div class="row h-100 px-5">
@@ -218,21 +224,23 @@
         </div>
 
     </div>
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 footer-color">
-        <p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
+    <div class="container-fluid">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 footer-color">
+            <p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
 
-        <a href="${pageContext.request.contextPath}/"
-           class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-            <img class="bi me-2" height="40" src="${pageContext.request.contextPath}/assets/img/Logo.png" alt=""/>
-        </a>
-        <ul class="nav col-md-4 justify-content-end .text-white">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
-        </ul>
-    </footer>
+            <a href="${pageContext.request.contextPath}/"
+               class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                <img class="bi me-2" height="40" src="${pageContext.request.contextPath}/assets/img/Logo.png" alt=""/>
+            </a>
+            <ul class="nav col-md-4 justify-content-end .text-white">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
+            </ul>
+        </footer>
+    </div>
 
     <!-- JQuery -->
     <script src="${pageContext.request.contextPath}/assets/js/jquery-3.6.0.js"></script>
@@ -247,6 +255,23 @@
     <!-- Email script -->
     <script src="${pageContext.request.contextPath}/assets/js/smtp.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/email.js"></script>
+
+    <!-- Maps script -->
+    <script>
+        function initMap() {
+            var location = { lat: 30.405456690329103 , lng: -9.529829851343472};
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: location,
+            });
+
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPdj7MUx_io2Ad_lSBT8MB3kK6zuHeBdE&callback=initMap"></script>
 </body>
 
 </html>
