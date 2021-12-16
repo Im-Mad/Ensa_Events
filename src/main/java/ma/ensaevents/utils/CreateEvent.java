@@ -1,22 +1,19 @@
 package ma.ensaevents.utils;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class CreateEvent {
 
-    @NotNull(message = "A username is required")
-    @Size(min = 1, message = "A username is required")
-    private Date date;
+    public static boolean validate(String eventName) {
+        if(eventName.length() <= 12 && eventName.length()>0 ) {
+            return true;
+        }
+        return false;
+    }
 
-    @NotNull(message = "A username is required")
-    @Size(min = 1, message = "A username is required")
-    private String name;
-
-    @NotNull(message = "A username is required")
-    @Size(min = 1, message = "A username is required")
-    private String description;
-
-    private String coverPhoto;
+    public static boolean validate(Date startDate, Date endDate) {
+        if(startDate.before(endDate))
+            return true;
+        return false;
+    }
 }

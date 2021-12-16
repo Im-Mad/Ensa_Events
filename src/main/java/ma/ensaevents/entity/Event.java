@@ -16,6 +16,9 @@ public class Event {
     @Column(name="date")
     private Date date;
 
+    @Column(name="end_date")
+    private Date endDate;
+
     @Column(name="name")
     private String name;
 
@@ -145,5 +148,13 @@ public class Event {
 
     public void setRatingStats(int[] ratingStats) {
         this.ratingStats = ratingStats;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

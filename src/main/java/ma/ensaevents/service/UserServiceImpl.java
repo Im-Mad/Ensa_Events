@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
+import ma.ensaevents.entity.Club;
+import ma.ensaevents.entity.Event;
 import ma.ensaevents.utils.UpdatePassword;
 import ma.ensaevents.utils.CreateUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +49,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		User user = userDao.findByUserName(userName);
-		if (user == null) {
-			throw new UsernameNotFoundException("Invalid username or password.");
-		}
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				getAuthorities(user.getRole()));
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),user.getEnabled(),true,true,true,getAuthorities(user.getRole()));
 	}
 
 	// Pour changer la collection de role aux user role!
@@ -121,4 +119,27 @@ public class UserServiceImpl implements UserService {
 		return Usernames;
 	}
 
+	@Override
+	@Transactional
+	public List<Event> myEvents(User currentUser) {
+		return userDao.getMyEvents(currentUser);
+	}
+
+	@Override
+	@Transactional
+	public List<Club> myClubs(User currentUser) {
+		return userDao.getMyClubs(currentUser);
+	}
+
+	@Override
+	@Transactional
+	public List<User> findActiveUsers() {
+		return userDao.findActiveUsers();
+	}
+
+	@Override
+	@Transactional
+	public List<User> findSuspendedUsers() {
+		return userDao.findSuspendedUsers();
+	}
 }

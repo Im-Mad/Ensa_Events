@@ -1,5 +1,7 @@
 package ma.ensaevents.service;
 
+import ma.ensaevents.entity.Club;
+import ma.ensaevents.entity.Event;
 import ma.ensaevents.utils.UpdatePassword;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -22,4 +24,12 @@ public interface UserService extends UserDetailsService {
     void changePassword(HttpServletRequest request, UpdatePassword changePassword);
 
     List<String> usersUsernames();
+
+    List<Event> myEvents(User currentUser);
+
+    List<Club> myClubs(User currentUser);
+
+    List<User> findActiveUsers();
+
+    List<User> findSuspendedUsers();
 }

@@ -13,4 +13,8 @@ public interface EventDao {
     public void Delete(Event event);
 
     public List<Event> findAllEvents();
+
+    public List<Event> findAllEventsAfterToday();
+
+    List<Event> executeQuery(String Query);
 }

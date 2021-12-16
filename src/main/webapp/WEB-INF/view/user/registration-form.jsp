@@ -20,7 +20,7 @@
 
 <body class="hero">
 
-	<header>
+	<div>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-transparent ">
 
 			<!--  Show this only on mobile to medium screens  -->
@@ -72,12 +72,15 @@
 							</security:authorize>
 							<security:authorize access="hasRole('USER')">
 								<li class="nav-item">
-									<a class="nav-link" href="#">My Events</a>
+									<a class="nav-link" href="${pageContext.request.contextPath}/user/myEvents">My Events</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="${pageContext.request.contextPath}/user/myClubs">My Clubs</a>
 								</li>
 							</security:authorize>
 							<li class="nav-item">
 								<a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
-									<img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}">
+									<img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt="">
 								</a>
 							</li>
 							<li class="nav-item">
@@ -91,7 +94,7 @@
 					<c:otherwise >
 						<ul class="navbar-nav">
 							<li class="nav-item pr-2">
-								<a class="nav-link active" href="${pageContext.request.contextPath}/register">Sign Up</a>
+								<a class="nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
 							</li>
 							<li class="nav-item">
 								<a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-light round btn-header " role="button"
@@ -102,7 +105,7 @@
 				</c:choose>
 			</div>
 		</nav>
-	</header>
+	</div>
 
 	<section class="bg-transparent" >
 		<div class="container py-4">

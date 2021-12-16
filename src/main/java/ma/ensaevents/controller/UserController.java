@@ -1,5 +1,7 @@
 package ma.ensaevents.controller;
 
+import ma.ensaevents.entity.Club;
+import ma.ensaevents.entity.Event;
 import ma.ensaevents.entity.User;
 import ma.ensaevents.service.UserService;
 import ma.ensaevents.utils.UpdatePassword;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -93,5 +96,39 @@ public class UserController {
 
         theModel.addAttribute("passwordChangeConfirm", "The password change is confirmed");
         return "user/account";
+    }
+
+    @GetMapping("/myEvents")
+    public String myEvents(Model theModel,
+                           HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        List<Event> events = userService.myEvents(user);
+
+        theModel.addAttribute("events",events);
+        return "user/myEvents";
+    }
+
+    @GetMapping("/myClubs")
+    public String myClubs(Model theModel,
+                           HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        List<Club> clubs = userService.myClubs(user);
+
+        theModel.addAttribute("clubs",clubs);
+        return "user/myClubs";
+    }
+
+    @GetMapping("/manage")
+    public String manageUsers(Model theModel) {
+        List<User> usersActive = userService.findActiveUsers();
+
+        List<User> usersSuspended = userService.findSuspendedUsers();
+
+        theModel.addAttribute("usersActive", usersActive);
+        theModel.addAttribute("usersSuspended",usersSuspended);
+
+        return "/admin/manageUsers";
     }
 }

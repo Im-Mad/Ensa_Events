@@ -1,5 +1,7 @@
 package ma.ensaevents.dao;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -7,7 +9,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import ma.ensaevents.entity.Event;
 
@@ -56,11 +57,34 @@ public class EventDaoImpl implements EventDao{
         Query<Event> query = session.createQuery("FROM Event",Event.class);
         List<Event> events = query.list();
 
+        for(Event event:events) {
+            event.getParticipants().size();
+        }
+
         return events;
     }
 
+    @Override
+    public List<Event> findAllEventsAfterToday() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String date =formatter.format(now);
 
+        Session session = sessionFactory.getCurrentSession();
+        Query<Event> query = session.createQuery("FROM Event WHERE  date>'"+date+"' OR end_date>'"+date+"' ORDER BY date", Event.class);
 
+        return query.list();
+    }
 
+    @Override
+    public List<Event> executeQuery(String Query) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Event> query = session.createQuery(Query, Event.class);
 
+        List<Event> events = query.list();
+        for(Event event:events) {
+            event.getParticipants().size();
+        }
+        return events;
+   }
 }

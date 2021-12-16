@@ -70,7 +70,7 @@
                             </security:authorize>
                             <security:authorize access="hasRole('MANAGER')">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Create Event</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/event/create">Create Event</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage Club</a>
@@ -78,7 +78,10 @@
                             </security:authorize>
                             <security:authorize access="hasRole('USER')">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">My Events</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user/myEvents">My Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user/myClubs">My Clubs</a>
                                 </li>
                             </security:authorize>
                             <li class="nav-item">
@@ -114,22 +117,22 @@
             <h4 class="heading-subtitle">Keep track of all ensa's events</h4>
         </div>
         <div class="container search-bar position-absolute shadow-sm">
-            <form class="row">
+            <form:form action="${pageContext.request.contextPath}/event/filterEvents" method="POST" class="row">
                 <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
-                    <select class="custom-select w-75 text-center" id="inputGroupSelect01">
-                        <option selected style="font-size: 1rem;">Select Club</option>
+                    <select class="custom-select w-75 text-center" id="inputGroupSelect01" name="selectedClub">
+                        <option selected style="font-size: 1rem;">All Clubs</option>
                         <c:forEach items="${clubs}" var="club">
                             <option>${club.name}</option>
                         </c:forEach>
                     </select>
                 </div>
                 <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
-                    <input id="demo-mobile-picker-input" class="custom-select w-75 text-center" placeholder="Date Range" required />
+                    <input name="dateRange" id="demo-mobile-picker-input" class="custom-select w-75 text-center" placeholder="Date Range" required />
                 </div>
                 <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
-                    <button type="button" class="btn btn-purple rounded-pill w-75">Filter Events</button>
+                    <button type="submit" class="btn btn-purple rounded-pill w-75">Filter Events</button>
                 </div>
-            </form>
+            </form:form>
         </div>
     </div>
     <div class="py-5"></div>
@@ -144,13 +147,14 @@
                     <div class="swiper-slide">
                         <div class="card rounded">
                             <div class="card-img-box">
-                                <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" alt="Card image cap">
+                                <p class="status status-upcoming status-home">In 222 days </p>
+                                <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" alt="Card image cap" style="height:100%; width: 100%">
                             </div>
                             <div class="card-body row">
                                 <div class="col-8">
                                     <h5 class="card-title">${event.name}</h5>
-                                    <p class="card-text"
-                                        <fmt:formatDate value="${event.date}" type="date" pattern="EE, MM DD YYYY"/>
+                                    <p class="card-text">
+                                        <fmt:formatDate value="${event.date}" type="date" pattern="EE, dd MM YYYY"/>
                                     </p>
                                 </div>
                                 <div class="col-4 text-right">
@@ -187,7 +191,34 @@
         </div>
 
     </div>
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 border-top footer-color">
+    <div  class="container-fluid ">
+        <div class="section-email">
+            <div class="row h-100 px-5">
+                <div class="col-md-6 col-12 col-sm-12 my-auto section-email_container">
+                    <h1 class="font-weight-bold mb-3 mt-2"> Contact Us</h1>
+                    <form method="POST" id="emailForm">
+                        <div class="form-gp form-home w-50">
+                            <label for="sendMailName">Name :</label>
+                            <input type="text" id="sendMailName" name="sendMailName" required>
+                        </div>
+                        <div class="form-gp form-home w-50">
+                            <label for="sendMailEmail">Email :</label>
+                            <input type="email" id="sendMailEmail" name="sendMailEmail" required>
+                        </div>
+                        <div class="form-gp form-home w-50">
+                            <label for="sendMailBody">Message</label>
+                            <textarea type="text" id="sendMailBody" name="sendMailBody" rows="10"></textarea>
+                        </div>
+                        <div class="text-right pt-1 mb-1 pb-1 w-50 form-home_button">
+                            <input type="submit" id="submit" class="btn btn-purple mb-3" value="Send" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 footer-color">
         <p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
 
         <a href="${pageContext.request.contextPath}/"
@@ -212,6 +243,10 @@
 
     <!-- Main script -->
     <script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
+
+    <!-- Email script -->
+    <script src="${pageContext.request.contextPath}/assets/js/smtp.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/email.js"></script>
 </body>
 
 </html>

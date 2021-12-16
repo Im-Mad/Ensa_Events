@@ -22,8 +22,8 @@
 </head>
 
 <body class="hero">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-transparent ">
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent ">
 
             <!--  Show this only on mobile to medium screens  -->
             <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
@@ -50,7 +50,7 @@
 
 
                 <!--   Show this only lg screens and up   -->
-                <a class="navbar-brand d-none d-lg-block" href="${pageContext.request.contextPath}/">
+                <a class="navbar-brand d-none d-lg-block header-logo" href="${pageContext.request.contextPath}/">
                     <img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="">
                 </a>
                 <c:choose>
@@ -74,12 +74,15 @@
                             </security:authorize>
                             <security:authorize access="hasRole('USER')">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">My Events</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user/myEvents">My Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user/myClubs">My Clubs</a>
                                 </li>
                             </security:authorize>
                             <li class="nav-item">
                                 <a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
-                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}">
+                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt="">
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -96,7 +99,7 @@
                                 <a class="nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
                             </li>
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-dark round btn-header" role="button"
+                                <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-light round btn-header " role="button"
                                    aria-disabled="true">Sign In</a>
                             </li>
                         </ul>
@@ -104,7 +107,7 @@
                 </c:choose>
             </div>
         </nav>
-    </header>
+    </div>
 
     <section>
         <div class="container py-4">
@@ -124,7 +127,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item side-nav-item">
-                                            <a class="side-nav-link nav-link px-md-5 py-3" href="#">
+                                            <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/user/myEvents">
                                                 <svg class="menu-icon mr-3">
                                                     <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
                                                 </svg>
@@ -132,7 +135,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item side-nav-item">
-                                            <a class="side-nav-link nav-link px-md-5 py-3" href="#">
+                                            <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/user/myClubs">
                                                 <svg class="menu-icon mr-3">
                                                     <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
                                                 </svg>
@@ -140,7 +143,7 @@
                                             </a>
                                         </li>
                                         <security:authorize access="hasRole('MANAGER')">
-                                            <li class="nav-item side-nav-item ">
+                                            <li class="nav-item side-nav-item active">
                                                 <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/club/update">
                                                     <svg class="menu-icon mr-3">
                                                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
@@ -149,8 +152,18 @@
                                                 </a>
                                             </li>
                                         </security:authorize>
+                                        <security:authorize access="hasRole('MANAGER')">
+                                            <li class="nav-item side-nav-item">
+                                                <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/club/create">
+                                                    <svg class="menu-icon mr-3">
+                                                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
+                                                    </svg>
+                                                    Create Event
+                                                </a>
+                                            </li>
+                                        </security:authorize>
                                         <security:authorize access="hasRole('ADMIN')">
-                                            <li class="nav-item side-nav-item active">
+                                            <li class="nav-item side-nav-item">
                                                 <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/club/create">
                                                     <svg class="menu-icon mr-3">
                                                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
@@ -161,7 +174,7 @@
                                         </security:authorize>
                                         <security:authorize access="hasRole('ADMIN')">
                                             <li class="nav-item side-nav-item ">
-                                                <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/club/create">
+                                                <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/user/manage">
                                                     <svg class="menu-icon mr-3">
                                                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
                                                     </svg>
@@ -178,23 +191,23 @@
                                     <span class="alert-success" >${updateResultSuccess}</span>
                                     <span class="alert-error" >${updateResultError}</span>
                                     <form action="${pageContext.request.contextPath}/club/update?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" method="POST">
-                                        <div class="form-group">
+                                        <div class="form-gp">
                                             <label for="clubDescription">Club Description</label>
-                                            <textarea name="description" Class="form-control" id="clubDescription">${club.description}</textarea>
+                                            <textarea name="description" Class="" id="clubDescription">${club.description}</textarea>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-gp">
                                             <img src="${pageContext.request.contextPath}/assets/img/clubs/logos/${club.logo}" style="width:5rem;height:5rem;"
                                                  class="rounded-circle mr-3" alt="Club Logo">
-                                            <label for="clubLogo" class="border-bottom border-dark" role="button">Choose new logo</label>
-                                            <input type="file" class="d-none form-control" name="clubLogoFile" id="clubLogo">
+                                            <label for="clubLogo" class="border-bottom " role="button">Choose new logo</label>
+                                            <input type="file" class="d-none " name="clubLogoFile" id="clubLogo">
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-gp">
                                             <img src="${pageContext.request.contextPath}/assets/img/clubs/cover_photos/${club.coverPhoto}" style="width:100%;"
                                                  class="mr-3" alt="Club Cover Photo">
-                                            <label for="clubCoverPhoto" class="border-bottom border-dark pt-1" role="button">Choose new club cover</label>
-                                            <input type="file" class="d-none form-control" name="clubCoverFile" id="clubCoverPhoto">
+                                            <label for="clubCoverPhoto" class="border-bottom  pt-1" role="button">Choose new club cover</label>
+                                            <input type="file" class="d-none " name="clubCoverFile" id="clubCoverPhoto">
                                         </div>
                                         <div class="text-right pt-1 mb-4 pb-1">
                                             <button class="btn btn-purple mb-3" >Update Images</button>
