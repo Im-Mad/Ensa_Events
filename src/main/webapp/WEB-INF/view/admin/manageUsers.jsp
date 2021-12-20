@@ -189,10 +189,10 @@
                             <div class="card-body p-md-5 mx-md-4">
                                 <h3 class="font-weight-bold text-uppercase">Manage Users</h3>
                                 <span class="text-success" >${suspendConfirmation}</span>
-                                <form:form action="${pageContext.request.contextPath}/club/create" method="POST" >
+                                <form:form action="${pageContext.request.contextPath}/user/suspend" method="POST" >
                                     <div class="form-gp">
                                         <label for="inputGroupSelect0">Select a user to suspend</label>
-                                        <select class="custom-select w-75 text-center" id="inputGroupSelect0" name="selectedSuspendedUser">
+                                        <select class="custom-select w-75 text-center" id="inputGroupSelect0" name="selectedUser">
                                             <c:forEach items="${usersActive}" var="user">
                                                 <option>${user.username}</option>
                                             </c:forEach>
@@ -203,10 +203,10 @@
                                         <button class="btn btn-purple mb-3" >Suspend</button>
                                     </div>
                                 </form:form>
-                                <form:form action="${pageContext.request.contextPath}/club/create" method="POST" >
+                                <form:form action="${pageContext.request.contextPath}/user/unsuspend" method="POST" >
                                     <div class="form-gp">
                                         <label for="inputGroupSelect01">Select a user to unsuspend</label>
-                                        <select class="custom-select w-75 text-center" id="inputGroupSelect01" name="selectedSuspendedUser">
+                                        <select class="custom-select w-75 text-center" id="inputGroupSelect01" name="selectedUser">
                                             <c:forEach items="${usersSuspended}" var="user">
                                                 <option>${user.username}</option>
                                             </c:forEach>
