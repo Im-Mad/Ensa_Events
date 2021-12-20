@@ -47,8 +47,8 @@
 </head>
 
 <body class="w-100">
-<div class="hero-home">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent ">
+<header class="footer-color">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
 
         <!--  Show this only on mobile to medium screens  -->
         <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img
@@ -64,7 +64,7 @@
 
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active header-typography" href="${pageContext.request.contextPath}/">Home </a>
+                    <a class="nav-link header-typography" href="${pageContext.request.contextPath}/">Home </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">All Events</a>
@@ -80,7 +80,7 @@
                 <img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="">
             </a>
             <c:choose>
-                <c:when test="${seuser != null}">
+                <c:when test="${user != null}">
                     <ul class="navbar-nav">
                         <security:authorize access="hasRole('ADMIN')">
                             <li class="nav-item">
@@ -102,13 +102,17 @@
                         </security:authorize>
                         <security:authorize access="hasRole('USER')">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">My Events</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/user/myEvents">My
+                                    Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/user/myClubs">My Clubs</a>
                             </li>
                         </security:authorize>
                         <li class="nav-item">
                             <a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
                                 <img class="rounded-circle mx-4" height="40" width="40"
-                                     src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt=""/>
+                                     src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt="">
                             </a>
                         </li>
                         <li class="nav-item">
@@ -127,7 +131,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="${pageContext.request.contextPath}/login"
-                               class="btn  btn-lg btn-outline-light round btn-header" role="button"
+                               class="btn  btn-lg btn-outline-light round btn-header " role="button"
                                aria-disabled="true">Sign In</a>
                         </li>
                     </ul>
@@ -135,7 +139,8 @@
             </c:choose>
         </div>
     </nav>
-</div>
+</header>
+
 
 <div class="text-center bg-main d-flex justify-content-center">
     <img src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" class="cover-img">
@@ -289,8 +294,7 @@
                             </div>
                         </div>
                         <security:authorize access="hasRole('USER')">
-                            <%--fixme event status to be added to the if clause--%>
-                            <c:if test="${event.reviewers.contains(seuser.username) && !event.status.equals(EventStatus.UPCOMING)}">
+                            <c:if test="${!event.reviewers.contains(user.username) && event.participants.contains(user) && event.status.equals(EventStatus.FINISHED)}">
                                 <div class="card review-card">
                                     <form:form method="post" action="${pageContext.request.contextPath}/reviews/add"
                                                class="text-left">
@@ -356,10 +360,13 @@
                                 <div class="text-left">
                                     <p class="content">${review.description}</p>
                                     <c:if test="${review.user.username.equals(user.username)}">
-                                        <%-- fixme  deleteReview(id) has to be implemented--%>
                                         <a class="link-primary"
                                            href="${pageContext.request.getContextPath()}/reviews/delete/${review.id}?redirect=${event.id}">Delete</a>
                                     </c:if>
+                                    <security:authorize  access="hasRole('ADMIN')" >
+                                        <a class="link-primary"
+                                           href="${pageContext.request.getContextPath()}/reviews/delete/${review.id}?redirect=${event.id}">Delete</a>
+                                    </security:authorize>
                                 </div>
                             </div>
                         </c:forEach>

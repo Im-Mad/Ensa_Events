@@ -3,7 +3,7 @@ package ma.ensaevents.entity;
 public enum EventStatus {
 
     ONGOING("ongoing", "yellow"),
-    ENDED("ended", "red"),
+    FINISHED("finished", "red"),
     UPCOMING("upcoming", "green");
 
     private final String label;

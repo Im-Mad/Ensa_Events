@@ -92,7 +92,7 @@ public class Event {
         }
 
         else if(endDate.before(new Date()))
-            status = EventStatus.ENDED;
+            status = EventStatus.FINISHED;
         else status =  EventStatus.ONGOING;
     }
 
