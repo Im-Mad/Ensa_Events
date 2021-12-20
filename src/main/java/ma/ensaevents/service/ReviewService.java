@@ -12,7 +12,7 @@ public interface ReviewService {
 
     public List<Review> getReviews(Event event);
 
-    public Review getReview(Event event, User user);
+    public Review getReview(int reviewId);
 
     public void deleteReview(Review review);
 

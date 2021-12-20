@@ -33,8 +33,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     @Transactional
-    public Review getReview(Event event, User user) {
-        return reviewDao.getReview(event, user);
+    public Review getReview(int reviewId) {
+        return reviewDao.getReview(reviewId);
     }
 
     @Override

@@ -12,11 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 import ma.ensaevents.entity.Event;
@@ -84,7 +80,8 @@ public class ReviewController {
 
             reviewService.saveReview(review);
 
-           return "redirect:" + request.getContextPath() + "/event/" + eventId;
+        final String redirectUrl = "redirect:/event/" + eventId;
+        return redirectUrl;
     }
 
     //------------------------UPDATE THE REVIEW--------------------------------
@@ -101,20 +98,17 @@ public class ReviewController {
         User user = userService.findByUserName(userName);
 
         //get the review from db
-        Review review = reviewService.getReview(event, user);
+//        Review review = reviewService.getReview(reviewId);
 
         //set customer as a model att ribute
-        theModel.addAttribute("review",review);
+//        theModel.addAttribute("review",review);
 
         //send over to our form
         return "form-add-review";
     }
 
-    @GetMapping("/delete")
-    public String deleteReview(@RequestParam("eventId") int eventId) {
-
-        //get EVENT
-        Event event = eventService.findByEventId(eventId);
+    @GetMapping("/delete/{id}")
+    public String deleteReview(@PathVariable("id") int reviewId, @RequestParam("redirect") int eventId) {
 
         //get USER by USERNAME
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -122,11 +116,8 @@ public class ReviewController {
         User user = userService.findByUserName(userName);
 
         //get the review from db
-        Review review = reviewService.getReview(event, user);
-
+        Review review = reviewService.getReview(reviewId);
         reviewService.deleteReview(review);
-        return "redirect:/review/list";
+        return "redirect:/event/" + eventId;
     }
-
-
 }

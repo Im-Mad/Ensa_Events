@@ -1,39 +1,47 @@
 package ma.ensaevents.entity;
 
 import javax.persistence.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
-@Table(name="events")
+@Table(name = "events")
 public class Event {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    @Column(name="date")
+    @Column(name = "date")
     private Date date;
 
-    @Column(name="name")
+    @Column(name = "end_date")
+    private Date endDate;
+
+    @Column(name = "name")
     private String name;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name="cover_photo")
+    @Column(name = "cover_photo")
     private String coverPhoto;
 
     @ManyToOne
-    @JoinColumn(name="club_id")
+    @JoinColumn(name = "club_id")
     private Club club;
 
     @ManyToMany
     @JoinTable(
-            name="participants",
-            joinColumns=@JoinColumn(name="event_id"),
-            inverseJoinColumns=@JoinColumn(name="user_id")
+            name = "participants",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<User> participants;
 
@@ -42,25 +50,50 @@ public class Event {
 
     @Transient
     private double avgRating;
-    
+
+    @Transient
+    private EventStatus status;
+
+    @Transient
+    private Long leftDays;
+
     @Transient
     private int[] ratingStats = new int[5];
 
+    @Transient
+    private List<String> reviewers = new ArrayList<>();
+
+
     @PostLoad
-    public void calculateAvgRating(){
+    public void calculation() {
         if (reviews.size() == 0)
             avgRating = 4;
         else {
             try {
                 avgRating = reviews.stream().mapToInt(o -> o.getRating()).average().getAsDouble();
+                reviewers = reviews.stream().map(review -> review.getUser().getUsername()).collect(Collectors.toList());
                 reviews.stream().forEach(review -> {
-                    ratingStats[review.getRating()-1]++;
+                    ratingStats[review.getRating() - 1]++;
                 });
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
+        if (date.after(new Date())) {
+            System.out.println("Hello" + id);
+            System.out.println(date);
+            System.out.println(new Date());
+            status = EventStatus.UPCOMING;
+            LocalDateTime date = this.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            LocalDateTime now = LocalDateTime.now();
+            leftDays = Duration.between(now, date).toDays();
+            System.out.println ("Days: " + leftDays);
+        }
+
+        else if(endDate.before(new Date()))
+            status = EventStatus.ENDED;
+        else status =  EventStatus.ONGOING;
     }
 
     public List<Review> getReviews() {
@@ -72,7 +105,6 @@ public class Event {
     }
 
     public Event() {
-
     }
 
     public int getId() {
@@ -97,6 +129,14 @@ public class Event {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getLeftDays() {
+        return leftDays;
+    }
+
+    public void setLeftDays(Long leftDays) {
+        this.leftDays = leftDays;
     }
 
     public String getDescription() {
@@ -145,5 +185,29 @@ public class Event {
 
     public void setRatingStats(int[] ratingStats) {
         this.ratingStats = ratingStats;
+    }
+
+    public void setStatus(EventStatus status) {
+        this.status = status;
+    }
+
+    public List<String> getReviewers() {
+        return reviewers;
+    }
+
+    public void setReviewers(List<String> reviewers) {
+        this.reviewers = reviewers;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public EventStatus getStatus() {
+        return status;
     }
 }

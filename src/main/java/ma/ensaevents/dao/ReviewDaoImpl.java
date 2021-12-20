@@ -31,7 +31,7 @@ public class ReviewDaoImpl implements ReviewDao {
     public List<Review> getReviews(Event event) {
 
         Session currentSession = sessionFactory.getCurrentSession();
-        Query<Review> query= currentSession.createQuery("SELECT FROM Review r WHERE r.event:=event");
+        Query<Review> query= currentSession.createQuery("FROM Review r WHERE event=:event",Review.class);
         query.setParameter("event",event );
         List<Review> reviews = query.getResultList();
 
@@ -46,13 +46,10 @@ public class ReviewDaoImpl implements ReviewDao {
     }
 
     @Override
-    public Review getReview(Event event, User user) {
+    public Review getReview(int reviewId) {
 
         Session currentSession = sessionFactory.getCurrentSession();
-        Query<Review> query= currentSession.createQuery("SELECT FROM Review r WHERE r.event:=event AND r.user:=user");
-        query.setParameter("event",event );
-        query.setParameter("user",user );
-        Review review = query.getSingleResult();
+        Review review = currentSession.get(Review.class, reviewId);
 
         return review;
     }

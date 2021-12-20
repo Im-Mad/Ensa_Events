@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="ma.ensaevents.entity.EventStatus" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
           rel="stylesheet">
     <style>
+
         .bar-1 {
             width: ${100*event.ratingStats[0]/event.reviews.size()}%;
         }
@@ -44,15 +47,120 @@
 </head>
 
 <body class="w-100">
+<div class="hero-home">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent ">
+
+        <!--  Show this only on mobile to medium screens  -->
+        <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img
+                src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!--  Use flexbox utility classes to change how the child elements are justified  -->
+        <div class="collapse navbar-collapse justify-content-between px-3" id="navbarToggle">
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active header-typography" href="${pageContext.request.contextPath}/">Home </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">All Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">All Clubs</a>
+                </li>
+            </ul>
+
+
+            <!--   Show this only lg screens and up   -->
+            <a class="navbar-brand d-none d-lg-block header-logo" href="${pageContext.request.contextPath}/">
+                <img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="">
+            </a>
+            <c:choose>
+                <c:when test="${seuser != null}">
+                    <ul class="navbar-nav">
+                        <security:authorize access="hasRole('ADMIN')">
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/club/create">Create
+                                    Club</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Manage Users</a>
+                            </li>
+                        </security:authorize>
+                        <security:authorize access="hasRole('MANAGER')">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Create Event</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage
+                                    Club</a>
+                            </li>
+                        </security:authorize>
+                        <security:authorize access="hasRole('USER')">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">My Events</a>
+                            </li>
+                        </security:authorize>
+                        <li class="nav-item">
+                            <a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
+                                <img class="rounded-circle mx-4" height="40" width="40"
+                                     src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt=""/>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <form:form action="${pageContext.request.contextPath}/logout"
+                                       method="POST">
+                                <input type="submit" class="btn  btn-lg btn-outline-danger round btn-header"
+                                       value="Log out"/>
+                            </form:form>
+                        </li>
+                    </ul>
+                </c:when>
+                <c:otherwise>
+                    <ul class="navbar-nav">
+                        <li class="nav-item pr-2">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="${pageContext.request.contextPath}/login"
+                               class="btn  btn-lg btn-outline-light round btn-header" role="button"
+                               aria-disabled="true">Sign In</a>
+                        </li>
+                    </ul>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </nav>
+</div>
+
 <div class="text-center bg-main d-flex justify-content-center">
-    <img src="${pageContext.request.contextPath}/assets/events/${event.coverPhoto}" class="cover-img">
+    <img src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" class="cover-img">
 </div>
 <div class="py-3 px-md-5 px-3">
     <div class="row">
         <div class="col-md-8 col-12">
-            <span class="text-uppercase text-danger"><fmt:formatDate value="${event.date}" type="date"
-                                                                     pattern="EEEE, dd MMM yyyy 'at' HH:mm"/></span>
+            <span class="text-uppercase text-danger">
+                <fmt:formatDate value="${event.date}" type="date" pattern="EEEE, dd MMM yyyy 'at' HH:mm"/>
+                -
+                <fmt:formatDate value="${event.endDate}" type="date"
+                                pattern="EEEE, dd MMM yyyy 'at' HH:mm"/>
+            </span>
             <h3>${event.name}</h3>
+            <c:choose>
+                <c:when test="${event.status.equals(EventStatus.UPCOMING)}">
+                    days = ${event.leftDays}
+                    ${event.status.label}
+                    ${event.status.color}
+                </c:when>
+                <c:otherwise>
+                    ${event.status.label}
+                    ${event.status.color}
+                </c:otherwise>
+            </c:choose>
         </div>
         <div class="col-md-4 col-12 d-flex justify-content-start justify-content-md-end">
             <div class="">
@@ -110,7 +218,8 @@
                             <div class="row justify-content-start d-flex">
                                 <div class="col-md-4 d-flex flex-column">
                                     <div class="rating-box">
-                                        <h1 class="pt-4">${event.avgRating}</h1>
+                                        <h1 class="pt-4"><fmt:formatNumber maxFractionDigits="2"
+                                                                           value="${event.avgRating}"/></h1>
                                         <p class="">out of 5</p>
                                     </div>
                                     <div class="mt-1">
@@ -179,27 +288,38 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card review-card">
-                            <form:form method="post" action="${pageContext.request.contextPath}/reviews/add" class="text-left">
-                                <span >Rating:</span>
-                                <div class="starrating risingstar d-flex justify-content-end flex-row-reverse">
-                                    <input type="radio" id="star5" name="rating" value="5"/><label for="star5"
-                                                                                                   title="5 star"></label>
-                                    <input type="radio" id="star4" name="rating" value="4"/><label for="star4"
-                                                                                                   title="4 star"></label>
-                                    <input type="radio" id="star3" name="rating" value="3"/><label for="star3"
-                                                                                                   title="3 star"></label>
-                                    <input type="radio" id="star2" name="rating" value="2"/><label for="star2"
-                                                                                                   title="2 star"></label>
-                                    <input type="radio" id="star1" name="rating" value="1"/><label for="star1" title="1 star"></label>
+                        <security:authorize access="hasRole('USER')">
+                            <%--fixme event status to be added to the if clause--%>
+                            <c:if test="${event.reviewers.contains(seuser.username) && !event.status.equals(EventStatus.UPCOMING)}">
+                                <div class="card review-card">
+                                    <form:form method="post" action="${pageContext.request.contextPath}/reviews/add"
+                                               class="text-left">
+                                        <span>Rating:</span>
+                                        <div class="starrating risingstar d-flex justify-content-end flex-row-reverse">
+                                            <input type="radio" id="star5" name="rating" value="5"/><label
+                                                for="star5"
+                                                title="5 star"></label>
+                                            <input type="radio" id="star4" name="rating" value="4"/><label
+                                                for="star4"
+                                                title="4 star"></label>
+                                            <input type="radio" id="star3" name="rating" value="3"/><label
+                                                for="star3"
+                                                title="3 star"></label>
+                                            <input type="radio" id="star2" name="rating" value="2"/><label
+                                                for="star2"
+                                                title="2 star"></label>
+                                            <input type="radio" id="star1" name="rating" value="1"/><label
+                                                for="star1"
+                                                title="1 star"></label>
+                                        </div>
+                                        <label for="description">Review:</label>
+                                        <textarea name="description" id="description" class="w-100"></textarea>
+                                        <input type="hidden" name="eventId" value="${event.id}">
+                                        <button class="mt-2 btn btn-primary mb-0">Write a review</button>
+                                    </form:form>
                                 </div>
-                                <label for="description">Review:</label>
-                                <textarea name="description" id="description" class="w-100"></textarea>
-                                <input type="hidden" name="eventId" value="${event.id}">
-                                <button class="mt-2 btn btn-primary mb-0">Write a review</button>
-
-                            </form:form>
-                        </div>
+                            </c:if>
+                        </security:authorize>
                         <c:forEach items="${event.reviews}" var="review">
                             <div class="card review-card">
                                 <div class="row d-flex">
@@ -237,7 +357,8 @@
                                     <p class="content">${review.description}</p>
                                     <c:if test="${review.user.username.equals(user.username)}">
                                         <%-- fixme  deleteReview(id) has to be implemented--%>
-                                        <a class="link-primary" href="#" onclick="deleteReview(id)">Delete</a>
+                                        <a class="link-primary"
+                                           href="${pageContext.request.getContextPath()}/reviews/delete/${review.id}?redirect=${event.id}">Delete</a>
                                     </c:if>
                                 </div>
                             </div>
