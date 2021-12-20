@@ -15,5 +15,5 @@ public interface ClubDao {
 
     public void deleteClub(int theId);
 
-    public Club findByUserName(String name);
+    public Club findByName(String name);
 }

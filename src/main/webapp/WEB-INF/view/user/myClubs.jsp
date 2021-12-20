@@ -134,7 +134,7 @@
                                                 My Events
                                             </a>
                                         </li>
-                                        <li class="nav-item side-nav-item">
+                                        <li class="nav-item side-nav-item active">
                                             <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/user/myClubs">
                                                 <svg class="menu-icon mr-3">
                                                     <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
@@ -163,7 +163,7 @@
                                             </li>
                                         </security:authorize>
                                         <security:authorize access="hasRole('ADMIN')">
-                                            <li class="nav-item side-nav-item active">
+                                            <li class="nav-item side-nav-item">
                                                 <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/club/create">
                                                     <svg class="menu-icon mr-3">
                                                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
@@ -186,26 +186,24 @@
                                 </nav>
                             </div>
                             <div class="col-lg-8 mx-auto bg-white account-navigation-right">
-                                <div class="card-body p-md-5 mx-md-4">
-                                    <h3 class="font-weight-bold text-uppercase">Create a club</h3>
-                                    <span class="text-success" >${creationClubConfirmation}</span>
-                                    <form:form action="${pageContext.request.contextPath}/club/create" method="POST" modelAttribute="newClub">
-                                        <div class="form-gp">
-                                            <label for="clubManager">Select a club manager</label>
-                                            <form:select path="username" items="${userNames}" id="clubManager" cssClass="custom-select w-75 text-center"/>
-                                        </div>
+                                <div class="card-body" style="height: 95%">
+                                    <h3 class="font-weight-bold text-uppercase text-center">My Clubs</h3>
+                                    <div class="h-100" style="height:500px; overflow-x: hidden;  overflow-y:auto ">
+                                        <c:forEach items="${clubs}" var="club">
+                                            <div class="row pb-2" class="height: 10rem">
+                                                <div class="col-3 ">
+                                                    <img src="${pageContext.request.contextPath}/assets/img/clubs/logos/${club.logo}" class="rounded-circle" style="width:5rem;height:5rem;" alt="">
+                                                </div>
+                                                <div class="col-6 text-center align-middle ">
+                                                    <p class="h-100 text-wrap">${club.name}</p>
+                                                </div>
+                                                <div class="col-3">
+                                                    <a href="#" class="btn btn-secondary" style="font-size: 0.8rem;">Unjoin</a>
+                                                </div>
 
-                                        <div class="form-gp">
-                                            <label for="clubName">Club Name</label>
-                                            <form:input path="clubName" id="clubName"/>
-                                            <form:errors path="clubName" cssClass="form-error" />
-                                            <c:if test="${registrationError != null }"><span class="form-error">${registrationError}</span></c:if>
-                                        </div>
-
-                                        <div class="text-right pt-1 mb-4 pb-1">
-                                            <button class="btn btn-purple mb-3" >Create Club</button>
-                                        </div>
-                                    </form:form>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
                                 </div>
                             </div>
                         </div>

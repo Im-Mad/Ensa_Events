@@ -21,10 +21,10 @@ public class Event {
     @Column(name = "date")
     private Date date;
 
-    @Column(name = "end_date")
+    @Column(name="end_date")
     private Date endDate;
 
-    @Column(name = "name")
+    @Column(name="name")
     private String name;
 
     @Column(name = "description")

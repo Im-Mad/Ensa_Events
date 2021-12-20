@@ -20,7 +20,7 @@ CREATE TABLE `users` (
                          `last_name` char(50) NOT NULL,
                          `email` char(50) NOT NULL,
                          `avatar` varchar(50) NOT NULL DEFAULT 'default.png',
-                         `enabled` int NOT NULL DEFAULT 1,
+                         `enabled` boolean NOT NULL DEFAULT true,
                          `id_role` INT NOT NULL,
                          PRIMARY KEY (`id`),
                          FOREIGN KEY (id_role) references roles (id)
@@ -39,7 +39,8 @@ CREATE TABLE `clubs` (
 
 CREATE TABLE `events` (
                          `id` INT  NOT NULL AUTO_INCREMENT,
-                         `date` DATE NOT NULL,
+                         `date` DATETIME NOT NULL,
+                         `end_date` DATETIME NOT NULL,
                          `name` char(68) NOT NULL,
                          `description` varchar(100) NOT NULL,
                          `cover_photo` varchar(50) NOT NULL DEFAULT 'default.png',

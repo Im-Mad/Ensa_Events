@@ -101,6 +101,14 @@ public class Club {
     public void setEvents(List<Event> events) {
         this.events = events;
     }
+
+    public List<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
+    }
 }
 
 

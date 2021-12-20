@@ -16,13 +16,37 @@ INSERT INTO clubs (name,description,user_id) VALUES ('HajarEClub','DESCRIPTION H
 INSERT INTO clubs (name,description,user_id) VALUES ('HajarSClub','DESCRIPTION HAJAR SAADANI CLUB',4);
 INSERT INTO clubs (name,description,user_id) VALUES ('IliassClub','DESCRIPTION ILIASS CLUB',5);
 
-INSERT INTO events (date,name,description,club_id) VALUES ('2021-11-08','Club Meeting','A meeting to know each others !',1);
-INSERT INTO events (date,name,description,club_id) VALUES ('2021-11-08','Movie Partie','Lets watch a movie all together !',1);
-INSERT INTO events (date,name,description,club_id) VALUES ('2021-11-08','Let s Code','Coding Party !',1);
-INSERT INTO events (date,name,description,club_id) VALUES ('2021-11-08','Integration','A day to know new people !',1);
+INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-11-08 15:00','2021-11-08 18:00','Club Meeting','A meeting to know each others !',1);
+INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-11-08 19:00','2021-11-08 20:00','Movie Partie','Lets watch a movie all together !',1);
+INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-11-08 21:00','2021-11-08 22:00','Let s Code','Coding Party !',1);
+INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-11-08 8:00','2021-11-08 15:00','Integration','A day to know new people !',1);
+INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2022-1-8 8:00','2022-1-09 12:00','Integration','A day to know new people !',2);
+INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2022-1-1 15:00','2022-1-1 16:30','Integration','A day to know new people !',3);
+INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-12-24 8:00','2021-12-27 8:00','Integration','A day to know new people !',4);
+INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-12-17 9:00','2021-12-17 10:00','Integration','A day to know new people !',2);
+
+
 
 INSERT INTO reviews (user_id,event_id,description,rating) VALUES (6,1,'Great',4);
 INSERT INTO reviews (user_id,event_id,description,rating) VALUES (6,1,'Bad',1);
 INSERT INTO reviews (user_id,event_id,description,rating) VALUES (7,1,'NIIICE MEETING',5);
 INSERT INTO reviews (user_id,event_id,description,rating) VALUES (8,1,'YAAAAHOUUUW',5);
 INSERT INTO reviews (user_id,event_id,description,rating) VALUES (8,1,'???',2);
+
+INSERT INTO participants (user_id,event_id) VALUES (1,1);
+INSERT INTO participants (user_id,event_id) VALUES (1,2);
+INSERT INTO participants (user_id,event_id) VALUES (1,3);
+INSERT INTO participants (user_id,event_id) VALUES (1,4);
+INSERT INTO participants (user_id,event_id) VALUES (2,1);
+INSERT INTO participants (user_id,event_id) VALUES (2,2);
+INSERT INTO participants (user_id,event_id) VALUES (2,3);
+INSERT INTO participants (user_id,event_id) VALUES (2,4);
+
+INSERT INTO members (user_id,club_id) VALUES (1,1);
+INSERT INTO members (user_id,club_id) VALUES (1,2);
+INSERT INTO members (user_id,club_id) VALUES (1,3);
+INSERT INTO members (user_id,club_id) VALUES (1,4);
+INSERT INTO members (user_id,club_id) VALUES (2,1);
+INSERT INTO members (user_id,club_id) VALUES (2,2);
+INSERT INTO members (user_id,club_id) VALUES (2,3);
+INSERT INTO members (user_id,club_id) VALUES (2,4);

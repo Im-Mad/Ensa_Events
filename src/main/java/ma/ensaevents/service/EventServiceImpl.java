@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import ma.ensaevents.dao.ClubDao;
 import ma.ensaevents.entity.Club;
 import ma.ensaevents.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ClubDao clubDao;
+
     @Override
     @Transactional
     public Event findByEventId(int eventId) {
@@ -32,6 +36,12 @@ public class EventServiceImpl implements EventService {
     @Transactional
     public List<Event> findAllEvents() {
         return eventDao.findAllEvents();
+    }
+
+    @Override
+    @Transactional
+    public List<Event> findAllEventsAfterToday() {
+        return eventDao.findAllEventsAfterToday();
     }
 
     @Override
@@ -56,4 +66,27 @@ public class EventServiceImpl implements EventService {
         eventDao.Create(event);
     }
 
+    @Override
+    @Transactional
+    public List<Event> findAllEventsBetween(String startDate, String endDate) {
+        String Query = "FROM Event WHERE  date between '"+startDate+"' AND '"+endDate+" 23:59' ORDER BY date";
+        return eventDao.executeQuery(Query);
+    }
+
+    @Override
+    @Transactional
+    public List<Event> findClubEventsBetween(String startDate, String endDate, String clubName) {
+        Club club = clubDao.findByName(clubName);
+        System.out.println("'"+startDate+"' '"+endDate+" 23:59' "+club.getId());
+        String Query = "FROM Event WHERE  date between '"+startDate+"' AND '"+endDate+" 23:59' AND club_id="+club.getId()+" ORDER BY date";
+        return eventDao.executeQuery(Query);
+    }
+
+    @Override
+    @Transactional
+    public List<Event> findClubEvents(String clubName) {
+        Club club = clubDao.findByName(clubName);
+        String Query = "FROM Event WHERE club_id="+club.getId()+" ORDER BY date";
+        return eventDao.executeQuery(Query);
+    }
 }

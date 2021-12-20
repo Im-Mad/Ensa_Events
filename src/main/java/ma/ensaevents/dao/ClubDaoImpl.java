@@ -2,7 +2,6 @@ package ma.ensaevents.dao;
 
 import java.util.List;
 
-import ma.ensaevents.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -24,9 +23,8 @@ public class ClubDaoImpl implements ClubDao {
         Session currentSession = sessionFactory.getCurrentSession();
 
         Query<Club> theQuery = currentSession.createQuery("from Club order by name",Club.class);
-        List<Club> clubs = theQuery.getResultList();
 
-        return clubs;
+        return theQuery.getResultList();
 
     }
 
@@ -61,7 +59,7 @@ public class ClubDaoImpl implements ClubDao {
     }
 
     @Override
-    public Club findByUserName(String name) {
+    public Club findByName(String name) {
         // get the current hibernate session
         Session currentSession = sessionFactory.getCurrentSession();
 
@@ -71,8 +69,8 @@ public class ClubDaoImpl implements ClubDao {
         Club club = null;
         try {
             club = theQuery.getSingleResult();
-        } catch (Exception e) {
-            club = null;
+            club.getMembers().size();
+        } catch (Exception ignored) {
         }
 
         return club;

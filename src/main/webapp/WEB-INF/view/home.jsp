@@ -58,7 +58,7 @@
                     <img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="">
                 </a>
                 <c:choose>
-                    <c:when test="${seuser != null}">
+                    <c:when test="${user != null}">
                         <ul class="navbar-nav">
                             <security:authorize access="hasRole('ADMIN')">
                                 <li class="nav-item">
@@ -70,7 +70,7 @@
                             </security:authorize>
                             <security:authorize access="hasRole('MANAGER')">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Create Event</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/event/create">Create Event</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage Club</a>
@@ -78,7 +78,10 @@
                             </security:authorize>
                             <security:authorize access="hasRole('USER')">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">My Events</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user/myEvents">My Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user/myClubs">My Clubs</a>
                                 </li>
                             </security:authorize>
                             <li class="nav-item">
@@ -114,22 +117,22 @@
             <h4 class="heading-subtitle">Keep track of all ensa's events</h4>
         </div>
         <div class="container search-bar position-absolute shadow-sm">
-            <form class="row">
+            <form:form action="${pageContext.request.contextPath}/event/filterEvents" method="POST" class="row w-100">
                 <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
-                    <select class="custom-select w-75 text-center" id="inputGroupSelect01">
-                        <option selected style="font-size: 1rem;">Select Club</option>
+                    <select class="custom-select w-75 text-center" id="inputGroupSelect01" name="selectedClub">
+                        <option selected style="font-size: 1rem;">All Clubs</option>
                         <c:forEach items="${clubs}" var="club">
                             <option>${club.name}</option>
                         </c:forEach>
                     </select>
                 </div>
                 <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
-                    <input id="demo-mobile-picker-input" class="custom-select w-75 text-center" placeholder="Date Range" required />
+                    <input name="dateRange" id="demo-mobile-picker-input" class="custom-select w-75 text-center" placeholder="Date Range" required />
                 </div>
                 <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
-                    <button type="button" class="btn btn-purple rounded-pill w-75">Filter Events</button>
+                    <button type="submit" class="btn btn-purple rounded-pill w-75">Filter Events</button>
                 </div>
-            </form>
+            </form:form>
         </div>
     </div>
     <div class="py-5"></div>
@@ -144,13 +147,14 @@
                     <div class="swiper-slide">
                         <div class="card rounded">
                             <div class="card-img-box">
-                                <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" alt="Card image cap">
+                                <p class="status status-upcoming status-home">In 222 days </p>
+                                <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" alt="Card image cap" style="height:100%; width: 100%">
                             </div>
                             <div class="card-body row">
                                 <div class="col-8">
                                     <h5 class="card-title">${event.name}</h5>
-                                    <p class="card-text"
-                                        <fmt:formatDate value="${event.date}" type="date" pattern="EE, MM DD YYYY"/>
+                                    <p class="card-text">
+                                        <fmt:formatDate value="${event.date}" type="date" pattern="EE, dd MM YYYY"/>
                                     </p>
                                 </div>
                                 <div class="col-4 text-right">
@@ -187,21 +191,56 @@
         </div>
 
     </div>
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 border-top footer-color">
-        <p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
 
-        <a href="${pageContext.request.contextPath}/"
-           class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-            <img class="bi me-2" height="40" src="${pageContext.request.contextPath}/assets/img/Logo.png" alt=""/>
-        </a>
-        <ul class="nav col-md-4 justify-content-end .text-white">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
-        </ul>
-    </footer>
+    <div  class="container-fluid py-2">
+        <h1 class="font-weight-bold mb-1">Find Us</h1>
+        <div id="map" style="height: 300px; width: 100%"></div>
+    </div>
+
+    <div  class="container-fluid ">
+        <div class="section-email">
+            <div class="row h-100 px-5">
+                <div class="col-md-6 col-12 col-sm-12 my-auto section-email_container">
+                    <h1 class="font-weight-bold mb-3 mt-2"> Contact Us</h1>
+                    <form method="POST" id="emailForm">
+                        <div class="form-gp form-home w-50">
+                            <label for="sendMailName">Name :</label>
+                            <input type="text" id="sendMailName" name="sendMailName" required>
+                        </div>
+                        <div class="form-gp form-home w-50">
+                            <label for="sendMailEmail">Email :</label>
+                            <input type="email" id="sendMailEmail" name="sendMailEmail" required>
+                        </div>
+                        <div class="form-gp form-home w-50">
+                            <label for="sendMailBody">Message</label>
+                            <textarea type="text" id="sendMailBody" name="sendMailBody" rows="10"></textarea>
+                        </div>
+                        <div class="text-right pt-1 mb-1 pb-1 w-50 form-home_button">
+                            <input type="submit" id="submit" class="btn btn-purple mb-3" value="Send" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container-fluid">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 footer-color">
+            <p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
+
+            <a href="${pageContext.request.contextPath}/"
+               class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                <img class="bi me-2" height="40" src="${pageContext.request.contextPath}/assets/img/Logo.png" alt=""/>
+            </a>
+            <ul class="nav col-md-4 justify-content-end .text-white">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
+            </ul>
+        </footer>
+    </div>
 
     <!-- JQuery -->
     <script src="${pageContext.request.contextPath}/assets/js/jquery-3.6.0.js"></script>
@@ -212,6 +251,27 @@
 
     <!-- Main script -->
     <script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
+
+    <!-- Email script -->
+    <script src="${pageContext.request.contextPath}/assets/js/smtp.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/email.js"></script>
+
+    <!-- Maps script -->
+    <script>
+        function initMap() {
+            var location = { lat: 30.405456690329103 , lng: -9.529829851343472};
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: location,
+            });
+
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPdj7MUx_io2Ad_lSBT8MB3kK6zuHeBdE&callback=initMap"></script>
 </body>
 
 </html>

@@ -14,15 +14,20 @@
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/swiper-bundle.min.css"/>
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/mobiscroll.javascript.min.css">
+    <script src="${pageContext.request.contextPath}/assets/js/mobiscroll.javascript.min.js"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
             href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet">
 </head>
-<body>
+
+<body class="d-flex flex-column min-vh-100">
+
     <header class="footer-color">
-        <nav class="navbar navbar-expand-lg navbar-dark ">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent my-1">
 
             <!--  Show this only on mobile to medium screens  -->
             <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
@@ -108,95 +113,51 @@
         </nav>
     </header>
 
-    <div class="text-center bg-main d-flex justify-content-center ">
-        <div style="background-image:url('${pageContext.request.contextPath}/assets/img/clubs/cover_photos/${club.coverPhoto}')" class="cover-img" alt="club cover image">
+    <section>
+        <h5 class="event__page-header pt-2 pr-md-3">Events</h5>
+        <div class="row mx-5">
+            <c:forEach items="${events}" var="event">
+                <div class="card col-12 col-sm-6 col-lg-4 border-0 p-2 event-card my-2">
+                    <div class="card__side card__side--front ">
 
-        </div>
-    </div>
-    <div class="px-md-5 px-3">
-        <div class="row">
-            <div class="col-8 row align-items-center">
-                <img src="${pageContext.request.contextPath}/assets/img/clubs/logos/${club.logo}" height="40" width="40" class="m-2 rounded-circle" alt="" >
-                <h3 class="mb-0">${club.name}</h3>
-            </div>
-            <div class="col-4  d-flex justify-content-start justify-content-md-end pt-2">
-                <div class="">
-
-                    <button class="btn btn-light ">
-                        <svg class="btn-icon">
-                            <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-plus"></use>
-                        </svg>
-                        Join
-                    </button>
-                    <button class="btn btn-light">
-                        <svg class="btn-icon">
-                            <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-share-2"></use>
-                        </svg>
-                        Share
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="px-md-4 p-0 pb-3">
-        <div class="row">
-            <div class="col-md-8 col-lg-9 col-12 px-4 px-md-3 px-lg-4">
-                <div class="bg-white mt-4 p-4 rounded">
-                    <h3>About</h3>
-                    <p>
-                        ${club.description}
-                    </p>
-                </div>
-                <div class="bg-white mt-4 p-4 rounded">
-                    <h3>Events</h3>
-                    <div class="row">
-                        <c:forEach items="${club.events}" var="event">
-                            <div class="col-12 col-sm-6 col-lg-6 col-md-12">
-                                <div class=" card rounded mx-0 mx-sm-1 mx-md-2 mb-3">
-                                    <div class="card-img-box">
-                                        <img class="card-img-top"
-                                             src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}"
-                                             alt="${event.name}">
-                                    </div>
-                                    <div class="card-body row">
-                                        <div class="col-6">
-                                            <h5 class="card-title">${event.name}</h5>
-                                            <p class="card-text">${event.date}</p>
-                                        </div>
-                                        <div class="col-6 text-right">
-                                            <a href="#" class="btn btn-purple">Participate</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:forEach>
-
-                    </div>
-                </div>
-            </div>
-            <div class="px-4 px-md-0 py-4 col-md-4 col-lg-3  col-sm-12 ">
-                <div class="bg-white p-4 rounded">
-                    <h3>Members</h3>
-                    <div class="d-flex  justify-content-center py-4">
-                        <div class="d-flex flex-column align-items-center">
-                            <h2 class="">${club.members.size()}</h2>
-                            <h4 class="text-uppercase">Member</h4>
+                        <div style="background-image:url('${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}')" class="card-img" alt="...">
+                            &nbsp;
                         </div>
-
+                        <div class="card-body text-center">
+                            <h5 class="card-title">${event.name}</h5>
+                        </div>
                     </div>
-                    <div class="overflow-auto border-light border rounded users px-2">
-                        <c:forEach items="${club.members}" var="member">
-                            <div class="user d-flex align-items-center">
-                                <img class="user-img m-2" src="${pageContext.request.contextPath}/assets/img/users/${member.avatar}" alt=""/>
-                                <span class="user-name">${member.firstname} ${member.lastname}</span>
+                    <div class="card__side card__side--back d-flex justify-content-center">
+                        <div class="card-body text-black my-auto">
+                            <div class="d-flex justify-content-center">
+                                <svg class="card-icon mr-2 mb-2">
+                                    <use xlink:href="img/icons.svg#icon-users"></use>
+                                </svg>
+                                <span>${event.participants.size()}</span>
                             </div>
-                        </c:forEach>
+                            <div class="d-flex justify-content-center">
+                                <svg class="card-icon mr-2  mb-2">
+                                    <use xlink:href="img/icons.svg#icon-user"></use>
+                                </svg>
+                                <span>Event By <strong>Club ${event.club.name}</strong></span>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <svg class="card-icon mr-2 mb-2">
+                                    <use xlink:href="img/icons.svg#icon-public"></use>
+                                </svg>
+                                <span>Public - Anyone can attend this event</span>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-purple">Show More</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </c:forEach>
         </div>
-    </div>
+        <div class="p-2"></div>
+    </section>
+
     <footer class="d-flex flex-wrap justify-content-between mt-auto align-items-center py-2 footer-color">
         <p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
 
@@ -209,15 +170,16 @@
             <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
         </ul>
     </footer>
-    <!-- JQuery -->
-    <script src="${pageContext.request.contextPath}/assets/js/jquery-3.6.0.js"></script>
-    <!-- Bootstrap -->
-    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
-    <!-- Swiper JS -->
-    <script src="${pageContext.request.contextPath}/assets/js/swiper-bundle.min.js"></script>
 
-    <!-- Main script -->
-    <script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
+<!-- JQuery -->
+<script src="${pageContext.request.contextPath}/assets/js/jquery-3.6.0.js"></script>
+<!-- Bootstrap -->
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<!-- Swiper JS -->
+<script src="${pageContext.request.contextPath}/assets/js/swiper-bundle.min.js"></script>
+
+<!-- Main script -->
+<script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
 
 </body>
 

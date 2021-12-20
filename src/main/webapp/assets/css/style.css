@@ -37,8 +37,6 @@ html, body{
 }
 
 .hero-home {
-    /*background-image: url("../img/YAS_1102.png");
-    backdrop-color: rgba(96, 68, 164, 0.47);*/
     background-image: url("../img/background-home.png");
     background-repeat: no-repeat;
 }
@@ -57,6 +55,16 @@ html, body{
 
     .padding-smallSize {
         padding: .5rem;
+    }
+}
+
+@media only screen and (max-width: 538px) {
+    .heading-title {
+        font-size: 3rem;
+    }
+
+    .search-bar {
+        padding: 0rem !important;
     }
 }
 
@@ -102,6 +110,17 @@ html, body{
     border-radius: 0 30px 30px 0;
     box-shadow: 0 10px 15px -4px #000000;
     min-height: 50rem;
+    max-height: 60rem;
+}
+
+@media only screen and (max-width: 991px) {
+    .account-navigation-right {
+        border-radius: 0 0 30px 30px;
+    }
+
+    .account-navigation-left {
+        border-radius: 30px 30px 0 0;
+    }
 }
 
 .menu-icon {
@@ -177,7 +196,10 @@ html, body{
 
 .cover-img {
     width: 100%;
-    max-width: 600px;
+    max-height: 300px;
+    min-height: 300px;
+    background-size: cover;
+    background-position: center;
 }
 
 /* Reviews */
@@ -342,7 +364,18 @@ html, body{
     border: none;
     border-bottom: 1px solid #e6e6e6;
 }
+.form-gp textarea {
+    margin-top: 0.4rem;
+    padding: 1rem;
+    border-radius: 10px;
+    border-color: #e6e6e6;
+    width: 100%;
+    height: 8rem;
+}
 
+.form-gp textarea:focus-visible {
+    outline: grey 2px;
+}
 .form-gp input::-webkit-input-placeholder {
     color: #dad7d7;
 }
@@ -368,4 +401,140 @@ html, body{
 
 .form-gp.has-error, .form-gp.has-error label, .form-gp.has-error input, .form-gp.has-error input::placeholder, .form-gp.has-error i {
     color: var(--red);
+}
+
+.status {
+    margin: 0;
+    display: inline;
+    border-radius: 30px;
+    color: white;
+    font-size: .8rem;
+    padding: 0.1rem 0.4rem;
+    font-weight: 500;
+}
+
+.status-ongoing {
+    background: #db7b2b ;
+}
+
+.status-finished {
+    background: #cc3232;
+}
+
+.status-upcoming {
+    background: #2dc937;
+}
+
+.status-home {
+    position: absolute;
+    right: 5px;
+    top: 10px;
+}
+
+
+/* Cards */
+
+.event-card {
+    perspective:150rem;
+    background-color: transparent;
+    height: 20rem;
+}
+
+.card-img {
+    height:16rem;
+    background-size: cover;
+    background-position: center;
+}
+
+.card__side {
+    height:20rem;
+    transition: all 0.8s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 97%;
+    margin: 0 auto;
+    backface-visibility: hidden;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 3px 13px -4px #000000;
+}
+
+.card__side--back {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    background-color: #f8ceec;
+    background-image: linear-gradient(315deg, #f8ceec 0%, #a88beb 74%);
+}
+
+
+.card__side--front {
+    background-color: #fff;
+}
+
+.card:hover .card__side--front {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+}
+.card:hover .card__side--back {
+    -webkit-transform: rotateY(0);
+    transform: rotateY(0);
+}
+
+.card-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    fill: white;
+}
+
+.event__page-header {
+    font-weight: 800;
+    font-size: 3rem;
+    color: #a5b9c5;
+}
+
+.shadow-box {
+    box-shadow:0 3px 13px -4px #000000;
+}
+
+/* EMAIL SECTION */
+.section-email {
+    width: 100%;
+    background-image: linear-gradient(105deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.9) 50%, transparent 50%),url("../img/ensa_bg.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.section-email_container {
+    height: 85%;
+}
+
+
+.form-home input {
+    background-color: transparent;
+    border-bottom: 1px solid #7e74ff !important;
+}
+
+.form-home textarea {
+    border-color: #7e74ff !important;
+}
+
+.form-home_button-success {
+    background-color: lightgreen;
+    border-color: lightgreen;
+}
+
+.form-home_button-fail {
+    background-color: lightcoral;
+    border-color: lightcoral;
+}
+
+@media only screen and (max-width: 768px) {
+    .section-email {
+        background-image: linear-gradient(105deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.9) 100%),url("../img/ensa_bg.png");
+    }
+
+    .form-home,.form-home_button{
+        width: 100% !important;
+    }
 }

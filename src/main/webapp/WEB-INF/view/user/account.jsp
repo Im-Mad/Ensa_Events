@@ -74,7 +74,10 @@
                             </security:authorize>
                             <security:authorize access="hasRole('USER')">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">My Events</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user/myEvents">My Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user/myClubs">My Clubs</a>
                                 </li>
                             </security:authorize>
                             <li class="nav-item">
@@ -105,6 +108,7 @@
             </div>
         </nav>
     </div>
+
     <section>
         <div class="container py-4">
             <div class="row d-flex justify-content-center align-items-center">
@@ -123,7 +127,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item side-nav-item">
-                                            <a class="side-nav-link nav-link px-md-5 py-3" href="#">
+                                            <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/user/myEvents">
                                                 <svg class="menu-icon mr-3">
                                                     <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
                                                 </svg>
@@ -131,7 +135,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item side-nav-item">
-                                            <a class="side-nav-link nav-link px-md-5 py-3" href="#">
+                                            <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/user/myClubs">
                                                 <svg class="menu-icon mr-3">
                                                     <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
                                                 </svg>
@@ -148,8 +152,18 @@
                                                 </a>
                                             </li>
                                         </security:authorize>
+                                        <security:authorize access="hasRole('MANAGER')">
+                                            <li class="nav-item side-nav-item">
+                                                <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/event/create">
+                                                    <svg class="menu-icon mr-3">
+                                                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
+                                                    </svg>
+                                                    Create Event
+                                                </a>
+                                            </li>
+                                        </security:authorize>
                                         <security:authorize access="hasRole('ADMIN')">
-                                            <li class="nav-item side-nav-item ">
+                                            <li class="nav-item side-nav-item">
                                                 <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/club/create">
                                                     <svg class="menu-icon mr-3">
                                                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
@@ -160,7 +174,7 @@
                                         </security:authorize>
                                         <security:authorize access="hasRole('ADMIN')">
                                             <li class="nav-item side-nav-item ">
-                                                <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/club/create">
+                                                <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/user/manage">
                                                     <svg class="menu-icon mr-3">
                                                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
                                                     </svg>
@@ -174,27 +188,26 @@
                             <div class="col-lg-8 mx-auto bg-white account-navigation-right">
                                 <div class="card-body p-md-5 mx-md-4">
                                     <h3 class="font-weight-bold text-uppercase">YOUR ACCOUNT SETTINGS</h3>
-                                    <span class="alert-success" >${updateResultSuccess}</span>
-                                    <span class="alert-error" >${updateResultError}</span>
+                                    <span class="text-success" >${updateResultSuccess}</span>
+                                    <span class="text-error" >${updateResultError}</span>
                                     <form:form action="${pageContext.request.contextPath}/user/me?${_csrf.parameterName}=${_csrf.token}" method="POST" enctype="multipart/form-data">
-                                        <div class="form-group">
+                                        <div class="form-gp">
                                             <label for="firstName">First Name</label>
-                                            <input class="form-control" name="firstName" id="firstName" value="${user.firstname}">
+                                            <input class="" name="firstName" id="firstName" value="${user.firstname}">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-gp">
                                             <label for="lastName">Last Name</label>
-                                            <input class="form-control" name="lastName" id="lastName" value="${user.lastname}">
+                                            <input class="" name="lastName" id="lastName" value="${user.lastname}">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-gp">
                                             <label for="email">Email address</label>
-                                            <input type="email" class="form-control" id="email" name="email"
-                                                aria-describedby="emailHelp" value="${user.email}">
+                                            <input type="email" class="" id="email" name="email" value="${user.email}">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-gp">
                                             <img src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" style="width:5rem;height:5rem;"
                                                 class="rounded-circle mr-3" alt="">
-                                            <label for="photo" class="border-bottom border-dark" role="button">Choose new photo</label>
-                                            <input type="file" class="d-none form-control" name="avatarFile" id="photo">
+                                            <label for="photo" class="border-bottom " role="button">Choose new photo</label>
+                                            <input type="file" class="d-none " name="avatarFile" id="photo">
                                         </div>
                                         <div class="text-right pt-1 mb-4 pb-1">
                                             <button class="btn btn-purple mb-3">Save changes</button>
@@ -205,24 +218,24 @@
                                     <h3 class="font-weight-bold text-uppercase">Password Change</h3>
                                     <form:form action="${pageContext.request.contextPath}/user/updatePassword" method="POST" modelAttribute="changePassword">
                                         <c:if test="${passwordChangeConfirm != null }">
-                                            <span class="alert-success" >${passwordChangeConfirm}</span>
+                                            <span class="text-success" >${passwordChangeConfirm}</span>
                                         </c:if>
-                                        <div class="form-group">
+                                        <div class="form-gp">
                                             <label for="oldPassword">Current password</label>
-                                            <form:password path="oldPassword" cssClass="form-control" id="oldPassword"/>
+                                            <form:password path="oldPassword" cssClass="" id="oldPassword"/>
                                             <form:errors path="oldPassword" cssClass="form-error" />
                                             <c:if test="${oldPasswordMatch != null }"><span class="form-error">${oldPasswordMatch}</span></c:if>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-gp">
                                             <label for="password">New password</label>
-                                            <form:password path="password" cssClass="form-control" id="password"/>
+                                            <form:password path="password" cssClass="" id="password"/>
                                             <form:errors path="password" cssClass="form-error" />
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-gp">
                                             <label for="matchingPassword">Confirm password</label>
-                                            <form:password path="matchingPassword" cssClass="form-control" id="matchingPassword"/>
+                                            <form:password path="matchingPassword" cssClass="" id="matchingPassword"/>
                                         </div>
 
                                         <div class="text-right pt-1 mb-4 pb-1">

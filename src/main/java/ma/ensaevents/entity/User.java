@@ -32,6 +32,8 @@ public class User {
 	@Column(name = "avatar")
 	private String avatar = "default.png";
 	
+	@Column(name = "enabled")
+	private boolean enabled;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="id_role")
@@ -148,4 +150,13 @@ public class User {
 	public void setMyClubs(List<Club> myClubs) {
 		this.myClubs = myClubs;
 	}
+
+	public boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 }

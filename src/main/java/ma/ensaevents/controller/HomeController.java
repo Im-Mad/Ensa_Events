@@ -29,7 +29,7 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String homePage(Model theModel,HttpServletRequest request) {
-		List<Event> events = eventService.findAllEvents();
+		List<Event> events = eventService.findAllEventsAfterToday();
 		theModel.addAttribute("events",events);
 
 		List<Club> clubs = clubService.getClubs();
