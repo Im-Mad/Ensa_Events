@@ -121,7 +121,16 @@
                     <div class="card__side card__side--front ">
 
                         <div style="background-image:url('${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}')" class="card-img" alt="...">
-                            &nbsp;
+                            &nbsp;<p class="status status-${event.status.label} status-home">
+                                <c:choose>
+                                    <c:when test="${event.status.equals(EventStatus.UPCOMING)}">
+                                        In ${event.leftDays} Days
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${event.status}
+                                    </c:otherwise>
+                                </c:choose>
+                            </p>
                         </div>
                         <div class="card-body text-center">
                             <h5 class="card-title">${event.name}</h5>
@@ -131,19 +140,19 @@
                         <div class="card-body text-black my-auto">
                             <div class="d-flex justify-content-center">
                                 <svg class="card-icon mr-2 mb-2">
-                                    <use xlink:href="img/icons.svg#icon-users"></use>
+                                    <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-users"></use>
                                 </svg>
                                 <span>${event.participants.size()}</span>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <svg class="card-icon mr-2  mb-2">
-                                    <use xlink:href="img/icons.svg#icon-user"></use>
+                                    <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-user"></use>
                                 </svg>
                                 <span>Event By <strong>Club ${event.club.name}</strong></span>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <svg class="card-icon mr-2 mb-2">
-                                    <use xlink:href="img/icons.svg#icon-public"></use>
+                                    <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-public"></use>
                                 </svg>
                                 <span>Public - Anyone can attend this event</span>
                             </div>

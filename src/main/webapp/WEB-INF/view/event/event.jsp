@@ -155,21 +155,19 @@
                                 pattern="EEEE, dd MMM yyyy 'at' HH:mm"/>
             </span>
             <h3>${event.name}</h3>
-            <c:choose>
-                <c:when test="${event.status.equals(EventStatus.UPCOMING)}">
-                    days = ${event.leftDays}
-                    ${event.status.label}
-                    ${event.status.color}
-                </c:when>
-                <c:otherwise>
-                    ${event.status.label}
-                    ${event.status.color}
-                </c:otherwise>
-            </c:choose>
         </div>
         <div class="col-md-4 col-12 d-flex justify-content-start justify-content-md-end">
             <div class="">
-
+                <p class="status status-${event.status.label} text-uppercase mr-2">
+                    <c:choose>
+                        <c:when test="${event.status.equals(EventStatus.UPCOMING)}">
+                            In ${event.leftDays} Days
+                        </c:when>
+                        <c:otherwise>
+                            ${event.status}
+                        </c:otherwise>
+                    </c:choose>
+                </p>
                 <button class="btn btn-light ">
                     <svg class="btn-icon">
                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-star"></use>
@@ -384,10 +382,6 @@
                     </div>
                 </div>
                 <div class="overflow-auto border-light border rounded users px-2">
-                    <div class="user d-flex align-items-center">
-                        <img class="user-img m-2" src="${pageContext.request.contextPath}/assets/img/user.png"/>
-                        <span class="user-name">Riaz Beck</span>
-                    </div>
                     <c:forEach items="${event.participants}" var="participant">
                         <div class="user d-flex align-items-center">
                             <img class="user-img m-2"
@@ -400,17 +394,15 @@
         </div>
     </div>
 </div>
-<footer class="bg-color-blue d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+<footer class="d-flex flex-wrap justify-content-between mt-auto align-items-center py-2 footer-color">
     <p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
+
     <a href="${pageContext.request.contextPath}/"
        class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
         <img class="bi me-2" height="40" src="${pageContext.request.contextPath}/assets/img/Logo.png" alt=""/>
     </a>
     <ul class="nav col-md-4 justify-content-end .text-white">
         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
     </ul>
 </footer>

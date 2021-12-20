@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="ma.ensaevents.entity.EventStatus" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -147,8 +148,19 @@
                     <div class="swiper-slide">
                         <div class="card rounded">
                             <div class="card-img-box">
-                                <p class="status status-upcoming status-home">In 222 days </p>
-                                <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" alt="Card image cap" style="height:100%; width: 100%">
+                                <p class="status status-${event.status.label} status-home">
+                                    <c:choose>
+                                        <c:when test="${event.status.equals(EventStatus.UPCOMING)}">
+                                            In ${event.leftDays} Days
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${event.status}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </p>
+                                <a href="${pageContext.request.contextPath}/event/${event.id}">
+                                    <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" alt="Card image cap" style="height:100%; width: 100%">
+                                </a>
                             </div>
                             <div class="card-body row">
                                 <div class="col-8">

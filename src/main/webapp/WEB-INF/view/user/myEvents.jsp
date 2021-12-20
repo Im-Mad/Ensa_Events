@@ -196,7 +196,16 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <span >Status : </span>
-                                                    <p class="status status-upcoming ">In 222 days </p>
+                                                    <p class="status status-${event.status.label} ">
+                                                        <c:choose>
+                                                            <c:when test="${event.status.equals(EventStatus.UPCOMING)}">
+                                                            In ${event.leftDays} Days
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                            ${event.status}
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </p>
                                                     <br>
                                                     <span class="font-italic pl-2">Event : </span>
                                                     <p class="text-wrap d-inline">${event.name}</p>
