@@ -33,11 +33,11 @@ public class Event {
     @Column(name = "cover_photo")
     private String coverPhoto;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE} )
     @JoinColumn(name = "club_id")
     private Club club;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "participants",
             joinColumns = @JoinColumn(name = "event_id"),
@@ -45,7 +45,7 @@ public class Event {
     )
     private List<User> participants;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event",cascade = CascadeType.REMOVE)
     private List<Review> reviews;
 
     @Transient
@@ -62,7 +62,6 @@ public class Event {
 
     @Transient
     private List<String> reviewers = new ArrayList<>();
-
 
     @PostLoad
     public void calculation() {
@@ -81,14 +80,13 @@ public class Event {
         }
 
         if (date.after(new Date())) {
-            System.out.println("Hello" + id);
-            System.out.println(date);
-            System.out.println(new Date());
             status = EventStatus.UPCOMING;
             LocalDateTime date = this.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             LocalDateTime now = LocalDateTime.now();
             leftDays = Duration.between(now, date).toDays();
-            System.out.println ("Days: " + leftDays);
+            if(leftDays == 0 ) {
+                status =  EventStatus.ONGOING;
+            }
         }
 
         else if(endDate.before(new Date()))

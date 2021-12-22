@@ -157,7 +157,7 @@
                                 <span>Public - Anyone can attend this event</span>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <button class="btn btn-purple">Show More</button>
+                                <a  href="${pageContext.request.contextPath}/event/${event.id}" class="btn btn-purple">Show More</a>
                             </div>
                         </div>
                     </div>

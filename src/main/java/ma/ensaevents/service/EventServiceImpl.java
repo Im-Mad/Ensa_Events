@@ -89,4 +89,23 @@ public class EventServiceImpl implements EventService {
         String Query = "FROM Event WHERE club_id="+club.getId()+" ORDER BY date";
         return eventDao.executeQuery(Query);
     }
+
+    @Override
+    @Transactional
+    public Event findEventByName(String eventName) {
+        return eventDao.findEventByName(eventName);
+    }
+
+    @Override
+    @Transactional
+    public void update(Event event) {
+        eventDao.update(event);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByName(String eventName) {
+        Event event = eventDao.findEventByName(eventName);
+        eventDao.deleteByName(event);
+    }
 }

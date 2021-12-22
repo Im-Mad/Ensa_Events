@@ -31,7 +31,7 @@ public class Club {
     @JoinColumn(name="user_id")
     private User user;
 
-	@OneToMany(mappedBy = "club",cascade=CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "club",fetch = FetchType.EAGER)
 	private List<Event> events;
 
     @ManyToMany

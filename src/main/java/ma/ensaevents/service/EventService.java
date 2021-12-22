@@ -23,4 +23,10 @@ public interface EventService {
     List<Event> findClubEventsBetween(String startDate, String endDate, String clubName);
 
     List<Event> findClubEvents(String clubName);
+
+    Event findEventByName(String eventName);
+
+    void update(Event event);
+
+    void deleteByName(String eventName);
 }

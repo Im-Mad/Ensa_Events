@@ -158,8 +158,8 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </p>
-                                <a href="${pageContext.request.contextPath}/event/${event.id}">
-                                    <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" alt="Card image cap" style="height:100%; width: 100%">
+                                <a href="${pageContext.request.contextPath}/event/${event.id}" style="height:100%; width: 100%; background-image:url('${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}'); background-size: cover;">
+                                    <!--<img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" alt="Card image cap" >-->
                                 </a>
                             </div>
                             <div class="card-body row">
