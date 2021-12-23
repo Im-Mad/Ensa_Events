@@ -28,7 +28,7 @@
 <body>
 
     <div class="hero-home">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent ">
+        <header class="navbar navbar-expand-lg navbar-dark bg-transparent ">
 
             <!--  Show this only on mobile to medium screens  -->
             <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
@@ -43,13 +43,10 @@
 
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active header-typography" href="${pageContext.request.contextPath}/">Home </a>
+                        <a class="nav-link header-typography active" href="${pageContext.request.contextPath}/">Home </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">All Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">All Clubs</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/event/all">All Events</a>
                     </li>
                 </ul>
 
@@ -66,7 +63,7 @@
                                     <a class="nav-link" href="${pageContext.request.contextPath}/club/create">Create Club</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Manage Users</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user/manage">Manage Users</a>
                                 </li>
                             </security:authorize>
                             <security:authorize access="hasRole('MANAGER')">
@@ -87,7 +84,7 @@
                             </security:authorize>
                             <li class="nav-item">
                                 <a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
-                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt="" />
+                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt="">
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -99,19 +96,19 @@
                         </ul>
                     </c:when>
                     <c:otherwise >
-                    <ul class="navbar-nav">
-                        <li class="nav-item pr-2">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-light round btn-header" role="button"
-                               aria-disabled="true">Sign In</a>
-                        </li>
-                    </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item pr-2">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-light round btn-header " role="button"
+                                   aria-disabled="true">Sign In</a>
+                            </li>
+                        </ul>
                     </c:otherwise>
                 </c:choose>
             </div>
-        </nav>
+        </header>
 
         <div class="container-fluid jumbotron mb-0" style="height: 300px;">
             <h1 class="heading-title"><span class="heading-title_white">ENSA</span>EVENTS</h1>
@@ -209,7 +206,7 @@
         <div id="map" style="height: 300px; width: 100%"></div>
     </div>
 
-    <div  class="container-fluid ">
+    <div  class="container-fluid " id="Contact_us">
         <div class="section-email">
             <div class="row h-100 px-5">
                 <div class="col-md-6 col-12 col-sm-12 my-auto section-email_container">
@@ -245,11 +242,8 @@
                 <img class="bi me-2" height="40" src="${pageContext.request.contextPath}/assets/img/Logo.png" alt=""/>
             </a>
             <ul class="nav col-md-4 justify-content-end .text-white">
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link px-2 text-white">Home</a></li>
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/#Contact_us" class="nav-link px-2 text-white">Contact Us</a></li>
             </ul>
         </footer>
     </div>

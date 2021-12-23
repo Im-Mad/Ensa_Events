@@ -48,11 +48,10 @@
 
 <body class="w-100">
 <header class="footer-color">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg navbar-dark">
 
         <!--  Show this only on mobile to medium screens  -->
-        <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img
-                src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
+        <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                 aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,10 +66,7 @@
                     <a class="nav-link header-typography" href="${pageContext.request.contextPath}/">Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">All Events</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">All Clubs</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/event/all">All Events</a>
                 </li>
             </ul>
 
@@ -84,26 +80,23 @@
                     <ul class="navbar-nav">
                         <security:authorize access="hasRole('ADMIN')">
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/club/create">Create
-                                    Club</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/club/create">Create Club</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Manage Users</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/user/manage">Manage Users</a>
                             </li>
                         </security:authorize>
                         <security:authorize access="hasRole('MANAGER')">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Create Event</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/event/create">Create Event</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage
-                                    Club</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage Club</a>
                             </li>
                         </security:authorize>
                         <security:authorize access="hasRole('USER')">
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/user/myEvents">My
-                                    Events</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/user/myEvents">My Events</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="${pageContext.request.contextPath}/user/myClubs">My Clubs</a>
@@ -111,27 +104,24 @@
                         </security:authorize>
                         <li class="nav-item">
                             <a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
-                                <img class="rounded-circle mx-4" height="40" width="40"
-                                     src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt="">
+                                <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt="">
                             </a>
                         </li>
                         <li class="nav-item">
                             <form:form action="${pageContext.request.contextPath}/logout"
                                        method="POST">
-                                <input type="submit" class="btn  btn-lg btn-outline-danger round btn-header"
-                                       value="Log out"/>
+                                <input type="submit" class="btn  btn-lg btn-outline-danger round btn-header" value="Log out" />
                             </form:form>
                         </li>
                     </ul>
                 </c:when>
-                <c:otherwise>
+                <c:otherwise >
                     <ul class="navbar-nav">
                         <li class="nav-item pr-2">
                             <a class="nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
                         </li>
                         <li class="nav-item">
-                            <a href="${pageContext.request.contextPath}/login"
-                               class="btn  btn-lg btn-outline-light round btn-header " role="button"
+                            <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-light round btn-header " role="button"
                                aria-disabled="true">Sign In</a>
                         </li>
                     </ul>
@@ -402,8 +392,8 @@
         <img class="bi me-2" height="40" src="${pageContext.request.contextPath}/assets/img/Logo.png" alt=""/>
     </a>
     <ul class="nav col-md-4 justify-content-end .text-white">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
+        <li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link px-2 text-white">Home</a></li>
+        <li class="nav-item"><a href="${pageContext.request.contextPath}/#Contact_us" class="nav-link px-2 text-white">Contact Us</a></li>
     </ul>
 </footer>
 <!-- JQuery -->

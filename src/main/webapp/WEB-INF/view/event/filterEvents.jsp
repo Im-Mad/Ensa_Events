@@ -27,7 +27,7 @@
 <body class="d-flex flex-column min-vh-100">
 
     <header class="footer-color">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent my-1">
+        <nav class="navbar navbar-expand-lg navbar-dark">
 
             <!--  Show this only on mobile to medium screens  -->
             <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
@@ -45,10 +45,7 @@
                         <a class="nav-link header-typography" href="${pageContext.request.contextPath}/">Home </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">All Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">All Clubs</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/event/all">All Events</a>
                     </li>
                 </ul>
 
@@ -65,12 +62,12 @@
                                     <a class="nav-link" href="${pageContext.request.contextPath}/club/create">Create Club</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Manage Users</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user/manage">Manage Users</a>
                                 </li>
                             </security:authorize>
                             <security:authorize access="hasRole('MANAGER')">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Create Event</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/event/create">Create Event</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage Club</a>
@@ -175,8 +172,8 @@
             <img class="bi me-2" height="40" src="${pageContext.request.contextPath}/assets/img/Logo.png" alt=""/>
         </a>
         <ul class="nav col-md-4 justify-content-end .text-white">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
+            <li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link px-2 text-white">Home</a></li>
+            <li class="nav-item"><a href="${pageContext.request.contextPath}/#Contact_us" class="nav-link px-2 text-white">Contact Us</a></li>
         </ul>
     </footer>
 
