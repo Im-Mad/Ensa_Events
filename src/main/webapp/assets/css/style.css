@@ -399,6 +399,20 @@ html, body{
     font-size: 16px;
 }
 
+.form-gp select:focus {
+    box-shadow: 0 0 0 0!important;
+}
+
+.form-gp select {
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    /* border-bottom: 3px black; */
+    border-color: #7e74ff !important;
+    border-radius: 0 !important;
+}
+
+
 .form-gp.has-error, .form-gp.has-error label, .form-gp.has-error input, .form-gp.has-error input::placeholder, .form-gp.has-error i {
     color: var(--red);
 }

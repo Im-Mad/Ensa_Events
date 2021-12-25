@@ -110,7 +110,7 @@
         </nav>
     </header>
 
-    <section>
+    <section class="container-fluid">
         <h5 class="event__page-header pt-2 pr-md-3">Events</h5>
         <div class="row mx-5">
             <c:forEach items="${events}" var="event">
@@ -118,7 +118,7 @@
                     <div class="card__side card__side--front ">
 
                         <div style="background-image:url('${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}')" class="card-img" alt="...">
-                            &nbsp;<p class="status status-${event.status.label} status-home">
+                            &nbsp;<p class="status status-${event.status.label} status-home mr-2">
                                 <c:choose>
                                     <c:when test="${event.status.equals(EventStatus.UPCOMING)}">
                                         In ${event.leftDays} Days

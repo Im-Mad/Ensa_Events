@@ -73,7 +73,7 @@ public class EventDaoImpl implements EventDao{
     public List<Event> findAllEvents() {
         Session session = sessionFactory.getCurrentSession();
 
-        Query<Event> query = session.createQuery("FROM Event",Event.class);
+        Query<Event> query = session.createQuery("FROM Event ORDER BY date ",Event.class);
         List<Event> events = query.list();
 
         for(Event event:events) {

@@ -136,7 +136,7 @@
         </div>
     </div>
 
-    <div class="px-md-4 p-0 pb-3">
+    <div class="px-md-4 p-0 pb-3 bg-main">
         <div class="row">
             <div class="col-md-8 col-lg-9 col-12 px-4 px-md-3 px-lg-4">
                 <div class="bg-white mt-4 p-4 rounded">
