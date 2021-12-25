@@ -3,8 +3,7 @@ package ma.ensaevents.service;
 import java.util.List;
 
 import ma.ensaevents.entity.Event;
-
-import javax.transaction.Transactional;
+import ma.ensaevents.entity.User;
 
 public interface EventService {
 
@@ -12,7 +11,7 @@ public interface EventService {
 
     public List<Event> findAllEvents();
 
-    List<Event> findAllEventsAfterToday();
+    List<Event> findUpcomingEvents();
 
     public void deleteEvent(Event event);
 
@@ -23,4 +22,8 @@ public interface EventService {
     List<Event> findClubEventsBetween(String startDate, String endDate, String clubName);
 
     List<Event> findClubEvents(String clubName);
+
+    void addParticipant(int eventId, User user);
+
+    void removeParticipant(int eventId, User user);
 }

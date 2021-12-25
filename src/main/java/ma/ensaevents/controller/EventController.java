@@ -2,13 +2,12 @@ package ma.ensaevents.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import ma.ensaevents.entity.Club;
 import ma.ensaevents.entity.User;
+import ma.ensaevents.exceptions.UnauthorizedException;
 import ma.ensaevents.utils.CreateEvent;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    public String getEvent(@PathVariable int id, Model model){
+    public String getEvent(@PathVariable int id, Model model) {
 
         Event event = eventService.findByEventId(id);
         model.addAttribute("event", event);
@@ -154,6 +153,32 @@ public class EventController {
 
         theModel.addAttribute("events",events);
         return "/event/filterEvents";
+    }
+
+    @GetMapping("/{eventId}/participate")
+    public String participate(@PathVariable int eventId, HttpServletRequest request) throws UnauthorizedException {
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if(user == null)
+            throw new UnauthorizedException();
+        eventService.addParticipant(eventId, user);
+
+        return "redirect:event/" + eventId;
+    }
+
+    @GetMapping("/{eventId}/unparticipate")
+    public String unparticipate(@PathVariable int eventId, HttpServletRequest request) throws UnauthorizedException{
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if(user == null)
+            throw new UnauthorizedException();
+        eventService.removeParticipant(eventId, user);
+
+        return "redirect:event/" + eventId;
     }
 }
 

@@ -45,10 +45,10 @@
                         <a class="nav-link active header-typography" href="${pageContext.request.contextPath}/">Home </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">All Events</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/event/all">All Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">All Clubs</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/club/all">All Clubs</a>
                     </li>
                 </ul>
 
@@ -117,7 +117,7 @@
             <h4 class="heading-subtitle">Keep track of all ensa's events</h4>
         </div>
         <div class="container search-bar position-absolute shadow-sm">
-            <form:form action="${pageContext.request.contextPath}/event/filterEvents" method="POST" class="row w-100">
+            <form:form action="${pageContext.request.contextPath}/event/filterEvents" method="GET" class="row w-100">
                 <div class="col-md-4 col-12 px-1 d-flex align-items-center justify-content-center padding-smallSize">
                     <select class="custom-select w-75 text-center" id="inputGroupSelect01" name="selectedClub">
                         <option selected style="font-size: 1rem;">All Clubs</option>

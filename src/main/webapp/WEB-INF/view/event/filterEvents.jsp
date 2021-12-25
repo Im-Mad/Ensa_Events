@@ -131,24 +131,24 @@
                         <div class="card-body text-black my-auto">
                             <div class="d-flex justify-content-center">
                                 <svg class="card-icon mr-2 mb-2">
-                                    <use xlink:href="img/icons.svg#icon-users"></use>
+                                    <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-users"></use>
                                 </svg>
                                 <span>${event.participants.size()}</span>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <svg class="card-icon mr-2  mb-2">
-                                    <use xlink:href="img/icons.svg#icon-user"></use>
+                                    <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-user"></use>
                                 </svg>
                                 <span>Event By <strong>Club ${event.club.name}</strong></span>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <svg class="card-icon mr-2 mb-2">
-                                    <use xlink:href="img/icons.svg#icon-public"></use>
+                                    <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-public"></use>
                                 </svg>
                                 <span>Public - Anyone can attend this event</span>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <button class="btn btn-purple">Show More</button>
+                                <a href="${pageContext.request.contextPath}/event/${event.id}" class="btn btn-purple">Show More</a>
                             </div>
                         </div>
                     </div>

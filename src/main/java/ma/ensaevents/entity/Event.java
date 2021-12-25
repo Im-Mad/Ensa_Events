@@ -210,4 +210,12 @@ public class Event {
     public EventStatus getStatus() {
         return status;
     }
+
+    public void addParticipant(User user) {
+        participants.add(user);
+    }
+
+    public void removeParticipant(User user) {
+        participants.remove(user);
+    }
 }

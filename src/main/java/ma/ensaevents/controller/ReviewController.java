@@ -3,12 +3,11 @@ package ma.ensaevents.controller;
 import java.util.Date;
 import java.util.List;
 
+import ma.ensaevents.exceptions.NotFoundException;
+import ma.ensaevents.exceptions.UnauthorizedException;
 import ma.ensaevents.service.EventService;
 import ma.ensaevents.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +20,7 @@ import ma.ensaevents.entity.User;
 import ma.ensaevents.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/reviews")
@@ -33,34 +33,7 @@ public class ReviewController {
     private UserService userService;
     @Autowired
     private EventService eventService;
-
-    //----------------- GET EVENT's REVIEWS ------------------------
-    @GetMapping("/list")
-    public String listCustomers(@RequestParam("eventId") int eventId, Model theModel) {
-
-        Event event = eventService.findByEventId(eventId);
-        List<Review> reviews = reviewService.getReviews(event);
-
-        // add the reviews to the model
-        theModel.addAttribute("reviews", reviews);
-
-        //return a view that contains all the EVENT's Reviews
-        return "add-review";
-    }
-
-
-    @GetMapping("/showFormToAddReview")
-    public String addReview(@RequestParam("eventId") int eventId , Model theModel)
-    {
-        //create model attribute to bin form data
-        Review review = new Review();
-        theModel.addAttribute("eventId",eventId);
-        theModel.addAttribute("review",review);
-
-        //return a form where the user will write the review
-        return "add-review";
-    }
-
+    
     @PostMapping("/add")
     public String saveReview(@ModelAttribute("review") Review review, HttpServletRequest request) {
 
@@ -84,40 +57,26 @@ public class ReviewController {
         return redirectUrl;
     }
 
-    //------------------------UPDATE THE REVIEW--------------------------------
-    @GetMapping("/showFormToUpdateReview")
-    public String showFormUpdate(@RequestParam("eventId") int eventId ,
-                                 Model theModel) {
-
-        //get EVENT
-        Event event = eventService.findByEventId(eventId);
-
-        //get USER by USERNAME
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userName  =((org.springframework.security.core.userdetails.User) principal).getUsername();
-        User user = userService.findByUserName(userName);
-
-        //get the review from db
-//        Review review = reviewService.getReview(reviewId);
-
-        //set customer as a model att ribute
-//        theModel.addAttribute("review",review);
-
-        //send over to our form
-        return "form-add-review";
-    }
-
     @GetMapping("/delete/{id}")
-    public String deleteReview(@PathVariable("id") int reviewId, @RequestParam("redirect") int eventId) {
+    public String deleteReview(@PathVariable("id") int reviewId,
+                               @RequestParam(value = "redirect", defaultValue = "0") int eventId,
+                               HttpServletRequest request)
+            throws NotFoundException, UnauthorizedException {
 
-        //get USER by USERNAME
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userName  =((org.springframework.security.core.userdetails.User) principal).getUsername();
-        User user = userService.findByUserName(userName);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if(user == null)
+            throw new UnauthorizedException();
 
         //get the review from db
         Review review = reviewService.getReview(reviewId);
+        if (review == null)
+            throw new NotFoundException();
         reviewService.deleteReview(review);
-        return "redirect:/event/" + eventId;
+        if (eventId == 0)
+            return "redirect:/";
+        else
+            return "redirect:/event/" + eventId;
     }
 }

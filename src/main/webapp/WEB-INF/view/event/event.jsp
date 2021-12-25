@@ -169,13 +169,24 @@
         </div>
         <div class="col-md-4 col-12 d-flex justify-content-start justify-content-md-end">
             <div class="">
-
-                <button class="btn btn-light ">
+                    <c:choose>
+                    <c:when test="${event.participants.contains(user)}">
+                        <a class="btn btn-info" href="${pageContext.request.contextPath}/event/${event.id}/unparticipate">
+                            <svg class="btn-icon btn-icon-active">
+                                <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-star-full"></use>
+                            </svg>
+                            Participating
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                <a class="btn btn-light" href="${pageContext.request.contextPath}/event/${event.id}/participate">
                     <svg class="btn-icon">
                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-star"></use>
                     </svg>
-                    Intrested
-                </button>
+                    Participate
+                </a>
+                    </c:otherwise>
+                </c:choose>
                 <button class="btn btn-light">
                     <svg class="btn-icon">
                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-share-2"></use>
@@ -376,7 +387,7 @@
         </div>
         <div class=" px-4 px-md-0 py-4 col-md-4 col-lg-3  col-sm-12 ">
             <div class="bg-white  p-4 rounded">
-                <h3>Guests</h3>
+                <h3>Participants</h3>
                 <div class="d-flex  justify-content-center py-4">
                     <div class="d-flex flex-column align-items-center">
                         <h2 cla>${event.participants.size()}</h2>
@@ -384,10 +395,6 @@
                     </div>
                 </div>
                 <div class="overflow-auto border-light border rounded users px-2">
-                    <div class="user d-flex align-items-center">
-                        <img class="user-img m-2" src="${pageContext.request.contextPath}/assets/img/user.png"/>
-                        <span class="user-name">Riaz Beck</span>
-                    </div>
                     <c:forEach items="${event.participants}" var="participant">
                         <div class="user d-flex align-items-center">
                             <img class="user-img m-2"

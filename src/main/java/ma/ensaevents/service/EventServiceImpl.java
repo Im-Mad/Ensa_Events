@@ -29,7 +29,7 @@ public class EventServiceImpl implements EventService {
     @Override
     @Transactional
     public Event findByEventId(int eventId) {
-        return eventDao.FindById(eventId);
+        return eventDao.findById(eventId);
     }
 
     @Override
@@ -40,14 +40,14 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional
-    public List<Event> findAllEventsAfterToday() {
-        return eventDao.findAllEventsAfterToday();
+    public List<Event> findUpcomingEvents() {
+        return eventDao.findByDate();
     }
 
     @Override
     @Transactional
     public void deleteEvent(Event event) {
-        eventDao.Delete(event);
+        eventDao.delete(event);
 
     }
 
@@ -63,7 +63,7 @@ public class EventServiceImpl implements EventService {
 
         event.setClub(club);
 
-        eventDao.Create(event);
+        eventDao.create(event);
     }
 
     @Override
@@ -88,5 +88,22 @@ public class EventServiceImpl implements EventService {
         Club club = clubDao.findByName(clubName);
         String Query = "FROM Event WHERE club_id="+club.getId()+" ORDER BY date";
         return eventDao.executeQuery(Query);
+    }
+
+    @Override
+    public void addParticipant(int eventId, User user) {
+
+        Event event = eventDao.findById(eventId);
+        event.addParticipant(user);
+
+        eventDao.updateEvent(event);
+    }
+
+    @Override
+    public void removeParticipant(int eventId, User user) {
+        Event event = eventDao.findById(eventId);
+        event.removeParticipant(user);
+
+        eventDao.updateEvent(event);
     }
 }

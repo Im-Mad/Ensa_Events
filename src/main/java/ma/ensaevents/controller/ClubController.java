@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import ma.ensaevents.entity.User;
+import ma.ensaevents.exceptions.NotFoundException;
 import ma.ensaevents.service.UserService;
 import ma.ensaevents.utils.CreateClub;
 import org.apache.commons.io.FilenameUtils;
@@ -54,8 +55,10 @@ public class ClubController {
     }
 
     @GetMapping("/{name}")
-    public String getClub(Model model, @PathVariable String name) {
+    public String getClub(Model model, @PathVariable String name) throws NotFoundException {
         Club club = clubService.getClubByName(name);
+        if (club == null)
+            throw new NotFoundException();
         model.addAttribute("club",club);
         return "club/club";
     }
@@ -154,7 +157,6 @@ public class ClubController {
         theModel.addAttribute("updateResultSuccess","Update Succeeded");
         return "club/updateClub";
     }
-
 
     @GetMapping("/delete")
     public String deleteClub(@RequestParam("clubId") int theId) {

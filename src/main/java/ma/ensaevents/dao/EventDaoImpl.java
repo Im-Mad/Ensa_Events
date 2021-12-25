@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import ma.ensaevents.exceptions.NotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -19,17 +20,19 @@ public class EventDaoImpl implements EventDao{
     public SessionFactory sessionFactory;
 
     @Override
-    public Event FindById(int eventId) {
+    public Event findById(int eventId) throws NotFoundException{
 
         Session session = sessionFactory.getCurrentSession();
         Event event = session.get(Event.class, eventId);
+        if (event == null)
+            throw new NotFoundException();
         System.out.println(event.getParticipants());
         System.out.println(event.getReviews());
         return event;
     }
 
     @Override
-    public void Create(Event event) {
+    public void create(Event event) {
 
         Session session = sessionFactory.getCurrentSession();
 
@@ -38,7 +41,7 @@ public class EventDaoImpl implements EventDao{
     }
 
     @Override
-    public void Delete(Event event) {
+    public void delete(Event event) {
 
         Session session = sessionFactory.getCurrentSession();
 
@@ -65,13 +68,13 @@ public class EventDaoImpl implements EventDao{
     }
 
     @Override
-    public List<Event> findAllEventsAfterToday() {
+    public List<Event> findByDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime now = LocalDateTime.now();
         String date =formatter.format(now);
 
         Session session = sessionFactory.getCurrentSession();
-        Query<Event> query = session.createQuery("FROM Event WHERE  date>'"+date+"' OR end_date>'"+date+"' ORDER BY date", Event.class);
+        Query<Event> query = session.createQuery("FROM Event WHERE  date>'"+date+"' OR endDate>'"+date+"' ORDER BY date", Event.class);
 
         return query.list();
     }
@@ -87,4 +90,10 @@ public class EventDaoImpl implements EventDao{
         }
         return events;
    }
+
+    @Override
+    public void updateEvent(Event event) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(event);
+    }
 }

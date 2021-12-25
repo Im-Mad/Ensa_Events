@@ -29,7 +29,14 @@ html, body{
     font-family: "Nunito", serif;
     font-weight: 400;
     width: 100%;
+    height: 100%;
 }
+
+.fit-page{
+    display: flex;
+    flex-direction: column;
+}
+
 .hero {
     background-image: url("../img/background.png");
     background-repeat: no-repeat;
@@ -64,7 +71,7 @@ html, body{
     }
 
     .search-bar {
-        padding: 0rem !important;
+        padding: 0 !important;
     }
 }
 
@@ -186,6 +193,10 @@ html, body{
     width: 1.5rem;
 }
 
+.btn-icon-active {
+    fill: #ffffff;
+}
+
 .fast {
     transition: all 0s;
 }
@@ -212,7 +223,6 @@ html, body{
 
 .review-card {
     border-radius: 5px;
-    background-color: #fff;
     background-color: #fafafa;
     margin-top: 30px;
     padding: 30px 60px;
@@ -303,7 +313,7 @@ html, body{
     content: "\f005";
     margin: 2px;
     font-size: 2rem;
-    font-family: FontAwesome;
+    font-family: FontAwesome,SansSerif;
     display: inline-block;
 }
 
@@ -537,4 +547,48 @@ html, body{
     .form-home,.form-home_button{
         width: 100% !important;
     }
+}
+
+/*==== 404 ====*/
+
+#container {
+    width: 550px;
+    margin: 90px 160px;
+}
+#container * {
+    margin-bottom: 50px;
+    color: #383737;
+}
+#container h1 {
+    width: auto;
+    display: inline-block;
+    font-size: 7em;
+    line-height: 100%;
+    letter-spacing: 0.2em;
+    text-shadow: 8px -3px 0 rgba(240, 85, 85, .6), -10px 5px 0 rgba(72, 104, 244, .6), 9px 7px 0 rgba(255, 219, 89, .6);
+    transition: all 0.2s ease;
+}
+#container h1:hover {
+    text-shadow: 4px -1px 0 rgba(240, 85, 85, .6), -5px 2px 0 rgba(72, 104, 244, .6), 6px 3px 0 rgba(255, 219, 89, .6);
+    transition: all 0.2s ease;
+}
+#container h3 {
+    font-size: 2.5em;
+}
+#container a {
+    padding: 15px 15px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    background-color: rgba(240, 85, 85, .9);
+    box-shadow: -7px 7px 0 rgba(72, 104, 244, .7), -12px 12px 0 rgba(255, 219, 89, .8);
+    transition: all 0.2s ease;
+}
+#container a:hover {
+    box-shadow: -3px 3px 0 rgba(72, 104, 244, .7), -6px 6px 0 rgba(255, 219, 89, .8);
+    transition: all 0.2s ease;
 }

@@ -29,12 +29,23 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String homePage(Model theModel,HttpServletRequest request) {
-		List<Event> events = eventService.findAllEventsAfterToday();
+		List<Event> events = eventService.findUpcomingEvents();
 		theModel.addAttribute("events",events);
 
 		List<Club> clubs = clubService.getClubs();
 		theModel.addAttribute("clubs",clubs);
 
 		return "home";
+	}
+
+
+	@GetMapping("/login")
+	public String showMyLoginPage() {
+		return "user/login";
+	}
+
+	@GetMapping("/access-denied")
+	public String showAccessDenied() {
+		return "exception/403";
 	}
 }
