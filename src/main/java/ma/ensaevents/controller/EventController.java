@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import ma.ensaevents.entity.Club;
 import ma.ensaevents.entity.User;
 import ma.ensaevents.exceptions.UnauthorizedException;
 import ma.ensaevents.utils.CreateEvent;
@@ -68,7 +69,14 @@ public class EventController {
         Event event = new Event();
 
         if (CreateEvent.validate(eventName)) {
-            event.setName(eventName);
+            Event existEvent = eventService.findEventByName(eventName);
+            if(existEvent == null ) {
+                event.setName(eventName);
+            } else {
+                validation = false;
+                theModel.addAttribute("eventNameError", "This event already exists");
+            }
+
         } else {
             validation = false;
             theModel.addAttribute("eventNameError", "A name cannot be more than 12 characters ");
@@ -80,10 +88,11 @@ public class EventController {
             startDate = formatter.parse(eventDate);
             endDate = formatter.parse(eventEndDate);
 
-            System.out.println(startDate + "" + endDate);
+
             if (CreateEvent.validate(startDate, endDate)) {
                 event.setDate(startDate);
                 event.setEndDate(endDate);
+                System.out.println(event.getEndDate() + " " + event.getDate());
             } else {
                 validation = false;
                 theModel.addAttribute("eventEndDateError", "End date must be after starting date");
@@ -109,8 +118,6 @@ public class EventController {
 
         event.setName(eventName);
         event.setDescription(eventDescription);
-        event.setDate(startDate);
-        event.setDate(endDate);
 
         if (validation) {
             event.setClub(user.getClub());
@@ -179,6 +186,96 @@ public class EventController {
         eventService.removeParticipant(eventId, user);
 
         return "redirect:event/" + eventId;
+    }
+
+    @GetMapping("/manage")
+    public String manageEvents(Model theModel,
+                               HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Club club = user.getClub();
+        List<Event> events = eventService.findClubEvents(club.getName());
+
+        theModel.addAttribute("events",events);
+        return "event/manageEvent";
+    }
+
+    @PostMapping("/selectUpdate")
+    public String formUpdateEvent(Model theModel,
+                                  HttpServletRequest request,
+                                  @RequestParam("selectedEvent")String eventName) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Club club = user.getClub();
+        List<Event> events = eventService.findClubEvents(club.getName());
+        theModel.addAttribute("events",events);
+
+        Event event = eventService.findEventByName(eventName);
+        theModel.addAttribute("event",event);
+
+        return "event/manageEvent";
+    }
+
+    @PostMapping("/update")
+    public  String processUpdateEvent(Model theModel,
+                                      HttpServletRequest request,
+                                      @RequestParam("name") String eventName,
+                                      @RequestParam("date") String eventDate,
+                                      @RequestParam("endDate") String eventEndDate,
+                                      @RequestParam("description")String eventDescription) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Club club = user.getClub();
+        List<Event> events = eventService.findClubEvents(club.getName());
+        theModel.addAttribute("events",events);
+
+        Event event = eventService.findEventByName(eventName);
+
+        Date startDate = null;
+        Date endDate = null;
+        boolean validation = true;
+        try {
+            startDate = formatter.parse(eventDate);
+            endDate = formatter.parse(eventEndDate);
+
+            if (CreateEvent.validate(startDate, endDate)) {
+                event.setDate(startDate);
+                event.setEndDate(endDate);
+            } else {
+                validation = false;
+                theModel.addAttribute("eventEndDateError", "End date must be after starting date");
+            }
+        } catch (Exception e) {
+            validation = false;
+            theModel.addAttribute("eventDate", "Please give a correct date");
+        }
+
+        if (validation) {
+            event.setDescription(eventDescription);
+            eventService.update(event);
+            theModel.addAttribute("eventAddSuccess", "The update succeeded");
+            return "event/manageEvent";
+        }
+
+        theModel.addAttribute("event",event);
+        return "event/manageEvent";
+    }
+
+    @PostMapping("/delete")
+    public  String processDeleteEvent(Model theModel,
+                                      HttpServletRequest request,
+                                      @RequestParam("selectedEvent") String eventName) {
+
+
+        eventService.deleteByName(eventName);
+        theModel.addAttribute("eventDeleteSuccess", "The Delete succeeded");
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Club club = user.getClub();
+        List<Event> events = eventService.findClubEvents(club.getName());
+        theModel.addAttribute("events",events);
+        return "event/manageEvent";
     }
 }
 

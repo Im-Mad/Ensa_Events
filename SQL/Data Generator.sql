@@ -20,10 +20,10 @@ INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-11-08 
 INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-11-08 19:00','2021-11-08 20:00','Movie Partie','Lets watch a movie all together !',1);
 INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-11-08 21:00','2021-11-08 22:00','Let s Code','Coding Party !',1);
 INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-11-08 8:00','2021-11-08 15:00','Integration','A day to know new people !',1);
-INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2022-1-8 8:00','2022-1-09 12:00','Integration','A day to know new people !',2);
-INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2022-1-1 15:00','2022-1-1 16:30','Integration','A day to know new people !',3);
-INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-12-24 8:00','2021-12-27 8:00','Integration','A day to know new people !',4);
-INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-12-17 9:00','2021-12-17 10:00','Integration','A day to know new people !',2);
+INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2022-1-8 8:00','2022-1-09 12:00','Integration2','A day to know new people !',2);
+INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2022-1-1 15:00','2022-1-1 16:30','Integration3','A day to know new people !',3);
+INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-12-24 8:00','2021-12-27 8:00','Integration4','A day to know new people !',4);
+INSERT INTO events (date,end_date,name,description,club_id) VALUES ('2021-12-17 9:00','2021-12-17 10:00','Integration5','A day to know new people !',2);
 
 
 

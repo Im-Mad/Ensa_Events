@@ -79,7 +79,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<User> findActiveUsers() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<User> theQuery = session.createQuery("FROM User WHERE enabled=1",User.class);
+		Query<User> theQuery = session.createQuery("FROM User WHERE enabled=1 AND role!=3",User.class);
 		return theQuery.getResultList();
 	}
 
@@ -88,5 +88,21 @@ public class UserDaoImpl implements UserDao {
 		Session session = sessionFactory.getCurrentSession();
 		Query<User> theQuery = session.createQuery("FROM User WHERE enabled=0",User.class);
 		return theQuery.getResultList();
+	}
+
+	@Override
+	public void suspendUser(String username) {
+		Session session = sessionFactory.getCurrentSession();
+		Query theQuery = session.createQuery("Update User set enabled=0 WHERE username=:username");
+		theQuery.setParameter("username",username);
+		theQuery.executeUpdate();
+	}
+
+	@Override
+	public void unsuspendUser(String username) {
+		Session session = sessionFactory.getCurrentSession();
+		Query theQuery = session.createQuery("Update User set enabled=1 WHERE username=:username");
+		theQuery.setParameter("username",username);
+		theQuery.executeUpdate();
 	}
 }

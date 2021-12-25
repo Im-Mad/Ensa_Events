@@ -33,7 +33,7 @@ CREATE TABLE `clubs` (
                         `logo` char(50) NOT NULL DEFAULT 'default.png',
                         `cover_photo` char(50) NOT NULL DEFAULT 'default.png',
                         `user_id` INT NOT NULL,
-                        FOREIGN KEY (user_id) references users (id) on delete cascade,
+                        FOREIGN KEY (user_id) references users (id),
                         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -45,7 +45,7 @@ CREATE TABLE `events` (
                          `description` varchar(100) NOT NULL,
                          `cover_photo` varchar(50) NOT NULL DEFAULT 'default.png',
                          `club_id` INT NOT NULL,
-                         FOREIGN KEY (club_id) references clubs (id) on delete cascade,
+                         FOREIGN KEY (club_id) references clubs (id) ,
                          PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -55,26 +55,26 @@ CREATE TABLE `reviews` (
                        event_id INT NOT NULL,
                        description varchar(50),
                        date datetime DEFAULT now(),
-                       rating INT,
+                       rating INT DEFAULT 4,
                        PRIMARY KEY (id),
-                       FOREIGN KEY (user_id) references users (id) on delete cascade,
-                       FOREIGN KEY (event_id)  references events  (id) on delete cascade
+                       FOREIGN KEY (user_id) references users (id),
+                       FOREIGN KEY (event_id)  references events  (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `participants` (
                        user_id INT NOT NULL,
                        event_id INT NOT NULL,
                        PRIMARY KEY (user_id,event_id),
-                       FOREIGN KEY (user_id) references users (id) on delete cascade,
-                       FOREIGN KEY (event_id)  references events  (id) on delete cascade
+                       FOREIGN KEY (user_id) references users (id) ,
+                       FOREIGN KEY (event_id)  references events  (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `members` (
                        user_id INT NOT NULL,
                        club_id INT NOT NULL,
                        PRIMARY KEY (user_id,club_id),
-                       FOREIGN KEY (user_id) references users (id) on delete cascade,
-                       FOREIGN KEY (club_id)  references clubs  (id) on delete cascade
+                       FOREIGN KEY (user_id) references users (id) ,
+                       FOREIGN KEY (club_id)  references clubs  (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 SET FOREIGN_KEY_CHECKS = 1;

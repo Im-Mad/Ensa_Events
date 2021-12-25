@@ -142,4 +142,16 @@ public class UserServiceImpl implements UserService {
 	public List<User> findSuspendedUsers() {
 		return userDao.findSuspendedUsers();
 	}
+
+	@Override
+	@Transactional
+	public void suspendUser(String username) {
+		userDao.suspendUser(username);
+	}
+
+	@Override
+	@Transactional
+	public void unsuspendUser(String username) {
+		userDao.unsuspendUser(username);
+	}
 }

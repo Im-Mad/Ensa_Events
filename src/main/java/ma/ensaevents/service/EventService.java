@@ -23,6 +23,12 @@ public interface EventService {
 
     List<Event> findClubEvents(String clubName);
 
+    Event findEventByName(String eventName);
+
+    void update(Event event);
+
+    void deleteByName(String eventName);
+
     void addParticipant(int eventId, User user);
 
     void removeParticipant(int eventId, User user);

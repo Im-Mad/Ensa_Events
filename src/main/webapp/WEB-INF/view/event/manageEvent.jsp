@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,7 +66,7 @@
                         </li>
                     </security:authorize>
                     <security:authorize access="hasRole('MANAGER')">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/event/create">Create Event</a>
                         </li>
                         <li class="nav-item">
@@ -150,7 +151,7 @@
                                                     Manage Club
                                                 </a>
                                             </li>
-                                            <li class="nav-item side-nav-item active">
+                                            <li class="nav-item side-nav-item">
                                                 <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/event/create">
                                                     <svg class="menu-icon mr-3">
                                                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
@@ -158,7 +159,7 @@
                                                     Create Event
                                                 </a>
                                             </li>
-                                            <li class="nav-item side-nav-item">
+                                            <li class="nav-item side-nav-item active">
                                                 <a class="side-nav-link nav-link px-md-5 py-3" href="${pageContext.request.contextPath}/event/manage">
                                                     <svg class="menu-icon mr-3">
                                                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-settings"></use>
@@ -192,37 +193,62 @@
                                 <div class="card-body p-md-5 mx-md-4">
                                     <h3 class="font-weight-bold text-uppercase">Create an event</h3>
                                     <p class="text-success">${eventAddSuccess}</p>
-                                    <form:form action="${pageContext.request.contextPath}/event/create?${_csrf.parameterName}=${_csrf.token}" method="POST" enctype="multipart/form-data">
+
+                                    <form:form action="${pageContext.request.contextPath}/event/selectUpdate" method="POST" >
                                         <div class="form-gp">
-                                            <label for="eventName">Event Name</label>
-                                            <input name="name" id="eventName" value="${event.name}" required maxlength="12" >
-                                            <c:if test="${eventNameError != null }"><span class="form-error">${eventNameError}</span></c:if>
+                                            <label for="inputGroupSelect0">Select an event to update</label>
+                                            <select class="custom-select w-75 text-center" id="inputGroupSelect0" name="selectedEvent">
+                                                <c:forEach items="${events}" var="event">
+                                                    <option>${event.name}</option>
+                                                </c:forEach>
+                                            </select>
                                         </div>
-                                        <div class="form-gp">
-                                            <label>Start Date</label>
-                                            <input name="date" id="event-picker-start" value="${event.date}">
-                                            <c:if test="${eventEndDateError != null }"><span class="form-error">${eventEndDateError}</span></c:if>
-                                            <c:if test="${eventDate != null }"><span class="form-error">${eventDate}</span></c:if>
-                                        </div>
-                                        <div class="form-gp">
-                                            <label>End Date</label>
-                                            <input name="endDate" id="event-picker-end" value="${event.endDate}">
-                                            <c:if test="${eventDate != null }"><span class="form-error">${eventDate}</span></c:if>
-                                        </div>
-                                        <div class="form-gp">
-                                            <label for="eventDescription">Description</label>
-                                            <textarea type="text" id="eventDescription" name="description" height="5" value="${event.description}"></textarea>
-                                        </div>
-                                        <div class="form-gp">
-                                            <img src="${pageContext.request.contextPath}/assets/img/events/default.jpg" style="width:100%;" class=mr-3" alt="Default event">
-                                            <label for="photo" class="border-bottom " role="button">Choose a cover photo</label>
-                                            <input type="file" class="d-none " name="eventCover" id="photo">
-                                            <c:if test="${eventPhotoError != null }"><span class="form-error">${eventPhotoError}</span></c:if>
-                                        </div>
+
                                         <div class="text-right pt-1 mb-4 pb-1">
-                                            <button class="btn btn-purple mb-3">Create Event</button>
+                                            <button class="btn btn-purple mb-3" >Select</button>
                                         </div>
                                     </form:form>
+
+                                    <c:if test="${event != null}">
+                                        <form:form action="${pageContext.request.contextPath}/event/update" method="POST" modelAttribute="event">
+                                            <div class="form-gp">
+                                                <label>Start Date</label>
+
+                                                <input name="date" id="event-picker-start" value="<fmt:formatDate value="${event.date}" type="date" pattern="MM/dd/YYYY HH:mm"/>" >
+                                                <c:if test="${eventEndDateError != null }"><span class="form-error">${eventEndDateError}</span></c:if>
+                                                <c:if test="${eventDate != null }"><span class="form-error">${eventDate}</span></c:if>
+                                            </div>
+                                            <div class="form-gp">
+                                                <label>End Date</label>
+                                                <input name="endDate" id="event-picker-end" value="<fmt:formatDate value="${event.endDate}" type="date" pattern="MM/dd/YYYY HH:mm"/>">
+                                                <c:if test="${eventDate != null }"><span class="form-error">${eventDate}</span></c:if>
+                                            </div>
+                                            <div class="form-gp">
+                                                <label for="eventDescription">Description</label>
+                                                <textarea type="text" id="eventDescription" name="description" height="5">${event.description}</textarea>
+                                            </div>
+                                            <div class="text-right pt-1 mb-4 pb-1">
+                                                <button class="btn btn-purple mb-3">Update Event</button>
+                                            </div>
+                                            <form:hidden path="name"/>
+                                        </form:form>
+                                    </c:if>
+                                    <form:form action="${pageContext.request.contextPath}/event/delete" method="POST" >
+                                        <div class="form-gp">
+                                            <label for="inputGroupSelect01">Select an event to delete</label>
+                                            <select class="custom-select w-75 text-center" id="inputGroupSelect01" name="selectedEvent">
+                                                <c:forEach items="${events}" var="event">
+                                                    <option>${event.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+
+                                        <div class="text-right pt-1 mb-4 pb-1">
+                                            <button class="btn btn-purple mb-3" >Delete</button>
+                                        </div>
+
+                                    </form:form>
+
                                 </div>
                             </div>
                         </div>

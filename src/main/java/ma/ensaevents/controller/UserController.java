@@ -123,12 +123,25 @@ public class UserController {
     @GetMapping("/manage")
     public String manageUsers(Model theModel) {
         List<User> usersActive = userService.findActiveUsers();
-
         List<User> usersSuspended = userService.findSuspendedUsers();
 
         theModel.addAttribute("usersActive", usersActive);
         theModel.addAttribute("usersSuspended",usersSuspended);
 
         return "/admin/manageUsers";
+    }
+
+    @PostMapping("/suspend")
+    public String suspendUser(@RequestParam("selectedUser")String username) {
+        userService.suspendUser(username);
+
+        return "redirect:manage";
+    }
+
+    @PostMapping("/unsuspend")
+    public String unsuspendUser(@RequestParam("selectedUser")String username) {
+        userService.unsuspendUser(username);
+
+        return "redirect:manage";
     }
 }

@@ -6,17 +6,23 @@ import ma.ensaevents.entity.Event;
 
 public interface EventDao {
 
-    public Event findById(int eventId);
+    Event findById(int eventId);
 
-    public void create(Event event);
+    Event findEventByName(String eventName);
 
-    public void delete(Event event);
+    void create(Event event);
 
-    public List<Event> findAllEvents();
+    void delete(Event event);
 
-    public List<Event> findByDate();
+    List<Event> findByDate();
+
+    List<Event> findAllEvents();
 
     List<Event> executeQuery(String Query);
 
     void updateEvent(Event event);
+
+    void update(Event event);
+
+    void deleteByName(Event event);
 }

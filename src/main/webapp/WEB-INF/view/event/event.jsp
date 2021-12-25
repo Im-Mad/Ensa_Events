@@ -47,99 +47,89 @@
 </head>
 
 <body class="w-100">
-<header class="footer-color">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <header class="footer-color">
+        <nav class="navbar navbar-expand-lg navbar-dark">
 
-        <!--  Show this only on mobile to medium screens  -->
-        <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img
-                src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
+            <!--  Show this only on mobile to medium screens  -->
+            <a class="navbar-brand d-lg-none " href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="Header Logo"></a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
-                aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <!--  Use flexbox utility classes to change how the child elements are justified  -->
-        <div class="collapse navbar-collapse justify-content-between px-3" id="navbarToggle">
+            <!--  Use flexbox utility classes to change how the child elements are justified  -->
+            <div class="collapse navbar-collapse justify-content-between px-3" id="navbarToggle">
 
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link header-typography" href="${pageContext.request.contextPath}/">Home </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">All Events</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">All Clubs</a>
-                </li>
-            </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link header-typography" href="${pageContext.request.contextPath}/">Home </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/event/all">All Events</a>
+                    </li>
+                </ul>
 
 
-            <!--   Show this only lg screens and up   -->
-            <a class="navbar-brand d-none d-lg-block header-logo" href="${pageContext.request.contextPath}/">
-                <img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="">
-            </a>
-            <c:choose>
-                <c:when test="${user != null}">
-                    <ul class="navbar-nav">
-                        <security:authorize access="hasRole('ADMIN')">
+                <!--   Show this only lg screens and up   -->
+                <a class="navbar-brand d-none d-lg-block header-logo" href="${pageContext.request.contextPath}/">
+                    <img src="${pageContext.request.contextPath}/assets/img/Logo.png" alt="">
+                </a>
+                <c:choose>
+                    <c:when test="${user != null}">
+                        <ul class="navbar-nav">
+                            <security:authorize access="hasRole('ADMIN')">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/club/create">Create Club</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user/manage">Manage Users</a>
+                                </li>
+                            </security:authorize>
+                            <security:authorize access="hasRole('MANAGER')">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/event/create">Create Event</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage Club</a>
+                                </li>
+                            </security:authorize>
+                            <security:authorize access="hasRole('USER')">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user/myEvents">My Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user/myClubs">My Clubs</a>
+                                </li>
+                            </security:authorize>
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/club/create">Create
-                                    Club</a>
+                                <a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
+                                    <img class="rounded-circle mx-4" height="40" width="40" src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt="">
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Manage Users</a>
+                                <form:form action="${pageContext.request.contextPath}/logout"
+                                           method="POST">
+                                    <input type="submit" class="btn  btn-lg btn-outline-danger round btn-header" value="Log out" />
+                                </form:form>
                             </li>
-                        </security:authorize>
-                        <security:authorize access="hasRole('MANAGER')">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Create Event</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/club/update">Manage
-                                    Club</a>
-                            </li>
-                        </security:authorize>
-                        <security:authorize access="hasRole('USER')">
-                            <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/user/myEvents">My
-                                    Events</a>
+                        </ul>
+                    </c:when>
+                    <c:otherwise >
+                        <ul class="navbar-nav">
+                            <li class="nav-item pr-2">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/user/myClubs">My Clubs</a>
+                                <a href="${pageContext.request.contextPath}/login" class="btn  btn-lg btn-outline-light round btn-header " role="button"
+                                   aria-disabled="true">Sign In</a>
                             </li>
-                        </security:authorize>
-                        <li class="nav-item">
-                            <a class="nav-link p-0" href="${pageContext.request.contextPath}/user/me">
-                                <img class="rounded-circle mx-4" height="40" width="40"
-                                     src="${pageContext.request.contextPath}/assets/img/users/${user.avatar}" alt="">
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <form:form action="${pageContext.request.contextPath}/logout"
-                                       method="POST">
-                                <input type="submit" class="btn  btn-lg btn-outline-danger round btn-header"
-                                       value="Log out"/>
-                            </form:form>
-                        </li>
-                    </ul>
-                </c:when>
-                <c:otherwise>
-                    <ul class="navbar-nav">
-                        <li class="nav-item pr-2">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/register">Sign Up</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="${pageContext.request.contextPath}/login"
-                               class="btn  btn-lg btn-outline-light round btn-header " role="button"
-                               aria-disabled="true">Sign In</a>
-                        </li>
-                    </ul>
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </nav>
-</header>
+                        </ul>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </nav>
+    </header>
 
 
 <div class="text-center bg-main d-flex justify-content-center">
@@ -155,31 +145,20 @@
                                 pattern="EEEE, dd MMM yyyy 'at' HH:mm"/>
             </span>
             <h3>${event.name}</h3>
-            <c:choose>
-                <c:when test="${event.status.equals(EventStatus.UPCOMING)}">
-                    days = ${event.leftDays}
-                    ${event.status.label}
-                    ${event.status.color}
-                </c:when>
-                <c:otherwise>
-                    ${event.status.label}
-                    ${event.status.color}
-                </c:otherwise>
-            </c:choose>
         </div>
         <div class="col-md-4 col-12 d-flex justify-content-start justify-content-md-end">
             <div class="">
+                <p class="status status-${event.status.label} text-uppercase mr-2">
                     <c:choose>
-                    <c:when test="${event.participants.contains(user)}">
-                        <a class="btn btn-info" href="${pageContext.request.contextPath}/event/${event.id}/unparticipate">
-                            <svg class="btn-icon btn-icon-active">
-                                <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-star-full"></use>
-                            </svg>
-                            Participating
-                        </a>
-                    </c:when>
-                    <c:otherwise>
-                <a class="btn btn-light" href="${pageContext.request.contextPath}/event/${event.id}/participate">
+                        <c:when test="${event.status.equals(EventStatus.UPCOMING)}">
+                            In ${event.leftDays} Days
+                        </c:when>
+                        <c:otherwise>
+                            ${event.status}
+                        </c:otherwise>
+                    </c:choose>
+                </p>
+                <button class="btn btn-light ">
                     <svg class="btn-icon">
                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-star"></use>
                     </svg>
@@ -407,18 +386,16 @@
         </div>
     </div>
 </div>
-<footer class="bg-color-blue d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+<footer class="d-flex flex-wrap justify-content-between mt-auto align-items-center py-2 footer-color">
     <p class="col-md-4 mb-0 text-white">&copy; 2021 Company, Inc</p>
+
     <a href="${pageContext.request.contextPath}/"
        class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
         <img class="bi me-2" height="40" src="${pageContext.request.contextPath}/assets/img/Logo.png" alt=""/>
     </a>
     <ul class="nav col-md-4 justify-content-end .text-white">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
+        <li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link px-2 text-white">Home</a></li>
+        <li class="nav-item"><a href="${pageContext.request.contextPath}/#Contact_us" class="nav-link px-2 text-white">Contact Us</a></li>
     </ul>
 </footer>
 <!-- JQuery -->

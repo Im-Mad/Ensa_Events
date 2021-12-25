@@ -32,4 +32,8 @@ public interface UserService extends UserDetailsService {
     List<User> findActiveUsers();
 
     List<User> findSuspendedUsers();
+
+    void suspendUser(String username);
+
+    void unsuspendUser(String username);
 }
