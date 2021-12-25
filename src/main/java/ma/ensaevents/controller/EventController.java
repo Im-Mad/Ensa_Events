@@ -169,7 +169,7 @@ public class EventController {
         User user = (User) session.getAttribute("user");
 
         if(user == null)
-            throw new UnauthorizedException();
+            return "redirect:/login";
         eventService.addParticipant(eventId, user);
 
         return "redirect:/event/" + eventId;
@@ -181,8 +181,6 @@ public class EventController {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
-        if(user == null)
-            throw new UnauthorizedException();
         eventService.removeParticipant(eventId, user);
 
         return "redirect:/event/" + eventId;

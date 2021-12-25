@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
-<jsp:useBean id="user" scope="session" type="ma.ensaevents.entity.User"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -121,13 +120,24 @@
             </div>
             <div class="col-4  d-flex justify-content-start justify-content-md-end pt-2">
                 <div class="">
-
-                    <button class="btn btn-light ">
-                        <svg class="btn-icon">
-                            <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-plus"></use>
-                        </svg>
-                        Join
-                    </button>
+                    <c:choose>
+                        <c:when test="${club.members.contains(user)}">
+                            <a class="btn btn-info" href="${pageContext.request.contextPath}/club/${club.name}/unparticipate">
+                                <svg class="btn-icon btn-icon-active">
+                                    <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-star-full"></use>
+                                </svg>
+                                Unjoin
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="btn btn-light" href="${pageContext.request.contextPath}/club/${club.name}/participate">
+                                <svg class="btn-icon">
+                                    <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-plus"></use>
+                                </svg>
+                                Join
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
                     <button class="btn btn-light">
                         <svg class="btn-icon">
                             <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-share-2"></use>
@@ -164,9 +174,22 @@
                                             <h5 class="card-title">${event.name}</h5>
                                             <p class="card-text">${event.date}</p>
                                         </div>
-                                        <div class="col-6 text-right">
-                                            <a href="#" class="btn btn-purple">Participate</a>
-                                        </div>
+                                        <c:choose>
+                                            <c:when test="${event.participants.contains(user)}">
+                                                <div class="col-6 text-right">
+                                                    <a href="${pageContext.request.contextPath}/event/${event.id}/unparticipate" class="btn btn-info">
+                                                        Participating
+                                                    </a>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="col-6 text-right">
+                                                    <a href="${pageContext.request.contextPath}/event/${event.id}/participate" class="btn btn-purple">
+                                                        Participate
+                                                    </a>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>

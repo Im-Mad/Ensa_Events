@@ -3,6 +3,7 @@ package ma.ensaevents.service;
 import java.util.List;
 
 import ma.ensaevents.dao.RoleDao;
+import ma.ensaevents.entity.Event;
 import ma.ensaevents.entity.Role;
 import ma.ensaevents.entity.User;
 import ma.ensaevents.utils.CreateClub;
@@ -75,5 +76,21 @@ public class ClubServiceImpl  implements ClubService{
     @Transactional
     public void update(Club club) {
         clubDao.saveClub(club);
+    }
+
+    @Override
+    @Transactional
+    public void addMember(String clubName, User user) {
+        Club club = clubDao.findByName(clubName);
+        club.addMember(user);
+        clubDao.updateClub(club);
+    }
+
+    @Override
+    @Transactional
+    public void removeMember(String clubName, User user) {
+        Club club = clubDao.findByName(clubName);
+        club.removeMember(user);
+        clubDao.updateClub(club);
     }
 }

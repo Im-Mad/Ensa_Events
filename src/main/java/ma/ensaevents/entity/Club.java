@@ -109,6 +109,14 @@ public class Club {
     public void setMembers(List<User> members) {
         this.members = members;
     }
+
+    public void addMember(User user) {
+        this.members.add(user);
+    }
+
+    public void removeMember(User user) {
+        this.members.remove(user);
+    }
 }
 
 

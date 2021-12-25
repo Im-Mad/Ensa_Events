@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ page import="ma.ensaevents.entity.EventStatus" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -213,8 +214,9 @@
                                                     <p class="text-wrap d-inline">${event.club.name}</p>
                                                 </div>
                                                 <div class="col-3">
-                                                    <!-- TODO MODALS ?? FORM TO SEND THE REVIEW FOR EXEMPLE?? -->
-                                                    <a href="#" class="btn btn-purple" style="font-size: 0.8rem;">Give a review</a>
+                                                    <c:if test="${!event.reviewers.contains(user.username) && event.participants.contains(user) && event.status.equals(EventStatus.FINISHED)}">
+                                                        <a href="${pageContext.request.contextPath}/event/${event.id}#reviewSection" class="btn btn-purple" style="font-size: 0.8rem;">Give a review</a>
+                                                    </c:if>
                                                 </div>
 
                                             </div>

@@ -159,16 +159,29 @@
                                     <!--<img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" alt="Card image cap" >-->
                                 </a>
                             </div>
-                            <div class="card-body row">
+                            <div class="card-body row mr-lg-2">
                                 <div class="col-8">
                                     <h5 class="card-title">${event.name}</h5>
                                     <p class="card-text">
                                         <fmt:formatDate value="${event.date}" type="date" pattern="EE, dd MM YYYY"/>
                                     </p>
                                 </div>
-                                <div class="col-4 text-right">
-                                    <a href="#" class="btn btn-purple">Participate</a>
-                                </div>
+                                <c:choose>
+                                    <c:when test="${event.participants.contains(user)}">
+                                        <div class="col-4 text-right">
+                                            <a href="${pageContext.request.contextPath}/event/${event.id}/unparticipate" class="btn btn-info">
+                                                Participating
+                                            </a>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="col-4 text-right">
+                                            <a href="${pageContext.request.contextPath}/event/${event.id}/participate" class="btn btn-purple">
+                                                Participate
+                                            </a>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>

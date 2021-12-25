@@ -192,12 +192,6 @@
             <div class="bg-white mt-4 p-4 rounded">
                 <h3>Details</h3>
                 <div class="d-flex">
-                    <svg class="detail-icon mr-2 mb-2">
-                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-users"></use>
-                    </svg>
-                    <span>69 people responded</span>
-                </div>
-                <div class="d-flex">
                     <svg class="detail-icon mr-2  mb-2">
                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-user"></use>
                     </svg>
@@ -295,7 +289,7 @@
                         </div>
                         <security:authorize access="hasRole('USER')">
                             <c:if test="${!event.reviewers.contains(user.username) && event.participants.contains(user) && event.status.equals(EventStatus.FINISHED)}">
-                                <div class="card review-card">
+                                <div class="card review-card" id="reviewSection">
                                     <form:form method="post" action="${pageContext.request.contextPath}/reviews/add"
                                                class="text-left">
                                         <span>Rating:</span>

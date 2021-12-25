@@ -14,7 +14,7 @@ if( $('#events').length ) {
           slidesPerView: 2,
           spaceBetween: 40,
         },
-        1024: {
+        1180: {
           slidesPerView: 3.5,
           spaceBetween: 30,
         },

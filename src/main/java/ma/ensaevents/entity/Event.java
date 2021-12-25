@@ -88,9 +88,10 @@ public class Event {
                 status =  EventStatus.ONGOING;
             }
         }
-
-        else if(endDate.before(new Date()))
+        else if(endDate.before(new Date())) {
+            System.out.println(new Date());
             status = EventStatus.FINISHED;
+        }
         else status =  EventStatus.ONGOING;
     }
 

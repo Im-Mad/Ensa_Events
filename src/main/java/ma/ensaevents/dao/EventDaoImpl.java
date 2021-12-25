@@ -93,14 +93,20 @@ public class EventDaoImpl implements EventDao{
 
     @Override
     public List<Event> findByDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime now = LocalDateTime.now();
         String date =formatter.format(now);
 
         Session session = sessionFactory.getCurrentSession();
         Query<Event> query = session.createQuery("FROM Event WHERE  date>'"+date+"' OR endDate>'"+date+"' ORDER BY date", Event.class);
 
-        return query.list();
+        List<Event> events = query.list();
+
+        for(Event event:events) {
+            event.getParticipants().size();
+        }
+
+        return events;
     }
 
     @Override
@@ -111,6 +117,7 @@ public class EventDaoImpl implements EventDao{
         List<Event> events = query.list();
         for(Event event:events) {
             event.getParticipants().size();
+            event.getReviewers().size();
         }
         return events;
    }

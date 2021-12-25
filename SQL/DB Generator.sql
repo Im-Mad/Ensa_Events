@@ -42,7 +42,7 @@ CREATE TABLE `events` (
                          `date` DATETIME NOT NULL,
                          `end_date` DATETIME NOT NULL,
                          `name` char(68) NOT NULL,
-                         `description` varchar(100) NOT NULL,
+                         `description` varchar(100) ,
                          `cover_photo` varchar(50) NOT NULL DEFAULT 'default.png',
                          `club_id` INT NOT NULL,
                          FOREIGN KEY (club_id) references clubs (id) ,

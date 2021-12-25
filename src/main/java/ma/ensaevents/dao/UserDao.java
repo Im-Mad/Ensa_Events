@@ -3,6 +3,7 @@ package ma.ensaevents.dao;
 import ma.ensaevents.entity.Club;
 import ma.ensaevents.entity.Event;
 import ma.ensaevents.entity.User;
+import org.hibernate.Session;
 
 import java.util.List;
 

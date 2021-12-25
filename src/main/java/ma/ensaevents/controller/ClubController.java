@@ -6,6 +6,7 @@ import java.util.List;
 
 import ma.ensaevents.entity.User;
 import ma.ensaevents.exceptions.NotFoundException;
+import ma.ensaevents.exceptions.UnauthorizedException;
 import ma.ensaevents.service.UserService;
 import ma.ensaevents.utils.CreateClub;
 import org.apache.commons.io.FilenameUtils;
@@ -54,9 +55,9 @@ public class ClubController {
         return "user/login";
     }
 
-    @GetMapping("/{name}")
-    public String getClub(Model model, @PathVariable String name) throws NotFoundException {
-        Club club = clubService.getClubByName(name);
+    @GetMapping("/{clubName}")
+    public String getClub(Model model, @PathVariable String clubName) throws NotFoundException {
+        Club club = clubService.getClubByName(clubName);
         if (club == null)
             throw new NotFoundException();
         model.addAttribute("club",club);
@@ -156,5 +157,29 @@ public class ClubController {
         theModel.addAttribute("club",club);
         theModel.addAttribute("updateResultSuccess","Update Succeeded");
         return "club/updateClub";
+    }
+
+    @GetMapping("/{clubName}/participate")
+    public String participate(@PathVariable String clubName, HttpServletRequest request) throws UnauthorizedException {
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if(user == null)
+            return "redirect:/login";
+        clubService.addMember(clubName, user);
+
+        return "redirect:/club/" + clubName;
+    }
+
+    @GetMapping("/{clubName}/unparticipate")
+    public String unparticipate(@PathVariable String clubName, HttpServletRequest request) throws UnauthorizedException{
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        clubService.removeMember(clubName, user);
+
+        return "redirect:/club/" + clubName;
     }
 }

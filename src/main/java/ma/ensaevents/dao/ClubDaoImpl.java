@@ -2,6 +2,7 @@ package ma.ensaevents.dao;
 
 import java.util.List;
 
+import ma.ensaevents.entity.Event;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -70,10 +71,19 @@ public class ClubDaoImpl implements ClubDao {
         try {
             club = theQuery.getSingleResult();
             club.getMembers().size();
+            for(Event event:club.getEvents()) {
+                event.getParticipants().size();
+            }
         } catch (Exception ignored) {
         }
 
         return club;
+    }
+
+    @Override
+    public void updateClub(Club club) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(club);
     }
 
 

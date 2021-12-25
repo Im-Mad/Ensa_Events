@@ -64,7 +64,10 @@ public class UserDaoImpl implements UserDao {
 	public List<Event> getMyEvents(User currentUser) {
 		Session session = sessionFactory.getCurrentSession();
 		User user = session.get(User.class, currentUser.getId());
-		int x=user.getMyEvents().size();
+		List<Event> events = user.getMyEvents();
+		for(Event event:events) {
+			event.getParticipants().size();
+		}
 		return user.getMyEvents();
 	}
 
@@ -72,21 +75,21 @@ public class UserDaoImpl implements UserDao {
 	public List<Club> getMyClubs(User currentUser) {
 		Session session = sessionFactory.getCurrentSession();
 		User user = session.get(User.class, currentUser.getId());
-		int x=user.getMyClubs().size();
+		user.getMyClubs().size();
 		return user.getMyClubs();
 	}
 
 	@Override
 	public List<User> findActiveUsers() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<User> theQuery = session.createQuery("FROM User WHERE enabled=1 AND role!=3",User.class);
+		Query<User> theQuery = session.createQuery("FROM User WHERE enabled=true AND role!= 3",User.class);
 		return theQuery.getResultList();
 	}
 
 	@Override
 	public List<User> findSuspendedUsers() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<User> theQuery = session.createQuery("FROM User WHERE enabled=0",User.class);
+		Query<User> theQuery = session.createQuery("FROM User WHERE enabled=false",User.class);
 		return theQuery.getResultList();
 	}
 

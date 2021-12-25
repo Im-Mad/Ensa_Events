@@ -16,4 +16,6 @@ public interface ClubDao {
     public void deleteClub(int theId);
 
     public Club findByName(String name);
+
+    void updateClub(Club club);
 }
