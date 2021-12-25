@@ -130,7 +130,7 @@ public class EventController {
         return "event/createEvent";
     }
 
-    @PostMapping("/filterEvents")
+    @GetMapping("/filterEvents")
     public String processFilterEvent(@RequestParam("selectedClub")String selectedClub,
                                      @RequestParam("dateRange")String dateRange,
                                      Model theModel) {
@@ -172,7 +172,7 @@ public class EventController {
             throw new UnauthorizedException();
         eventService.addParticipant(eventId, user);
 
-        return "redirect:event/" + eventId;
+        return "redirect:/event/" + eventId;
     }
 
     @GetMapping("/{eventId}/unparticipate")
@@ -185,7 +185,7 @@ public class EventController {
             throw new UnauthorizedException();
         eventService.removeParticipant(eventId, user);
 
-        return "redirect:event/" + eventId;
+        return "redirect:/event/" + eventId;
     }
 
     @GetMapping("/manage")

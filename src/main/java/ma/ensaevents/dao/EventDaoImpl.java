@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ma.ensaevents.exceptions.NotFoundException;
-import ma.ensaevents.email.sendMail;
+import ma.ensaevents.email.SendMail;
 import ma.ensaevents.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -61,7 +61,7 @@ public class EventDaoImpl implements EventDao{
         for(User member:event.getClub().getMembers()) {
             recipient.add(member.getEmail());
         }
-        sendMail.sendEmail(recipient,"A Club Created A New Event !",event);
+        SendMail.SendMail(recipient,"A Club Created A New Event !",event);
     }
 
     @Override

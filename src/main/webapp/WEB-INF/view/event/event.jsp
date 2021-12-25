@@ -158,12 +158,22 @@
                         </c:otherwise>
                     </c:choose>
                 </p>
-                <button class="btn btn-light ">
-                    <svg class="btn-icon">
-                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-star"></use>
-                    </svg>
-                    Participate
-                </a>
+                <c:choose>
+                    <c:when test="${event.participants.contains(user)}">
+                        <a class="btn btn-info" href="${pageContext.request.contextPath}/event/${event.id}/unparticipate">
+                            <svg class="btn-icon btn-icon-active">
+                                <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-star-full"></use>
+                            </svg>
+                            Participating
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="btn btn-light" href="${pageContext.request.contextPath}/event/${event.id}/participate">
+                            <svg class="btn-icon">
+                                <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-star"></use>
+                            </svg>
+                            Participate
+                        </a>
                     </c:otherwise>
                 </c:choose>
                 <button class="btn btn-light">

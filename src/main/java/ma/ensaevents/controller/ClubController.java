@@ -157,13 +157,4 @@ public class ClubController {
         theModel.addAttribute("updateResultSuccess","Update Succeeded");
         return "club/updateClub";
     }
-
-    @GetMapping("/delete")
-    public String deleteClub(@RequestParam("clubId") int theId) {
-
-        clubService.deleteClub(theId);
-
-        return null;
-    }
-
 }

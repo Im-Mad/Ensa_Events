@@ -110,15 +110,16 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public void addParticipant(int eventId, User user) {
 
         Event event = eventDao.findById(eventId);
         event.addParticipant(user);
-
         eventDao.updateEvent(event);
     }
 
     @Override
+    @Transactional
     public void removeParticipant(int eventId, User user) {
         Event event = eventDao.findById(eventId);
         event.removeParticipant(user);

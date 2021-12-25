@@ -159,17 +159,13 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-//
-//	@Override
-//	public boolean equals(Object o) {
-//		if (this == o) return true;
-//		if (!(o instanceof User)) return false;
-//		User user = (User) o;
-//		return id == user.id;
-//	}
-//
-//	@Override
-//	public int hashCode() {
-//		return Objects.hash(getId());
-//	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof User)) return false;
+		User user = (User) o;
+		return user.id.equals(id);
+	}
+
 }

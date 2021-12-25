@@ -21,11 +21,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class sendMail {
+public class SendMail {
 	
 	public static String htmlToString(Event event) {
 
-		sendMail obj = new sendMail();
+		SendMail obj = new SendMail();
 		Class class1 = obj.getClass();
 		URL absolutePath = class1.getResource("../../../email_template/index.html");
 		StringBuilder contentBuilder = new StringBuilder();
@@ -47,10 +47,10 @@ public class sendMail {
 		return content;
 	}
 
-	public static void sendEmail(List<String> destinataires, String titre, Event event) {
+	public static void SendMail(List<String> destinataires, String titre, Event event) {
 		Thread newThread = new Thread(() -> {
 
-			sendMail obj = new sendMail();
+			SendMail obj = new SendMail();
 			Class class1 = obj.getClass();
 			URL url = class1.getResource("../../../log.txt");
 
