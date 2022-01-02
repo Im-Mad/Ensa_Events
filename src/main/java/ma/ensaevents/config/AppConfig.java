@@ -60,14 +60,6 @@ public class AppConfig implements WebMvcConfigurer {
 		// create connection pool
 		ComboPooledDataSource securityDataSource = new ComboPooledDataSource();
 
-		// set the jdbc driver
-		try {
-			securityDataSource.setDriverClass("com.mysql.jdbc.Driver");		
-		}
-		catch (PropertyVetoException exc) {
-			throw new RuntimeException(exc);
-		}
-
 		try {
 			securityDataSource.setDriverClass(env.getProperty("jdbc.driver"));
 		} catch (PropertyVetoException e) {

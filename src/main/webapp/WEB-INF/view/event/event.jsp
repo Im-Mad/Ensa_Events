@@ -24,11 +24,11 @@
           rel="stylesheet">
     <style>
 
-        .bar-1 {
+        .bar-5 {
             width: ${100*event.ratingStats[0]/event.reviews.size()}%;
         }
 
-        .bar-2 {
+        .bar-4 {
             width: ${100*event.ratingStats[1]/event.reviews.size()}%;
         }
 
@@ -36,11 +36,11 @@
             width: ${100*event.ratingStats[2]/event.reviews.size()}%;
         }
 
-        .bar-4 {
+        .bar-2 {
             width: ${100*event.ratingStats[3]/event.reviews.size()}%;
         }
 
-        .bar-5 {
+        .bar-1 {
             width: ${100*event.ratingStats[4]/event.reviews.size()}%;
         }
     </style>
@@ -133,7 +133,7 @@
 
 
 <div class="text-center bg-main d-flex justify-content-center">
-    <img src="${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}" class="cover-img">
+    <div style="background-image: url('${pageContext.request.contextPath}/assets/img/events/${event.coverPhoto}');" class="cover-img"></div>
 </div>
 <div class="py-3 px-md-5 px-3">
     <div class="row">
