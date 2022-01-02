@@ -125,15 +125,15 @@
                 <div class="">
                     <c:choose>
                         <c:when test="${club.members.contains(user)}">
-                            <a class="btn btn-info" href="${pageContext.request.contextPath}/club/${club.name}/unparticipate">
+                            <a class="btn btn-info" href="${pageContext.request.contextPath}/club/${club.name}/leave">
                                 <svg class="btn-icon btn-icon-active">
                                     <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-star-full"></use>
                                 </svg>
-                                Unjoin
+                                Leave
                             </a>
                         </c:when>
                         <c:otherwise>
-                            <a class="btn btn-light" href="${pageContext.request.contextPath}/club/${club.name}/participate">
+                            <a class="btn btn-light" href="${pageContext.request.contextPath}/club/${club.name}/join">
                                 <svg class="btn-icon">
                                     <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-plus"></use>
                                 </svg>

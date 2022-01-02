@@ -159,7 +159,7 @@ public class ClubController {
         return "club/updateClub";
     }
 
-    @GetMapping("/{clubName}/participate")
+    @GetMapping("/{clubName}/join")
     public String participate(@PathVariable String clubName, HttpServletRequest request) throws UnauthorizedException {
 
         HttpSession session = request.getSession();
@@ -172,7 +172,7 @@ public class ClubController {
         return "redirect:/club/" + clubName;
     }
 
-    @GetMapping("/{clubName}/unparticipate")
+    @GetMapping("/{clubName}/leave")
     public String unparticipate(@PathVariable String clubName, HttpServletRequest request) throws UnauthorizedException{
 
         HttpSession session = request.getSession();
