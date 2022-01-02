@@ -9,8 +9,11 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/img/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>EnsaEvents | ${club.name}</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
     <!-- Link Swiper's CSS -->
@@ -122,15 +125,15 @@
                 <div class="">
                     <c:choose>
                         <c:when test="${club.members.contains(user)}">
-                            <a class="btn btn-info" href="${pageContext.request.contextPath}/club/${club.name}/unparticipate">
+                            <a class="btn btn-info" href="${pageContext.request.contextPath}/club/${club.name}/leave">
                                 <svg class="btn-icon btn-icon-active">
                                     <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-star-full"></use>
                                 </svg>
-                                Unjoin
+                                Leave
                             </a>
                         </c:when>
                         <c:otherwise>
-                            <a class="btn btn-light" href="${pageContext.request.contextPath}/club/${club.name}/participate">
+                            <a class="btn btn-light" href="${pageContext.request.contextPath}/club/${club.name}/join">
                                 <svg class="btn-icon">
                                     <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-plus"></use>
                                 </svg>
