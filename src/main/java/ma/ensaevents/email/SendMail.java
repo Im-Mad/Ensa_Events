@@ -1,11 +1,9 @@
 package ma.ensaevents.email;
 
 import ma.ensaevents.entity.Event;
-import org.springframework.context.annotation.PropertySource;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
