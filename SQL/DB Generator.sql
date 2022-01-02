@@ -8,7 +8,7 @@ USE `ensa_events`;
 
 CREATE TABLE `roles` (
                         `id` INT NOT NULL AUTO_INCREMENT,
-                        `name` varchar(50) DEFAULT NULL,
+                        `name` varchar(500) DEFAULT NULL,
                         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
@@ -29,7 +29,7 @@ CREATE TABLE `users` (
 CREATE TABLE `clubs` (
                         `id` INT  NOT NULL AUTO_INCREMENT,
                         `name` char(50) NOT NULL,
-                        `description` char(50),
+                        `description` varchar(500),
                         `logo` char(50) NOT NULL DEFAULT 'default.png',
                         `cover_photo` char(50) NOT NULL DEFAULT 'default.png',
                         `user_id` INT NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `events` (
                          `date` DATETIME NOT NULL,
                          `end_date` DATETIME NOT NULL,
                          `name` char(68) NOT NULL,
-                         `description` varchar(100) ,
+                         `description` varchar(500) ,
                          `cover_photo` varchar(50) NOT NULL DEFAULT 'default.png',
                          `club_id` INT NOT NULL,
                          FOREIGN KEY (club_id) references clubs (id) ,
@@ -53,7 +53,7 @@ CREATE TABLE `reviews` (
                        id	INT NOT NULL auto_increment,
                        user_id INT NOT NULL,
                        event_id INT NOT NULL,
-                       description varchar(50),
+                       description varchar(500),
                        date datetime DEFAULT now(),
                        rating INT DEFAULT 4,
                        PRIMARY KEY (id),

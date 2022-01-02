@@ -47,7 +47,7 @@ public class SendMail {
 		return content;
 	}
 
-	public static void SendMail(List<String> destinataires, String titre, Event event) {
+	public static void SendMail(List<String> recipients, String title, Event event) {
 		Thread newThread = new Thread(() -> {
 
 			SendMail obj = new SendMail();
@@ -61,7 +61,7 @@ public class SendMail {
 			
 			
 			// Recipient's email ID needs to be mentioned.
-			List<String> to = destinataires;
+			List<String> to = recipients;
 
 			// Sender's email ID needs to be mentioned
 			String from = "ensaevents@gmail.com";
@@ -108,7 +108,7 @@ public class SendMail {
 				}
 
 				// Set Subject: header field
-				message.setSubject(titre);
+				message.setSubject(title);
 				
 				message.setContent(htmlToString(event) , "text/html");
 
