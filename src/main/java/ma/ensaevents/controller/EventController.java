@@ -61,7 +61,8 @@ public class EventController {
                                   @RequestParam("date") String eventDate,
                                   @RequestParam("endDate") String eventEndDate,
                                   @RequestParam("description")String eventDescription,
-                                  @RequestParam("eventCover") MultipartFile eventCover) {
+                                  @RequestParam("eventCover") MultipartFile eventCover,
+                                  @RequestParam("location") String location) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         boolean validation = true;
@@ -117,6 +118,7 @@ public class EventController {
         }
 
         event.setName(eventName);
+        event.setLocation(location);
         event.setDescription(eventDescription);
 
         if (validation) {
@@ -220,7 +222,8 @@ public class EventController {
                                       @RequestParam("name") String eventName,
                                       @RequestParam("date") String eventDate,
                                       @RequestParam("endDate") String eventEndDate,
-                                      @RequestParam("description")String eventDescription) {
+                                      @RequestParam("description") String eventDescription,
+                                      @RequestParam("location") String location) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         Club club = user.getClub();
@@ -250,6 +253,7 @@ public class EventController {
 
         if (validation) {
             event.setDescription(eventDescription);
+            event.setLocation(location);
             eventService.update(event);
             theModel.addAttribute("eventAddSuccess", "The update succeeded");
             return "event/manageEvent";

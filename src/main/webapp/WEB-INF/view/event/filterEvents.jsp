@@ -149,6 +149,12 @@
                             </div>
                             <div class="d-flex justify-content-center">
                                 <svg class="card-icon mr-2 mb-2">
+                                    <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-map-pin"></use>
+                                </svg>
+                                <span>Location: ${event.location}</span>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <svg class="card-icon mr-2 mb-2">
                                     <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-public"></use>
                                 </svg>
                                 <span>Public - Anyone can attend this event</span>
