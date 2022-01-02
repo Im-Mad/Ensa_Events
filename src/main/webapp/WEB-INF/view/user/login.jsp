@@ -130,14 +130,14 @@
                                     <label for="username">Username</label>
                                     <input type="text" id="username" name="username" >
                                     <svg class="btn-icon">
-                                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+                                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-user"></use>
                                     </svg>
                                 </div>
                                 <div class="form-gp">
                                     <label for="password">Password</label>
                                     <input type="password" name="password" id="password">
                                     <svg class="btn-icon">
-                                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+                                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-lock"></use>
                                     </svg>
                                 </div>
 

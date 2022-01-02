@@ -45,6 +45,7 @@ CREATE TABLE `events` (
                          `description` varchar(500) ,
                          `cover_photo` varchar(50) NOT NULL DEFAULT 'default.png',
                          `club_id` INT NOT NULL,
+                         `location` VARCHAR(20) NOT NULL,
                          FOREIGN KEY (club_id) references clubs (id) ,
                          PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

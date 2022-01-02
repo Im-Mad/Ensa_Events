@@ -117,7 +117,7 @@
 									<label for="userName">Username</label>
 									<form:input path="userName" id="userName"/>
 									<svg class="btn-icon">
-										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-hash"></use>
 									</svg>
 									<form:errors path="userName" cssClass="form-error" />
 									<c:if test="${registrationError != null }"><span class="form-error">${registrationError}</span></c:if>
@@ -127,7 +127,7 @@
 									<label for="firstName">First Name</label>
 									<form:input path="firstName" id="firstName"/>
 									<svg class="btn-icon">
-										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-user"></use>
 									</svg>
 									<form:errors path="firstName" cssClass="form-error" />
 								</div>
@@ -136,7 +136,7 @@
 									<label for="lastName">Last Name</label>
 									<form:input path="lastName" id="lastName"/>
 									<svg class="btn-icon">
-										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-user"></use>
 									</svg>
 									<form:errors path="lastName" cssClass="form-error" />
 								</div>
@@ -145,7 +145,7 @@
 									<label for="email">Email</label>
 									<form:input path="email" id="email"/>
 									<svg class="btn-icon">
-										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-mail"></use>
 									</svg>
 									<form:errors path="email" cssClass="form-error" />
 								</div>
@@ -154,7 +154,7 @@
 									<label for="password">Password</label>
 									<form:password path="password" id="password"/>
 									<svg class="btn-icon">
-										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-lock"></use>
 									</svg>
 									<form:errors path="password" cssClass="form-error" />
 								</div>
@@ -163,7 +163,7 @@
 									<label for="matchingPassword">Password Confirm</label>
 									<form:password path="matchingPassword" id="matchingPassword"/>
 									<svg class="btn-icon">
-										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#user-icon"></use>
+										<use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-lock"></use>
 									</svg>
 									<form:errors path="matchingPassword" cssClass="form-error" />
 								</div>

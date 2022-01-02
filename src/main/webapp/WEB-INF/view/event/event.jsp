@@ -24,11 +24,11 @@
           rel="stylesheet">
     <style>
 
-        .bar-5 {
+        .bar-1 {
             width: ${100*event.ratingStats[0]/event.reviews.size()}%;
         }
 
-        .bar-4 {
+        .bar-2 {
             width: ${100*event.ratingStats[1]/event.reviews.size()}%;
         }
 
@@ -36,11 +36,11 @@
             width: ${100*event.ratingStats[2]/event.reviews.size()}%;
         }
 
-        .bar-2 {
+        .bar-4 {
             width: ${100*event.ratingStats[3]/event.reviews.size()}%;
         }
 
-        .bar-1 {
+        .bar-5 {
             width: ${100*event.ratingStats[4]/event.reviews.size()}%;
         }
     </style>
@@ -199,6 +199,12 @@
                 </div>
                 <div class="d-flex">
                     <svg class="detail-icon mr-2 mb-2">
+                        <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-map-pin"></use>
+                    </svg>
+                    <span>Location: ${event.location}</span>
+                </div>
+                <div class="d-flex">
+                    <svg class="detail-icon mr-2 mb-2">
                         <use xlink:href="${pageContext.request.contextPath}/assets/img/icons.svg#icon-public"></use>
                     </svg>
                     <span>Public - Anyone can attend this event</span>
@@ -244,7 +250,7 @@
                                                         <div class="bar bar-5"></div>
                                                     </div>
                                                 </td>
-                                                <td class="text-right">${event.ratingStats[0]}</td>
+                                                <td class="text-right">${event.ratingStats[4]}</td>
                                             </tr>
                                             <tr>
                                                 <td class="rating-label">Good</td>
@@ -253,7 +259,7 @@
                                                         <div class=" bar bar-4"></div>
                                                     </div>
                                                 </td>
-                                                <td class="text-right">${event.ratingStats[1]}</td>
+                                                <td class="text-right">${event.ratingStats[3]}</td>
                                             </tr>
                                             <tr>
                                                 <td class="rating-label">Average</td>
@@ -271,7 +277,7 @@
                                                         <div class="bar bar-2"></div>
                                                     </div>
                                                 </td>
-                                                <td class="text-right">${event.ratingStats[3]}</td>
+                                                <td class="text-right">${event.ratingStats[1]}</td>
                                             </tr>
                                             <tr>
                                                 <td class="rating-label">Terrible</td>
@@ -280,7 +286,7 @@
                                                         <div class="bar bar-1"></div>
                                                     </div>
                                                 </td>
-                                                <td class="text-right">${event.ratingStats[4]}</td>
+                                                <td class="text-right">${event.ratingStats[0]}</td>
                                             </tr>
                                         </table>
                                     </div>

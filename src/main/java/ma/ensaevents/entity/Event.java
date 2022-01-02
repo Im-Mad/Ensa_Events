@@ -33,6 +33,10 @@ public class Event {
     @Column(name = "cover_photo")
     private String coverPhoto;
 
+    @Column( name = "location")
+    private String location;
+
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE} )
     @JoinColumn(name = "club_id")
     private Club club;
@@ -216,5 +220,13 @@ public class Event {
 
     public void removeParticipant(User user) {
         participants.remove(user);
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

@@ -224,6 +224,10 @@
                                                 <c:if test="${eventDate != null }"><span class="form-error">${eventDate}</span></c:if>
                                             </div>
                                             <div class="form-gp">
+                                                <label for="eventLocation">Location</label>
+                                                <input type="text" id="eventLocation" name="location" value="${event.location}" />
+                                            </div>
+                                            <div class="form-gp">
                                                 <label for="eventDescription">Description</label>
                                                 <textarea type="text" id="eventDescription" name="description" height="5">${event.description}</textarea>
                                             </div>
