@@ -43,7 +43,8 @@ public class Club {
     private List<User> members;
 
     public Club() {
-
+        this.logo = "default.png";
+        this.coverPhoto = "default.jpg";
     }
 
     public int getId() {

@@ -61,6 +61,7 @@ public class User {
 	
 	public User() {
 		setAvatar("default.png");
+		setEnabled(true);
 	}
 
 	public Long getId() {

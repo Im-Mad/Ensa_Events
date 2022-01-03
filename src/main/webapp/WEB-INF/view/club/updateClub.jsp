@@ -190,8 +190,8 @@
                             <div class="col-lg-8 mx-auto bg-white account-navigation-right">
                                 <div class="card-body p-md-5 mx-md-4">
                                     <h3 class="font-weight-bold text-uppercase">Update ${club.name}</h3>
-                                    <span class="alert-success" >${updateResultSuccess}</span>
-                                    <span class="alert-error" >${updateResultError}</span>
+                                    <span class="text-success" >${updateResultSuccess}</span>
+                                    <span class="text-error" >${updateResultError}</span>
                                     <form action="${pageContext.request.contextPath}/club/update?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data" method="POST">
                                         <div class="form-gp">
                                             <label for="clubDescription">Club Description</label>
@@ -212,7 +212,7 @@
                                             <input type="file" class="d-none " name="clubCoverFile" id="clubCoverPhoto">
                                         </div>
                                         <div class="text-right pt-1 mb-4 pb-1">
-                                            <button class="btn btn-purple mb-3" >Update Images</button>
+                                            <button class="btn btn-purple mb-3" >Update</button>
                                         </div>
                                     </form>
                                 </div>

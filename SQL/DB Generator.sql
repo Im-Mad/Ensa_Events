@@ -30,8 +30,8 @@ CREATE TABLE `clubs` (
                         `id` INT  NOT NULL AUTO_INCREMENT,
                         `name` char(50) NOT NULL,
                         `description` varchar(500),
-                        `logo` char(50) NOT NULL DEFAULT 'default.png',
-                        `cover_photo` char(50) NOT NULL DEFAULT 'default.png',
+                        `logo` char(50) DEFAULT 'default.png',
+                        `cover_photo` char(50) DEFAULT 'default.png',
                         `user_id` INT NOT NULL,
                         FOREIGN KEY (user_id) references users (id),
                         PRIMARY KEY (`id`)
