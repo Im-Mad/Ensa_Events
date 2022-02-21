@@ -119,7 +119,7 @@
 
 ### Contact
 
-email: imad.chai2@gmail.com
+email: imadchai2@gmail.com
 Linkedin: [Imad Chaichaa](https://www.linkedin.com/in/imad-chaichaa-a30786201/)
 Portfolio: []()
 
